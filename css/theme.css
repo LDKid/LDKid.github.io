@@ -80,7 +80,7 @@ span[data-class="light"]{
         --accordion-text-color: var(--foreground-color);
 	}
 }
-body {
+#page-container {
     background: var(--background-color);
     color: var(--foreground-color);
     transition-property: background, color, opacity;

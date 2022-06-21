@@ -20,6 +20,7 @@
             this.player.updateYPosition( (e.clientY - rect.top) / (rect.bottom - rect.top) * this._canvas.height );
         }
         getYPositionMobile(e) {
+            e.preventDefault();
             var rect = this._canvas.getBoundingClientRect();
             this.player.updateYPosition( (e.touches[0].clientY - rect.top) / (rect.bottom - rect.top) * this._canvas.height );
         }

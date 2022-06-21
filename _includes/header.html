@@ -2,7 +2,7 @@
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.2/font/bootstrap-icons.css">
 <header>
     <nav class="site-header" id="siteHeader">
-        <a href="javascript:void(0);" class="icon" onclick="openNavbarSidebar()">
+        <a href="javascript:void(0);" class="icon" onclick="toggleNavbarSidebar()">
             <i class="bi bi-list"></i>
         </a>
         <div id="navbar-block">
@@ -63,12 +63,16 @@
     </nav>
 </header>
 <script>
-    function openNavbarSidebar() {
+    function toggleNavbarSidebar( forceClose = false ) {
         var x = document.getElementById("siteHeader");
-        if (x.className === "site-header") {
-            x.className += " responsive";
-        } else {
+        if ( forceClose || x.classList.contains('responsive') ) {
             x.className = "site-header";
+        } else {
+            x.className += " responsive";
+            let gameToggle = document.getElementById('game-toggle');
+            if ( gameToggle.firstElementChild.classList.contains('active') ) {
+                gameToggle.click();
+            }
         }
     }
     function changeLang() {

@@ -49,6 +49,10 @@
             //
             let activateGame = el.firstElementChild.classList.contains('active');
             GAME.play( activateGame );
+
+            if ( activateGame ) {
+                toggleNavbarSidebar( true );   
+            }
         }
     </script>
 </body>
