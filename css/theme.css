@@ -1,0 +1,120 @@
+:root {
+    /* TRANSITION */
+    --theme-transition-duration: 500ms;
+    --theme-hover-duration: 150ms;
+    --theme-transition-function: ease-in-out;
+
+    /* LIGHT MODE COLORS */
+    --light-background-color: #E6E6E6;
+    --light-foreground-color: #1E1E1E;
+    --light-overlay: #E6E6E6AA;
+    --light-disabled-color: #828282;
+    --light-accent-color: #D49D08;
+    --light-faded-accent-color: #DDC277;
+    /* DARK MODE COLORS */
+    --dark-background-color: var(--light-foreground-color);
+    --dark-foreground-color: #DADADD;
+    --dark-overlay: #1E1E1EAA;
+    --dark-disabled-color: var(--light-disabled-color);
+    --dark-accent-color: #E6B028;
+    --dark-faded-accent-color: #826723;
+
+    /* Fonts */
+    --title-family: Upheavtt;
+    --text-family: Terminal;
+}
+/* HANDLE LIGHT/DARK MODE */
+html, html[data-theme="light"] { 
+    --background-color: var(--light-background-color);
+    --foreground-color: var(--light-foreground-color);
+    --overlay-color: var(--light-overlay);
+    --disabled-color: var(--light-disabled-color);
+    --accent-color: var(--light-accent-color);
+    --faded-accent-color: var(--light-faded-accent-color);
+
+    --light-toggle-color: var(--accent-color);
+    --dark-toggle-color: var(--faded-accent-color);
+    --accordion-text-color: var(--foreground-color);
+}
+html[data-theme="dark"] {
+    --background-color: var(--dark-background-color);
+    --foreground-color: var(--dark-foreground-color);
+    --overlay-color: var(--dark-overlay);
+    --disabled-color: var(--dark-disabled-color);
+    --accent-color: var(--dark-accent-color);
+    --faded-accent-color: var(--dark-faded-accent-color);
+
+    --light-toggle-color: var(--faded-accent-color);
+    --dark-toggle-color: var(--accent-color);
+    --accordion-text-color: var(--background-color);
+}
+span[data-class="dark"]{
+    color: var(--dark-toggle-color);
+}
+span[data-class="light"]{
+    color: var(--light-toggle-color);
+}
+@media (prefers-color-scheme: dark) {
+	html, html[data-theme="dark"] {
+		--background-color: var(--dark-background-color);
+        --foreground-color: var(--dark-foreground-color);
+        --overlay-color: var(--dark-overlay);
+        --disabled-color: var(--dark-disabled-color);
+        --accent-color: var(--dark-accent-color);
+        --faded-accent-color: var(--dark-faded-accent-color);
+
+        --light-toggle-color: var(--faded-accent-color);
+        --dark-toggle-color: var(--accent-color);
+        --accordion-text-color: var(--background-color);
+	}
+	html[data-theme="light"] { 
+        --background-color: var(--light-background-color);
+        --foreground-color: var(--light-foreground-color);
+        --overlay-color: var(--light-overlay);
+        --disabled-color: var(--light-disabled-color);
+        --accent-color: var(--light-accent-color);
+        --faded-accent-color: var(--light-faded-accent-color);
+
+        --light-toggle-color: var(--accent-color);
+        --dark-toggle-color: var(--faded-accent-color);
+        --accordion-text-color: var(--foreground-color);
+	}
+}
+body {
+    background: var(--background-color);
+    color: var(--foreground-color);
+    transition-property: background, color, opacity;
+    transition-duration: var(--theme-transition-duration),  var(--theme-transition-duration), var(--game-transition-duration);
+    transition-timing-function: var(--theme-transition-function),var(--theme-transition-function), ease-in-out;
+    transition-delay: 0ms;
+    will-change: background, color, opacity;
+}
+#page-container > div{
+    transition-property: opacity;
+    transition-duration: var(--game-transition-duration);
+    transition-timing-function: ease-in-out;
+    transition-delay: 0ms;
+    will-change: opacity;
+}
+/* Fonts */
+@font-face {
+    font-family: Upheavtt;
+    src: url(../assets/fonts/upheavtt.ttf);
+}
+@font-face {
+    font-family: Terminal;
+    src: url(../assets/fonts/terminal-grotesque.ttf);
+}
+h1, h2, h3, h4, h5, h6, nav, a, span, .title-family {
+    font-family: var(--title-family);
+}
+* {
+    font-family: var(--text-family);
+}
+#theme-toggle > #toggle-icon{
+    height: 1.5em;
+    vertical-align: middle;
+}
+a {
+    text-decoration: none;
+}

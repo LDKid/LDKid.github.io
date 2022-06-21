@@ -1,0 +1,121 @@
+.home-bottom{
+    display: none;
+    position: fixed;
+    bottom: 0;
+    width: calc(100% - 60px);
+    align-items: end;
+    justify-content: space-between;
+}
+.home-bottom > .tos-container{
+    display: inline-block;
+    position: relative;
+    padding-bottom: 22px;
+    width: -webkit-fill-available;
+    background-color: var(--background-color);
+    transition-property: background-color;
+    will-change: background-color;
+}
+
+.home-intro{
+    font-size: 6vw;
+    width: 100%;
+    margin-top: 10px;
+    margin-bottom: 20px;
+}
+
+.home-intro, #latest-project{
+    user-select: auto;
+    -webkit-user-select: auto;
+}
+#latest-project-content{
+    display:flex;
+    flex-wrap:wrap;
+    align-items:center;
+    position: relative;
+}
+#project-image-container{
+    aspect-ratio: 16 / 9;
+    background-color: var(--background-color);
+    transition-property: background-color;
+    transition-duration: var(--theme-transition-duration);
+    transition-timing-function: var(--theme-transition-function);
+    transition-delay: 0ms;
+    will-change: background-color;
+    width: 45%;
+    display: inline-block;
+    margin-bottom: 10px;
+    position: relative;
+    cursor: pointer;
+}
+#project-image-container > img{
+    height: 100%;
+    width: 100%;
+    object-fit: contain;
+    position: absolute;
+}
+#project-image-container > #pixel{
+    display: none;
+    image-rendering: pixelated;
+}
+.latest-project-overlay{
+    position: absolute;
+    height: 100%;
+    width: 100%;
+    background-color: var(--overlay-color);
+    display: none;
+    align-items: center;
+    justify-content: center;
+    font-size: 2em;
+}
+#project-image-container:hover > #cover{
+    display: none;
+}
+#project-image-container:hover > #pixel, #project-image-container:hover > #overlay{
+    display: flex;
+}
+#project-info-container{
+    display: inline-block;
+    width: 50%;
+    margin-left: 10px;
+}
+#project-info-container > i{
+    font-size: 20px;
+}
+
+@media screen and (min-width: 600px) {
+    .home-bottom{
+        display: flex;
+    }
+    .home-intro{
+        font-size: 3vw;
+        font-size: (3vw, 30px);
+        width: 80%;
+        margin-top: 50px;
+        margin-bottom: 50px;
+    }
+    #latest-project{
+        margin-bottom: 50px;
+    }
+    #project-image-container{
+        margin-top: 5px;
+        width: 55%;
+    }
+    #project-info-container{
+        font-size: 2vw;
+        width: 40%;
+        margin-left: 25px;
+    }
+    #project-info-container > i{
+        font-size: 3vw;
+    }
+}
+@media screen and (max-width: 599px) {
+    #project-info-container > i{
+        position: absolute;
+        bottom: 5px;
+        right: -5px;
+    }
+    #project-info-container > p{
+        margin: 10px 0;
+    }
+}

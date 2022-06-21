@@ -1,0 +1,83 @@
+<style>
+    .accordion{
+        background: var(--accent-color);
+        color: var(--accordion-text-color);
+        cursor: pointer;
+        padding: 5px 0 5px 10px;
+        width: 100%;
+        margin: 0;
+        text-align: left;
+        border: none;
+        outline: none;
+        font-family: "Upheavtt";
+        font-size: 6vw;
+        display: flex;
+        justify-content: space-between;
+        transition-property: background, color;
+        transition-duration: var(--theme-transition-duration),  var(--theme-transition-duration);
+        transition-timing-function: var(--theme-transition-function),var(--theme-transition-function);
+        transition-delay: 0ms;
+        will-change: background, color;
+    }
+    .accordion > i{
+        font-size: 6vw;
+    }
+    .panel{
+        padding: 0 10px;
+        background: var(--accent-color);
+        color: var(--accordion-text-color);
+        max-height: 0;
+        overflow: hidden;
+        transition-property: background, color, max-height;
+        transition-duration: var(--theme-transition-duration),  var(--theme-transition-duration), 250ms;
+        transition-timing-function: var(--theme-transition-function),var(--theme-transition-function), ease-in;
+        transition-delay: 0ms;
+        will-change: background, color, max-height;
+    }
+    #vertical-arrow{
+        height: .75em;
+    }
+    @media screen and (min-width: 600px) {
+        .accordion{
+            font-size: 3vw;
+            font-size: (3vw, 30px);
+            padding: 5px 1rem 5px 20px;
+            width: 80%;
+        }
+        .panel{
+            width: 80%;
+            padding: 0 20px;
+        }
+        .panel > div{
+            margin-bottom: 20px;
+        }
+        #vertical-arrow{
+            height: 1em;
+        }
+    }
+</style>
+
+<div id="{{ include.id }}" data-component="accordion">
+    <button class="accordion" onclick="toggleAccordion(this)">
+        {{ include.title }}
+        {%- include svgs/arrow_up.svg -%}
+    </button>
+    <div class="panel">
+        <div id="{{ include.contentId }}">
+            {{ include.content }}
+        </div>
+    </div>
+</div>
+
+<script>
+    function toggleAccordion(el) {
+        el.classList.toggle("active");
+        var panel = el.nextElementSibling;
+        if (panel.style.maxHeight) {
+            panel.style.maxHeight = null;
+        } else {
+            panel.style.maxHeight = panel.scrollHeight + "px";
+        }
+        el.lastElementChild.classList.toggle("toggled");
+    }
+</script>

@@ -28,9 +28,14 @@ description: >- # this means to ignore newlines until "baseurl:"
 #url: "" # the base hostname & protocol for your site, e.g. http://example.com
 #twitter_username: jekyllrb
 github_username:  LDKid
+permalink: pretty
+
+latest_project: Gameface
 
 lang: en
-languages: ["pt", "en"]
+programmer: Flávio Ferreira
+designer: João Rodrigo
+languages: ["en", "pt"]
 defaults:
   - 
     scope:
@@ -42,6 +47,8 @@ defaults:
       path: "pt"
     values:
       lang: "pt"
+collections:
+  - projects
 
 # Build settings
 plugins:

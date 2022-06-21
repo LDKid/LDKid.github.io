@@ -1,10 +1,10 @@
 ---
-layout: default
-title: Titulo
+layout: home
+redirect_from: ''
+latestProjectTranslated: Projeto Recente
+title: Flávio Ferreira
 ---
-
-<h1>Olá Mundo!</h1>
-<p>{{ site.github_username }}</p>
-<p>{{ "Olá" | downcase }}</p>
-<h1>Linguagem atual: {{ page.lang }}</h1>
-<h2>Estou apenas a testar funcionalidades neste momento.</h2>
+<p>Olá! O meu nome é Flávio Ferreira,</p>
+Eu sou um programador versátil e autodidata, com interesse em novas tecnologias e desenvolvimento de jogos.<br />
+Eu crio projetos interativos de todos os tipos, desde websites e aplicações, até video jogos.
+<p>Atualmente, sou Programador na Reckless Company</p>

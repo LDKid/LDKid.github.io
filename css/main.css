@@ -1,0 +1,89 @@
+:root {
+    /* TRANSPARENCY PERCENTS */
+    --score-transparency: 20%;
+    --game-transparency: 3%;
+    --game-transition-duration: 200ms;
+    /* MEDIA QUERY */
+    --breakpoint: 600px;
+    --page-padding: 20px;
+    --desktop-page-padding: 30px;
+}
+@media screen and (min-width: 600px) {
+    :root{
+        --page-padding: var(var(--desktop-page-padding));
+    }
+}
+
+/* Other initializations */
+*, *::after, *::before {
+    box-sizing: border-box;
+}
+html, body{
+    position: fixed;
+    overflow: hidden;
+}
+/**
+ * Reset some basic elements
+ */
+ body, h1, h2, h3, h4, h5, h6,
+ blockquote, pre, hr,
+ dl, dd, ol, ul, figure {
+   margin: 0;
+   padding: 0;
+}
+body {
+    height: 100%;
+    width: 100%;
+    -webkit-touch-callout: none; /* iOS Safari */
+    -webkit-user-select: none; /* Safari */
+    -khtml-user-select: none; /* Konqueror HTML */
+    -moz-user-select: none; /* Old versions of Firefox */
+    -ms-user-select: none; /* Internet Explorer/Edge */
+    user-select: none;
+}
+.no-transition, .no-transition * {
+    -webkit-transition: none !important;
+    -moz-transition: none !important;
+    -o-transition: none !important;
+    transition: none !important;
+    transition-duration: 0ms !important;
+}
+
+/* Page Content */
+#page-container div:not(.inactive) {
+    z-index: 1;
+}
+#page-container .inactive {
+    opacity: var(--game-transparency);
+    z-index: 0;
+}
+#page-container, #page-container > div{
+    height: 100%;
+    width: 100%;
+    position: fixed;
+}
+
+#page-content{
+    overflow: scroll;
+    height: 90% !important;
+    width: calc( 100% - calc( var(--page-padding) * 2 ) ) !important;
+    margin: 0 var(--page-padding);
+    padding-bottom: 20px;
+}
+
+
+.va-m {
+    vertical-align: middle;
+}
+.p-0 {
+    padding: 0 !important;
+}
+.mt-5 {
+    margin-top: 5px !important;
+}
+
+@media screen and (max-width: 599px) {
+    .hide-on-mobile{
+        display: none;
+    }
+}

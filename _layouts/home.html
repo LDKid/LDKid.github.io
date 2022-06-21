@@ -1,0 +1,63 @@
+---
+layout: page
+game: pong
+---
+<link rel="stylesheet" href="/css/pages/home.css">
+
+<div class="home-intro">{{ content }}</div>
+
+{% assign project = site.projects
+| where_exp:"p", "p.title == site.latest_project"
+| first
+%}
+
+{%- capture translatedLatestProject -%}
+    {{ page.latestProjectTranslated }}
+{%- endcapture -%}
+
+{%- capture latestProjectContent -%}
+    <a href="{{ project.link }}"  id="project-image-container">
+        <img src="{{ project.image-path }}{{ project.cover }}" id="cover">
+        <img src="{{ project.image-path }}{{ project.cover-pixel }}" id="pixel">
+        <div id="overlay" class="latest-project-overlay">
+            <div class="accent-button">{{ site.data.translations.view[page.lang] }}</div>
+        </div>
+    </a>
+    <div id="project-info-container">
+        <h3>{{ site.data.translations.name[page.lang] }}:</h3>
+        <p class="mt-5">{{ project.name }}</p>
+        <h3 class="hide-on-mobile">{{ site.data.translations.projecttype[page.lang] }}:</h3>
+        <i class="ldkicon-{{ project.type }}"></i>
+        <p>{{ project.slogan[page.lang] }}</p>
+    </div>
+{%- endcapture -%}
+
+{%- include widgets/accordion.html id="latest-project" title=translatedLatestProject content=latestProjectContent contentId="latest-project-content" -%}
+
+<div style="position: absolute">
+    <div class="home-bottom">
+        <div class="tos-container">
+            <a href="#">
+                <span id="programmedby">{{ site.data.translations['programmedby'][page.lang] }}</span>: {{ site.programmer }}
+            </a>
+            &nbsp;-&nbsp;
+            <a href="#" id="designedbycontainer" onmouseover="prepareDesignerLink(this)">
+                <span id="designedby">{{ site.data.translations['designedby'][page.lang] }}</span>: <span id="designer">{{ site.designer }}</span>
+            </a>
+        </div>
+        <div class="switchers-container">
+            <div>
+                <span class="title-family" data-class="dark">D</span><a href="#" id="theme-toggle">
+                    {%- include svgs/toggle.svg -%}
+                </a><span class="title-family" data-class="light">L</span>
+            </div>
+            <div>
+                {%- for lang in site.languages -%}
+                    <a href="#" onclick="changeLang()" {%- if lang == page.lang -%}
+                        class="disabled"
+                    {%- endif -%} id="lang-switcher">{{ lang | uppercase }}</a>
+                {%- endfor -%}
+            </div>
+        </div>
+    </div>
+</div>

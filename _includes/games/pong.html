@@ -1,0 +1,80 @@
+<canvas id="game-canvas"></canvas>
+<script src="/assets/game-assets/game.js"></script>
+<script src="/assets/game-assets/pong/paddle.js"></script>
+<script src="/assets/game-assets/pong/ball.js"></script>
+<script>
+    class Pong extends Game {
+        constructor() {
+            super();
+            this.player = new Paddle(this._ctx);
+            if (window.mobileCheck()) {
+                window.addEventListener('touchmove', this.getYPositionMobile.bind(this), false);
+                window.addEventListener('touchstart', this.getYPositionMobile.bind(this), false);
+            } else {
+                window.addEventListener('mousemove', this.getYPosition.bind(this), false);
+            }
+            this.drawFrame();
+        }
+        getYPosition(e) {
+            var rect = this._canvas.getBoundingClientRect();
+            this.player.updateYPosition( (e.clientY - rect.top) / (rect.bottom - rect.top) * this._canvas.height );
+        }
+        getYPositionMobile(e) {
+            var rect = this._canvas.getBoundingClientRect();
+            this.player.updateYPosition( (e.touches[0].clientY - rect.top) / (rect.bottom - rect.top) * this._canvas.height );
+        }
+        _resizeCanvas(){
+            super._resizeCanvas();
+            if ( typeof this.player !== "undefined") {
+                this.player.updateXPosition();
+            }
+        }
+        _reset() {
+            super._reset();
+            this.ball = new Ball(this._ctx);
+        }
+        update(){
+            super.clear()
+            this.player.update();
+            this.ball.update();
+            this.drawFrame();
+            this.checkCollisions();
+            super.update();
+        }
+        checkCollisions() {
+            // Ball collided with screen top/bottom
+            if ( this.ball.position.y + this.ball.size.y >= this._canvas.height || this.ball.position.y <= 0 ) {
+                this.ball.collidedY();
+            }
+            // Ball collided with left side of screen
+            if ( this.ball.position.x <= 0 ) {
+                this.ball.collidedX();
+            }
+            // Check ball colliding with panel
+            if ( !this.ball.isColliding ) {
+                if ( this.ball.position.x + this.ball.size.x >= this.player.position.x
+                    && this.ball.position.x <= this.player.position.x + ( this.player.size.x / 2 )
+                    && this.ball.position.y + this.ball.size.y >= this.player.position.y
+                    && this.ball.position.y <= this.player.position.y + this.player.size.y
+                    ) {
+                    this.ball.isColliding = 10;
+                    this.ball.collidedX();
+                    this.incrementScore();
+                }
+            } else {
+                this.ball.isColliding--;
+            }
+            // Check ball leaving screen
+            if ( this.ball.position.x - this.ball.size.x >= this._canvas.width ) {
+                this.endGame();
+                console.log('lost')
+            }
+        }
+        drawFrame(){
+            this.player.draw();
+            this.ball.draw();
+        }
+    }
+    const GAME = new Pong();
+    /* GAME.play(); */
+</script>
