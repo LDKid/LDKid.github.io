@@ -1,20 +1,20 @@
 ---
 published: true
-date: 2022-05-16
-name: Gameface
-type: app
-link: https://www.gameface.cards
-image-path: /assets/projects/gameface/
+date: 2023-06-22
+name: João Rodrigo Web
+type: website
+link: 404
+image-path: /assets/projects/jota/
 icon: icon.png
 cover: cover.png
 cover-pixel: cover64.png
 slideshow: [ cover.png, icon.png ]
 links: []
-tags: [ Flutter, Node.js, EJS ]
-framework: Flutter
+tags: [ Jekyll, Web Development ]
+framework: Jekyll
 slogan:
-    en: Custom physical and digital cards available for athletes worldwide!
-    pt: Cartas físicas ou digitais personalizadas disponíveis para atletas por todo o mundo!
+    en: Shit site
+    pt: Site bosta
 description:
     en: |
         Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat

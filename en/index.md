@@ -1,7 +1,6 @@
 ---
 layout: home
 redirect_from: ''
-latestProjectTranslated: Latest Project
 title: Flávio Ferreira
 ---
 <p>Hello! My name is Flávio Ferreira,</p>

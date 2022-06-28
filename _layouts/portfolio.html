@@ -1,0 +1,35 @@
+---
+layout: page
+---
+<link rel="stylesheet" href="/css/pages/portfolio.css">
+
+
+<!-- WIP -->
+
+
+<div id="portfolio-content">
+{% for project in site.projects reversed %}
+
+        <div class="portfolio-project">
+            <span class="name">{{ project.name }}</span>
+            <a href="{{ project.link }}" id="project-image-container">
+                <!-- <img src="{{ project.image-path }}{{ project.cover }}" id="cover"> -->
+                <img src="" alt="">
+                <div>
+                    <div></div>
+                </div>
+            </a>
+            <div>
+                <div>
+                    <span>Tags:</span>
+                    <span>{{ project.tags | | join: ', ' }}</span>
+                </div>
+                <i class="ldkicon-{{ project.type }}"></i>
+            </div>
+        </div>
+
+{% endfor %}
+
+    <div class="flex-fixer"><span>{{ page.flextape }}</span></div>
+
+</div>

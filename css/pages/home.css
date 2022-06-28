@@ -1,4 +1,4 @@
-.home-bottom{
+.home-bottom {
     display: none;
     position: fixed;
     bottom: 0;
@@ -6,7 +6,7 @@
     align-items: end;
     justify-content: space-between;
 }
-.home-bottom > .tos-container{
+.home-bottom > .tos-container {
     display: inline-block;
     position: relative;
     padding-bottom: 22px;
@@ -16,48 +16,49 @@
     will-change: background-color;
 }
 
-.home-intro{
+.home-intro {
     font-size: 6vw;
     width: 100%;
     margin-top: 10px;
     margin-bottom: 20px;
 }
-
-.home-intro, #latest-project{
+.home-intro, #latest-project {
     user-select: auto;
     -webkit-user-select: auto;
 }
-#latest-project-content{
+#latest-project-content {
     display:flex;
     flex-wrap:wrap;
     align-items:center;
     position: relative;
 }
-#project-image-container{
-    aspect-ratio: 16 / 9;
+#project-image-container {
+    aspect-ratio: var(--project-image-aspect-ratio);
     background-color: var(--background-color);
+    width: 45%;
+    display: inline-block;
+    position: relative;
+    cursor: pointer;
+    /* Animation */
     transition-property: background-color;
+    will-change: background-color;
     transition-duration: var(--theme-transition-duration);
     transition-timing-function: var(--theme-transition-function);
     transition-delay: 0ms;
-    will-change: background-color;
-    width: 45%;
-    display: inline-block;
-    margin-bottom: 10px;
-    position: relative;
-    cursor: pointer;
 }
-#project-image-container > img{
+#project-image-container > img {
+    /* Both images are positioned exactly in the same place */
     height: 100%;
     width: 100%;
     object-fit: contain;
     position: absolute;
 }
-#project-image-container > #pixel{
+#project-image-container > #pixel {
+    /* the pixelated image is disabled by default, (and has the pixelated image rendering) */
     display: none;
     image-rendering: pixelated;
 }
-.latest-project-overlay{
+.latest-project-overlay {
     position: absolute;
     height: 100%;
     width: 100%;
@@ -67,55 +68,59 @@
     justify-content: center;
     font-size: 2em;
 }
-#project-image-container:hover > #cover{
+#project-image-container:hover > #cover {
+    /* When hovering, the cover image get's hidden (and the pixelated image is displayed) */
     display: none;
 }
-#project-image-container:hover > #pixel, #project-image-container:hover > #overlay{
+#project-image-container:hover > #pixel,
+#project-image-container:hover > #overlay {
+    /* Display the pixelated image and the overlay on hover */
     display: flex;
 }
-#project-info-container{
+#project-info-container {
     display: inline-block;
     width: 50%;
     margin-left: 10px;
 }
-#project-info-container > i{
+#project-info-container > i {
     font-size: 20px;
 }
 
 @media screen and (min-width: 600px) {
-    .home-bottom{
+    .home-bottom {
         display: flex;
     }
-    .home-intro{
+    .home-intro {
         font-size: 3vw;
         font-size: (3vw, 30px);
         width: 80%;
         margin-top: 50px;
         margin-bottom: 50px;
     }
-    #latest-project{
+    #latest-project {
         margin-bottom: 50px;
     }
-    #project-image-container{
+    #project-image-container {
         margin-top: 5px;
         width: 55%;
     }
-    #project-info-container{
+    #project-info-container {
         font-size: 2vw;
         width: 40%;
         margin-left: 25px;
     }
-    #project-info-container > i{
+    #project-info-container > i {
         font-size: 3vw;
     }
 }
 @media screen and (max-width: 599px) {
-    #project-info-container > i{
+    #project-info-container > i {
+        /* The icon that shows what kind of project it is in in the bottom right corner on mobile */
         position: absolute;
         bottom: 5px;
         right: -5px;
     }
-    #project-info-container > p{
+    #project-info-container > p {
         margin: 10px 0;
     }
 }

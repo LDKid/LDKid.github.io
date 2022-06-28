@@ -4,11 +4,12 @@
             #vertical-arrow{
                 -webkit-transform: translate3d(0,0,0); <!-- Fix artifacts -->
             }
-            #vertical-arrow .square{
+            #vertical-arrow .square{ <!-- Set the colors and transition -->
                 transition: transform var(--theme-transition-duration) ease, fill var(--theme-transition-duration) var(--theme-transition-function), stroke var(--theme-transition-duration) var(--theme-transition-function);
                 fill: var(--accordion-text-color);
                 stroke: var(--accordion-text-color);
             }
+            <!-- Setup animations for each square. Pairs: 1&7, 2&6, 3&5, 4. -->
             #vertical-arrow.toggled #square1, #vertical-arrow.toggled #square7{
                 transform: translateY(-57%);
             }

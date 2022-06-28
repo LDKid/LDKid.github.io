@@ -1,14 +1,14 @@
 <svg id="toggle-icon" data-name="toggle" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 163.76 123.36">
     <defs>
         <style>
-            #toggle-icon #ball{
+            #toggle-icon #ball{ <!-- Setup transition -->
                 transition: transform var(--theme-transition-duration) ease, fill var(--theme-transition-duration) var(--theme-transition-function);
             }
-            #toggle-icon .cls-1 {
+            #toggle-icon .cls-1 { <!-- Setup colors -->
                 fill: var(--accent-color);
                 stroke: none;
             }
-            .light #toggle-icon #ball, .active #toggle-icon #ball{
+            .light #toggle-icon #ball, .active #toggle-icon #ball{ <!-- Setup animation -->
                 transform: translateX(34%);
             }
         </style>

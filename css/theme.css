@@ -1,4 +1,8 @@
 :root {
+    /* Fonts */
+    --title-family: Upheavtt;
+    --text-family: Terminal;
+
     /* TRANSITION */
     --theme-transition-duration: 500ms;
     --theme-hover-duration: 150ms;
@@ -18,10 +22,6 @@
     --dark-disabled-color: var(--light-disabled-color);
     --dark-accent-color: #E6B028;
     --dark-faded-accent-color: #826723;
-
-    /* Fonts */
-    --title-family: Upheavtt;
-    --text-family: Terminal;
 }
 /* HANDLE LIGHT/DARK MODE */
 html, html[data-theme="light"] { 
@@ -80,7 +80,8 @@ span[data-class="light"]{
         --accordion-text-color: var(--foreground-color);
 	}
 }
-#page-container {
+
+body, #page-container {
     background: var(--background-color);
     color: var(--foreground-color);
     transition-property: background, color, opacity;
@@ -96,6 +97,8 @@ span[data-class="light"]{
     transition-delay: 0ms;
     will-change: opacity;
 }
+
+
 /* Fonts */
 @font-face {
     font-family: Upheavtt;
@@ -105,16 +108,18 @@ span[data-class="light"]{
     font-family: Terminal;
     src: url(../assets/fonts/terminal-grotesque.ttf);
 }
-h1, h2, h3, h4, h5, h6, nav, a, span, .title-family {
+h1, h2, h3, h4, h5, h6, nav, a, strong {
     font-family: var(--title-family);
 }
 * {
     font-family: var(--text-family);
 }
-#theme-toggle > #toggle-icon{
-    height: 1.5em;
+
+/* Theme toggler */
+#theme-toggle {
     vertical-align: middle;
 }
-a {
-    text-decoration: none;
+#theme-toggle > #toggle-icon {
+    height: 1.5em;
+    vertical-align: middle;
 }

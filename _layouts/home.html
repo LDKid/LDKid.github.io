@@ -4,26 +4,34 @@ game: pong
 ---
 <link rel="stylesheet" href="/css/pages/home.css">
 
-<div class="home-intro">{{ content }}</div>
+<div class="home-intro">
+    <!-- This is the Intro text for the website -->
+    {{ content }}
+</div>
 
+<!-- Get the latest Project -->
 {% assign project = site.projects
 | where_exp:"p", "p.title == site.latest_project"
 | first
 %}
 
+<!-- Get the Latest Project Translation -->
 {%- capture translatedLatestProject -%}
-    {{ page.latestProjectTranslated }}
+    {{ site.data.translations.latestproject[page.lang] }}
 {%- endcapture -%}
 
+<!-- Capture the content that'll go in the accordion -->
 {%- capture latestProjectContent -%}
-    <a href="{{ project.link }}"  id="project-image-container">
+    <a href="{{ project.link }}" id="project-image-container">
+        <!-- The image on the left -->
         <img src="{{ project.image-path }}{{ project.cover }}" id="cover">
-        <img src="{{ project.image-path }}{{ project.cover-pixel }}" id="pixel">
-        <div id="overlay" class="latest-project-overlay">
+        <img src="{{ project.image-path }}{{ project.cover-pixel }}" id="pixel"> <!-- This is the pixelated image -->
+        <div id="overlay" class="latest-project-overlay"> <!-- This is the gray overlay with the button -->
             <div class="accent-button">{{ site.data.translations.view[page.lang] }}</div>
         </div>
     </a>
     <div id="project-info-container">
+        <!-- The info on the right of the image -->
         <h3>{{ site.data.translations.name[page.lang] }}:</h3>
         <p class="mt-5">{{ project.name }}</p>
         <h3 class="hide-on-mobile">{{ site.data.translations.projecttype[page.lang] }}:</h3>
@@ -32,26 +40,39 @@ game: pong
     </div>
 {%- endcapture -%}
 
+<!-- Add the accordion -->
 {%- include widgets/accordion.html id="latest-project" title=translatedLatestProject content=latestProjectContent contentId="latest-project-content" -%}
 
 <div style="position: absolute">
+    <!-- This is the content at the bottom of the page. The lang/theme switches and the credits -->
     <div class="home-bottom">
         <div class="tos-container">
+            <!-- First the credits. Those comments are to remove the spacing -->
             <a href="#">
-                <span id="programmedby">{{ site.data.translations['programmedby'][page.lang] }}</span>: {{ site.programmer }}
-            </a>
-            &nbsp;-&nbsp;
-            <a href="#" id="designedbycontainer" onmouseover="prepareDesignerLink(this)">
-                <span id="designedby">{{ site.data.translations['designedby'][page.lang] }}</span>: <span id="designer">{{ site.designer }}</span>
+                <span id="programmedby">{{ site.data.translations['programmedby'][page.lang] }}</span><!--
+                --><span>:&nbsp;</span><!--
+                --><span>{{ site.programmer }}</span>
+            </a><!--
+            --><strong>&nbsp;-&nbsp;</strong><!--
+            --><a href="#" id="designedbycontainer" onmouseover="prepareDesignerLink(this)">
+                <span id="designedby">{{ site.data.translations['designedby'][page.lang] }}</span><!--
+                --><span>:&nbsp;</span><!--
+                --><span id="designer">{{ site.designer }}</span>
             </a>
         </div>
+
         <div class="switchers-container">
+            <!-- Then the switchers -->
             <div>
-                <span class="title-family" data-class="dark">D</span><a href="#" id="theme-toggle">
+                <!-- Color theme switcher -> D icon L -->
+                <strong data-class="dark">D</strong><!--
+                --><a href="#" id="theme-toggle">
                     {%- include svgs/toggle.svg -%}
-                </a><span class="title-family" data-class="light">L</span>
+                </a><!--
+                --><strong data-class="light">L</strong>
             </div>
             <div>
+                <!-- Lang switchers -->
                 {%- for lang in site.languages -%}
                     <a href="#" onclick="changeLang()" {%- if lang == page.lang -%}
                         class="disabled"

@@ -25,6 +25,9 @@ designedby:
 pagenotfound:
   en: "Page not found"
   pt: "Página não encontrada"
+latestproject:
+  en: "Latest Project"
+  pt: "Projeto Recente"
 view:
   en: "View"
   pt: "Ver"

@@ -7,10 +7,15 @@
     --breakpoint: 600px;
     --page-padding: 20px;
     --desktop-page-padding: 30px;
+    /* OTHER CONSTS */
+    --border-size: 10px;
+    --project-image-aspect-ratio: 16 / 9;
 }
-@media screen and (min-width: 600px) {
+
+@media screen and (min-width: 600px) { /* If the screen is bigger than mobile, use the larger desktop sizes for borders and paddings */
     :root{
         --page-padding: var(var(--desktop-page-padding));
+        --border-size: 20px;
     }
 }
 
@@ -31,6 +36,9 @@ html, body{
    margin: 0;
    padding: 0;
 }
+a {
+    text-decoration: none;
+}
 body {
     height: 100%;
     width: 100%;
@@ -41,7 +49,7 @@ body {
     -ms-user-select: none; /* Internet Explorer/Edge */
     user-select: none;
 }
-.no-transition, .no-transition * {
+.no-transition, .no-transition * { /* This class overrides animations to prevent them */
     -webkit-transition: none !important;
     -moz-transition: none !important;
     -o-transition: none !important;
@@ -50,7 +58,7 @@ body {
 }
 
 /* Page Content */
-#page-container div:not(.inactive) {
+#page-container div:not(.inactive) { /* The page with the inactive class has a z-index of 0, while the other has 100. This allows for the game page swapping. */
     z-index: 100;
 }
 #page-container .inactive {
@@ -71,7 +79,7 @@ body {
     padding-bottom: 20px;
 }
 
-
+/* Single line classes */
 .va-m {
     vertical-align: middle;
 }
@@ -81,9 +89,10 @@ body {
 .mt-5 {
     margin-top: 5px !important;
 }
-
 @media screen and (max-width: 599px) {
     .hide-on-mobile{
         display: none;
     }
 }
+
+/*  */

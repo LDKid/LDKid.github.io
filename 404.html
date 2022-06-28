@@ -3,76 +3,38 @@ layout: page
 title: 404 Error
 permalink: /404.html
 ---
-<style>
-    #container-404 {
-        position: fixed;
-        top: 50%;
-        transform: translateY(-50%);
-        text-align: center;
-        width: 100%;
-    }
-    #title-404 {
-        margin: 0;
-        color: var(--accent-color);
-        font-size: 18vw; /* Browsers that don't have max() */
-        font-size: max(18vw, 126px);
-        line-height: 1em;
-    }
-    #subtitle-404 {
-        margin: 0;
-        font-size: 4vw; /* Browsers that don't have max() */
-        font-size: max(4vw, 28px);
-        line-height: 1em;
-    }
-    
+<link rel="stylesheet" href="/css/pages/404.css">
 
-    .tableslider {
-        width: 100%;
-        border-collapse: collapse;
-    }
-    .pointer {
-        text-align: center;
-        display: none;
-        position: absolute;
-        top: -14px;
-        left: -2px;
-    }
-</style>
 <div id="container-404">
     <h1 id="title-404">404</h1>
     <h2 id="subtitle-404">Page not found</h2>
 </div>
-<div id="huetable" style="display: none;">
-    <table class="tableslider">
-        <tbody>
-            <tr>
-                {% for c in (0..255) %}
-                    <td style="background-color:hsl({{ c }},100%,50%);height:22px;padding:0;" onmouseenter="clickHue({{ c }})"></td>
-                {% endfor %}
-            </tr>
-        </tbody>
-    </table>
-</div>
+
 <script>
-    function clickHue(hue) {
-        console.log(hue)
-        document.getElementById('title-404').style.color = `hsl(${hue},100%,50%)`;
-    }
     function setup404Page() {
-        // The following is NOT an error. Get the translations from _data/translations.yml
+        /**
+         * Handle translation and urls for the 404 page.
+         */
+        
+        // The following is NOT an error, it gets the translations from _data/translations.yml.
+        // If you see it as an error, make sure your IDE sees this file as a Jekyll file.
         var translations = {{ site.data.translations | jsonify }};
+
         // Get the current lang via url
         let lang = window.location.pathname.substring(1,3);
         // Get all the links and translate them
         let links = document.querySelectorAll('[data-class="header-link"]');
         links.forEach(el => {
+            // For each element, check it's data-linkto tag, if it's Home just set the url to / + language, otherwise set it to / + language + / + it's url ( /en/portfolio )
             if ( el.dataset.linkto == 'Home') {
                 el.setAttribute('href', `/${lang}`);
             } else {
                 el.setAttribute('href', `/${lang}/${el.getAttribute('href')}`);
             }
+            // Translate the text the element shows
             el.textContent = translations[el.dataset.linkto.toLowerCase()][lang];
         });
+
         // Translate 404
         document.getElementById('subtitle-404').textContent = translations.pagenotfound[lang];
         // Translate "Designed by" "Programmed by"
@@ -81,5 +43,7 @@ permalink: /404.html
         // Setup toggle
         document.getElementById('lang-switcher').textContent = lang.toUpperCase();
     }
+    
+    // Run the 404 page setup function.
     setup404Page();
 </script>

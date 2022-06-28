@@ -1,9 +1,9 @@
 <style>
-    .accordion{
+    .accordion { /* The full accordion */
         background: var(--accent-color);
         color: var(--accordion-text-color);
         cursor: pointer;
-        padding: 5px 0 5px 10px;
+        padding: 5px 0 5px var(--border-size);
         width: 100%;
         margin: 0;
         text-align: left;
@@ -19,11 +19,11 @@
         transition-delay: 0ms;
         will-change: background, color;
     }
-    .accordion > i{
-        font-size: 6vw;
+    #vertical-arrow { /* The accordion's arrow icon */
+        height: .75em;
     }
-    .panel{
-        padding: 0 10px;
+    .panel { /* This is the panel that the accordion hides/shows */
+        padding: 0 var(--border-size);
         background: var(--accent-color);
         color: var(--accordion-text-color);
         max-height: 0;
@@ -34,36 +34,37 @@
         transition-delay: 0ms;
         will-change: background, color, max-height;
     }
-    #vertical-arrow{
-        height: .75em;
-    }
-    @media screen and (min-width: 600px) {
-        .accordion{
+    @media screen and (min-width: 600px) { /* On Desktop/Tablets */
+        .accordion { /* Full accordion */
             font-size: 3vw;
             font-size: (3vw, 30px);
-            padding: 5px 1rem 5px 20px;
+            padding: 5px 1rem 5px var(--border-size);
             width: 80%;
         }
-        .panel{
+        .panel { /* The panel that the accordion shows/hides */
             width: 80%;
-            padding: 0 20px;
+            padding: 0 var(--border-size);
         }
-        .panel > div{
-            margin-bottom: 20px;
+        .panel > div { /* This is the panel's content */
+            margin-bottom: var(--border-size);
         }
-        #vertical-arrow{
+        #vertical-arrow { /* The accordion's icon, the arrow. */
             height: 1em;
         }
     }
 </style>
 
 <div id="{{ include.id }}" data-component="accordion">
+    <!-- The main container that has both the button and the panel -->
     <button class="accordion" onclick="toggleAccordion(this)">
+        <!-- The accordion's button, has a title and the arrow icon -->
         {{ include.title }}
         {%- include svgs/arrow_up.svg -%}
     </button>
     <div class="panel">
+        <!-- The panel that is hidden/shown by the accordion -->
         <div id="{{ include.contentId }}">
+            <!-- The content is in here -->
             {{ include.content }}
         </div>
     </div>
@@ -71,13 +72,26 @@
 
 <script>
     function toggleAccordion(el) {
+        /**
+         * Toggle the accordion.
+         * 
+         * @param {Object} el The HTML Element of the accordion button
+         */
+
+        // Togggle it's active class
         el.classList.toggle("active");
+
+        // Get the panel
         var panel = el.nextElementSibling;
+
+        // Toggle the panel's height
         if (panel.style.maxHeight) {
             panel.style.maxHeight = null;
         } else {
             panel.style.maxHeight = panel.scrollHeight + "px";
         }
+
+        // Toggle the icon
         el.lastElementChild.classList.toggle("toggled");
     }
 </script>

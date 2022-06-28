@@ -1,0 +1,23 @@
+#container-404 {
+    /* The main container that holds both the title and subtitle */
+    position: fixed;
+    top: 50%;
+    transform: translateY(-50%);
+    text-align: center;
+    width: 100%;
+}
+#title-404 {
+    /* The 404 text */
+    margin: 0;
+    color: var(--accent-color);
+    font-size: 18vw; /* Browsers that don't have max() */
+    font-size: max(18vw, 126px);
+    line-height: 1em;
+}
+#subtitle-404 {
+    /* The Page not found text */
+    margin: 0;
+    font-size: 4vw; /* Browsers that don't have max() */
+    font-size: max(4vw, 28px);
+    line-height: 1em;
+}
