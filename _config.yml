@@ -9,9 +9,6 @@ description: >-
 github_username:  LDKid
 permalink: pretty
 
-# I chose to make this use the title (aka the .md file name) instead of the name, so I can easily see it and so I can easily change the name without breaking anything.
-# live-hanging.md -> Live Hanging
-latest_project: Gameface
 
 # Define the default language and the list of languages.
 lang: en
@@ -33,11 +30,32 @@ defaults:
       path: "pt"
     values:
       lang: "pt"
+  -
+    scope:
+      path: "_projects/en"
+    values:
+      permalink: "/en/portfolio/:title"
+      lang: "en"
+      layout: "project"
+      cover: "cover.png"
+      cover-pixel: "cover64.png"
+      icon: "icon.png"
+  -
+    scope:
+      path: "_projects/pt"
+    values:
+      permalink: "/pt/portfolio/:title"
+      lang: "pt"
+      layout: "project"
+      cover: "cover.png"
+      cover-pixel: "cover64.png"
+      icon: "icon.png"
 
 # Setup collections
 collections:
   projects:
     sort_by: date
+    output: true
 
 # Build settings
 plugins:

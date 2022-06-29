@@ -11,8 +11,8 @@ game: pong
 
 <!-- Get the latest Project -->
 {% assign project = site.projects
-| where_exp:"p", "p.title == site.latest_project"
-| first
+| where_exp:"p", "p.lang == page.lang"
+| last
 %}
 
 <!-- Get the Latest Project Translation -->
@@ -22,11 +22,11 @@ game: pong
 
 <!-- Capture the content that'll go in the accordion -->
 {%- capture latestProjectContent -%}
-    <a href="{{ project.link }}" id="project-image-container">
+    <a href="portfolio/{{ project.path | split:'/' | last | split: '.' | first }}" class="project-image-container">
         <!-- The image on the left -->
         <img src="{{ project.image-path }}{{ project.cover }}" id="cover">
         <img src="{{ project.image-path }}{{ project.cover-pixel }}" id="pixel"> <!-- This is the pixelated image -->
-        <div id="overlay" class="latest-project-overlay"> <!-- This is the gray overlay with the button -->
+        <div id="overlay" class="project-image-overlay"> <!-- This is the gray overlay with the button -->
             <div class="accent-button">{{ site.data.translations.view[page.lang] }}</div>
         </div>
     </a>
@@ -36,7 +36,7 @@ game: pong
         <p class="mt-5">{{ project.name }}</p>
         <h3 class="hide-on-mobile">{{ site.data.translations.projecttype[page.lang] }}:</h3>
         <i class="ldkicon-{{ project.type }}"></i>
-        <p>{{ project.slogan[page.lang] }}</p>
+        <p>{{ project.slogan }}</p>
     </div>
 {%- endcapture -%}
 

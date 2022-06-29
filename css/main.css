@@ -95,4 +95,46 @@ body {
     }
 }
 
-/*  */
+/* Project Images */
+.project-image-container {
+    aspect-ratio: var(--project-image-aspect-ratio);
+    background-color: var(--background-color);
+    position: relative; /* The images are absolute, this makes sure everything stays in place */
+    /* Animation */
+    transition-property: background-color;
+    will-change: background-color;
+    transition-duration: var(--theme-transition-duration);
+    transition-timing-function: var(--theme-transition-function);
+    transition-delay: 0ms;
+}
+.project-image-container > img {
+    /* Both images are positioned exactly in the same place */
+    height: 100%;
+    width: 100%;
+    object-fit: contain;
+    position: absolute;
+}
+.project-image-container > #pixel {
+    /* the pixelated image is disabled by default, (and has the pixelated image rendering) */
+    display: none;
+    image-rendering: pixelated;
+}
+.project-image-container:hover > #cover {
+    /* When hovering, the cover image get's hidden (and the pixelated image is displayed) */
+    display: none;
+}
+.project-image-container:hover > #pixel,
+.project-image-container:hover > #overlay {
+    /* Display the pixelated image and the overlay on hover */
+    display: flex;
+}
+.project-image-overlay {
+    position: absolute;
+    height: 100%;
+    width: 100%;
+    background-color: var(--overlay-color);
+    display: none;
+    align-items: center;
+    justify-content: center;
+    font-size: 2em;
+}

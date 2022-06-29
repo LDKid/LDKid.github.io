@@ -17,9 +17,9 @@
             {%- for item in site.data.header.pages -%}
 
                 <!-- Get the url, and change it if it's home -->
-                {%- assign link = item.url -%}
-                {%- if item.url == '/' -%}
-                    {%- assign link = "/" | append: page.lang -%}
+                {%- assign link = "/" | append: page.lang | append: "/" -%}
+                {%- if item.url != '/' -%}
+                    {%- assign link = link | append: item.url -%}
                 {%- endif -%}
                 
                 <!-- Find the active class -->

@@ -32,51 +32,11 @@
     align-items:center;
     position: relative;
 }
-#project-image-container {
-    aspect-ratio: var(--project-image-aspect-ratio);
-    background-color: var(--background-color);
+.project-image-container {
+    /* Although this class is defined in main.css because it's used in multiple pages, the width is only used here */
     width: 45%;
-    display: inline-block;
-    position: relative;
-    cursor: pointer;
-    /* Animation */
-    transition-property: background-color;
-    will-change: background-color;
-    transition-duration: var(--theme-transition-duration);
-    transition-timing-function: var(--theme-transition-function);
-    transition-delay: 0ms;
 }
-#project-image-container > img {
-    /* Both images are positioned exactly in the same place */
-    height: 100%;
-    width: 100%;
-    object-fit: contain;
-    position: absolute;
-}
-#project-image-container > #pixel {
-    /* the pixelated image is disabled by default, (and has the pixelated image rendering) */
-    display: none;
-    image-rendering: pixelated;
-}
-.latest-project-overlay {
-    position: absolute;
-    height: 100%;
-    width: 100%;
-    background-color: var(--overlay-color);
-    display: none;
-    align-items: center;
-    justify-content: center;
-    font-size: 2em;
-}
-#project-image-container:hover > #cover {
-    /* When hovering, the cover image get's hidden (and the pixelated image is displayed) */
-    display: none;
-}
-#project-image-container:hover > #pixel,
-#project-image-container:hover > #overlay {
-    /* Display the pixelated image and the overlay on hover */
-    display: flex;
-}
+
 #project-info-container {
     display: inline-block;
     width: 50%;
@@ -100,7 +60,7 @@
     #latest-project {
         margin-bottom: 50px;
     }
-    #project-image-container {
+    .project-image-container {
         margin-top: 5px;
         width: 55%;
     }

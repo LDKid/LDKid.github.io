@@ -25,11 +25,11 @@ permalink: /404.html
         // Get all the links and translate them
         let links = document.querySelectorAll('[data-class="header-link"]');
         links.forEach(el => {
-            // For each element, check it's data-linkto tag, if it's Home just set the url to / + language, otherwise set it to / + language + / + it's url ( /en/portfolio )
+            // For each element, check it's data-linkto tag, if it's Home just set the url to / + language, otherwise replace default language (en) with the correct one
             if ( el.dataset.linkto == 'Home') {
                 el.setAttribute('href', `/${lang}`);
             } else {
-                el.setAttribute('href', `/${lang}/${el.getAttribute('href')}`);
+                el.setAttribute('href', el.getAttribute('href').replace('en', lang));
             }
             // Translate the text the element shows
             el.textContent = translations[el.dataset.linkto.toLowerCase()][lang];

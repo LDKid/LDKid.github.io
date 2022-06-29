@@ -3,33 +3,37 @@ layout: page
 ---
 <link rel="stylesheet" href="/css/pages/portfolio.css">
 
-
-<!-- WIP -->
+<!-- Search -->
 
 
 <div id="portfolio-content">
-{% for project in site.projects reversed %}
-
-        <div class="portfolio-project">
-            <span class="name">{{ project.name }}</span>
-            <a href="{{ project.link }}" id="project-image-container">
-                <!-- <img src="{{ project.image-path }}{{ project.cover }}" id="cover"> -->
-                <img src="" alt="">
-                <div>
-                    <div></div>
+    {% for project in site.projects reversed %}
+        {%- if project.lang == page.lang -%}
+            <div class="portfolio-project">
+                <strong>{{ project.name }}</strong>
+                <a href="{{ project.path | split:'/' | last | split: '.' | first }}">
+                    <div class="project-image-container">
+                        <img src="{{ project.image-path }}{{ project.cover }}" id="cover">
+                        <img src="{{ project.image-path }}{{ project.cover-pixel }}" alt="" id="pixel">
+                        <div id="overlay" class="project-image-overlay"> <!-- This is the gray overlay with the button -->
+                            <div class="accent-button">{{ site.data.translations.view[page.lang] }}</div>
+                        </div>
+                    </div>
+                </a>
+                <div class="tags-and-icon">
+                    <div class="tags">
+                        <strong>Tags:</strong>
+                        <span>{{ project.tags | join: ', ' }}</span>
+                    </div>
+                    <i class="ldkicon-{{ project.type }}"></i>
                 </div>
-            </a>
-            <div>
-                <div>
-                    <span>Tags:</span>
-                    <span>{{ project.tags | | join: ', ' }}</span>
-                </div>
-                <i class="ldkicon-{{ project.type }}"></i>
             </div>
-        </div>
-
-{% endfor %}
-
-    <div class="flex-fixer"><span>{{ page.flextape }}</span></div>
+        {%- endif -%}
+    {% endfor %}
+    
+    <div class="flex-fixer">
+        <!-- This ensures alignment -->
+        <span>{{ page.flextape }}</span>
+    </div>
 
 </div>

@@ -111,6 +111,9 @@ body, #page-container {
 h1, h2, h3, h4, h5, h6, nav, a, strong {
     font-family: var(--title-family);
 }
+strong {
+    color: var(--accent-color);
+}
 * {
     font-family: var(--text-family);
 }
