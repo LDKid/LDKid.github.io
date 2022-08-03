@@ -6,16 +6,19 @@
     /* MEDIA QUERY */
     --breakpoint: 600px;
     --page-padding: 20px;
-    --desktop-page-padding: 30px;
+    --desktop-page-padding: 40px;
     /* OTHER CONSTS */
-    --border-size: 10px;
+    --border-size: 10px; /* Use this on elements that have a border */
+    --medium-border-size: 5px; /* Use this for icons with border */
+    --small-border-size: 3px; /* Alternate border size for smaller elements and inputs with border */
     --project-image-aspect-ratio: 16 / 9;
 }
 
 @media screen and (min-width: 600px) { /* If the screen is bigger than mobile, use the larger desktop sizes for borders and paddings */
     :root{
-        --page-padding: var(var(--desktop-page-padding));
+        --page-padding: var(--desktop-page-padding);
         --border-size: 20px;
+        --medium-border-size: 10px;
     }
 }
 
@@ -36,6 +39,19 @@ html, body{
    margin: 0;
    padding: 0;
 }
+h6 {
+    margin-top: 2em;
+}
+dd {
+    display: list-item;
+    list-style-type: disclosure-closed;
+}
+ol, ul {
+    list-style-type: square;
+}
+p {
+    margin-block-end: .5em;
+}
 a {
     text-decoration: none;
 }
@@ -48,6 +64,7 @@ body {
     -moz-user-select: none; /* Old versions of Firefox */
     -ms-user-select: none; /* Internet Explorer/Edge */
     user-select: none;
+    font-size: 18px;
 }
 .no-transition, .no-transition * { /* This class overrides animations to prevent them */
     -webkit-transition: none !important;
@@ -58,10 +75,10 @@ body {
 }
 
 /* Page Content */
-#page-container div:not(.inactive) { /* The page with the inactive class has a z-index of 0, while the other has 100. This allows for the game page swapping. */
+#page-container > div:not(.inactive) { /* The page with the inactive class has a z-index of 0, while the other has 100. This allows for the game page swapping. */
     z-index: 100;
 }
-#page-container .inactive {
+#page-container > .inactive {
     opacity: var(--game-transparency);
     z-index: 0;
 }
@@ -73,10 +90,10 @@ body {
 
 #page-content{
     overflow: scroll;
-    height: 90% !important;
+    height: 85% !important;
     width: calc( 100% - calc( var(--page-padding) * 2 ) ) !important;
     margin: 0 var(--page-padding);
-    padding-bottom: 20px;
+    padding-bottom: 10vh;
 }
 
 /* Single line classes */
@@ -89,11 +106,29 @@ body {
 .mt-5 {
     margin-top: 5px !important;
 }
+.hidden {
+    display: none;
+}
 @media screen and (max-width: 599px) {
     .hide-on-mobile{
         display: none;
     }
 }
+
+/* Input */
+input[type=text] {
+    border-width: var(--small-border-size);
+    border-style: solid;
+    border-color: var(--disabled-color);
+    background-color: var(--background-color);
+    color: var(--foreground-color);
+    font-size: 2rem;
+}
+input[type=text]:focus {
+    outline: none;
+    border-color: var(--foreground-color);
+}
+
 
 /* Project Images */
 .project-image-container {
@@ -137,4 +172,13 @@ body {
     align-items: center;
     justify-content: center;
     font-size: 2em;
+}
+/* canvas used in games */
+canvas {
+    image-rendering: optimizeSpeed;
+    image-rendering: -moz-crisp-edges;
+    image-rendering: -webkit-optimize-contrast;
+    image-rendering: -o-crisp-edges;
+    image-rendering: optimize-contrast;
+    -ms-interpolation-mode: nearest-neighbor;
 }

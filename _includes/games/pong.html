@@ -1,8 +1,8 @@
 <canvas id="game-canvas"></canvas> <!-- Add the game canvas -->
-<script src="/assets/game-assets/game.js"></script> <!-- Import the base game class -->
+<script src="/js/games/game.js"></script> <!-- Import the base game class -->
 <!-- Import extra game assets and classes -->
-<script src="/assets/game-assets/pong/paddle.js"></script>
-<script src="/assets/game-assets/pong/ball.js"></script>
+<script src="/js/games/pong/paddle.js"></script>
+<script src="/js/games/pong/ball.js"></script>
 <!-- Game logic -->
 <script>
     class Pong extends Game {
@@ -15,7 +15,7 @@
             super();
 
             // Create the player paddle
-            this.player = new Paddle(this._ctx);
+            this.player = new Paddle( this );
 
             // Draw the initial frame
             this.drawFrame();
@@ -85,7 +85,7 @@
             super._reset();
 
             // Create the ball
-            this.ball = new Ball(this._ctx);
+            this.ball = new Ball( this );
         }
         update() {
             /**

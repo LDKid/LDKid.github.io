@@ -24,8 +24,8 @@ game: pong
 {%- capture latestProjectContent -%}
     <a href="portfolio/{{ project.path | split:'/' | last | split: '.' | first }}" class="project-image-container">
         <!-- The image on the left -->
-        <img src="{{ project.image-path }}{{ project.cover }}" id="cover">
-        <img src="{{ project.image-path }}{{ project.cover-pixel }}" id="pixel"> <!-- This is the pixelated image -->
+        <img src="{{ project.image_path }}{{ project.cover }}" id="cover">
+        <img src="{{ project.image_path }}{{ project.cover-pixel }}" id="pixel"> <!-- This is the pixelated image -->
         <div id="overlay" class="project-image-overlay"> <!-- This is the gray overlay with the button -->
             <div class="accent-button">{{ site.data.translations.view[page.lang] }}</div>
         </div>

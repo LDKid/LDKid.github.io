@@ -35,16 +35,7 @@
             {%- endfor -%}
         </div>
 
-        <!-- If there is a game for this page add the game controller -->
-        {%- if page.game or layout.game -%}
-        <div id="game-controller-container">
-            <!-- The Game Controller has 2 elements: the Score and the IconButton -->
-            <h1 id="game-score" class="inactive">0</h1>
-            <a href="#" class="always-visible" id="game-toggle" onclick="toggleGame(this)">
-                <i class="ldkicon-controller"></i>
-            </a>
-        </div>
-        {%- endif -%}
+        
 
         <a class="always-visible accent-button" data-class="header-link" data-linkto="Contact" id="contact-link" href="contact">
             <!-- This button is a floater, it's the Say Hi button on the right. -->
@@ -87,6 +78,26 @@
                 --><span>:&nbsp;</span><!--
                 --><span id="designer">{{ site.designer }}</span>
             </a>
+        </div>
+
+        <div class="sub-header-container">
+            <!-- The second header line, has the sub-header content defined in other pages and has the game icon on desktop -->
+            {%- if layout.headingDiv -%}
+                <!-- If there's content to put in the sub-header, add spacers to center it with flex and add the content -->
+                <div id="spacer"></div>
+                <div id="sub-header">{{ layout.headingDiv }}</div>
+                <div id="spacer2"></div>
+            {%- endif -%}
+            {%- if page.game or layout.game -%}
+                <!-- If there is a game for this page add the game controller -->
+                <div id="game-controller-container">
+                    <!-- The Game Controller has 2 elements: the Score and the IconButton -->
+                    <h1 id="game-score" class="inactive">0</h1>
+                    <a href="#" class="always-visible" id="game-toggle" onclick="toggleGame(this)">
+                        <i class="ldkicon-controller"></i>
+                    </a>
+                </div>
+            {%- endif -%}
         </div>
     </nav>
 </header>

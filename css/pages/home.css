@@ -2,7 +2,7 @@
     display: none;
     position: fixed;
     bottom: 0;
-    width: calc(100% - 60px);
+    width: calc(100% - 75px);
     align-items: end;
     justify-content: space-between;
 }
@@ -19,7 +19,7 @@
 .home-intro {
     font-size: 6vw;
     width: 100%;
-    margin-top: 10px;
+    margin-top: 40px;
     margin-bottom: 20px;
 }
 .home-intro, #latest-project {
@@ -54,11 +54,14 @@
         font-size: 3vw;
         font-size: (3vw, 30px);
         width: 80%;
-        margin-top: 50px;
         margin-bottom: 50px;
+        margin-top: 0;
+    }
+    .home-intro > p:first-child {
+        margin-top: 0;
     }
     #latest-project {
-        margin-bottom: 50px;
+        margin-bottom: 125px;
     }
     .project-image-container {
         margin-top: 5px;
@@ -83,4 +86,10 @@
     #project-info-container > p {
         margin: 10px 0;
     }
+}
+
+.home-intro a:not(.footnote) {
+    font-family: var(--text-family);
+    color: var(--accent-color);
+    /* text-decoration: underline; */
 }

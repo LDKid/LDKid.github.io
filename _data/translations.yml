@@ -31,3 +31,12 @@ latestproject:
 view:
   en: "View"
   pt: "Ver"
+searchplaceholder:
+  en: "Search by name, tag or type"
+  pt: "Procurar por nome, tag ou tipo"
+type:
+  en: "Type"
+  pt: "Tipo"
+visit:
+  en: "Visit"
+  pt: "Visitar"

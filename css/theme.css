@@ -117,6 +117,15 @@ strong {
 * {
     font-family: var(--text-family);
 }
+input::placeholder {
+    color: var(--disabled-color);
+}
+@media screen and (max-width: 599px) {
+    strong {
+        letter-spacing: 0.5px;
+    }
+}
+
 
 /* Theme toggler */
 #theme-toggle {

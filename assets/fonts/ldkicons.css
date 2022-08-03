@@ -42,8 +42,17 @@
     content: "\e902";
   }
   /* PACMAN */
-  .ldkicon-pacman_powerup:before {
-    content: "\e903";
+  .ldkicon-pacman:before {
+    content: "\e916";
+  }
+  .ldkicon-pacman2:before {
+    content: "\e917";
+  }
+  .ldkicon-pacman-power:before {
+    content: "\e919";
+  }
+  .ldkicon-pacman-power2:before {
+    content: "\e918";
   }
   .ldkicon-strong_ghost:before {
     content: "\e908";
@@ -51,9 +60,17 @@
   .ldkicon-weak_ghost:before {
     content: "\e909";
   }
+  .ldkicon-pacman_powerup:before {
+    content: "\e903";
+  }
 
 
-
+  .ldkicon-search:before {
+    content: "\e914";
+  }
+  .ldkicon-cross:before {
+    content: "\e915";
+  }
   .ldkicon-trophy:before {
     content: "\e904";
   }
