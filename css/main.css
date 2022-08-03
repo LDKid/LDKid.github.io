@@ -1,0 +1,184 @@
+:root {
+    /* TRANSPARENCY PERCENTS */
+    --score-transparency: 20%;
+    --game-transparency: 3%;
+    --game-transition-duration: 200ms;
+    /* MEDIA QUERY */
+    --breakpoint: 600px;
+    --page-padding: 20px;
+    --desktop-page-padding: 40px;
+    /* OTHER CONSTS */
+    --border-size: 10px; /* Use this on elements that have a border */
+    --medium-border-size: 5px; /* Use this for icons with border */
+    --small-border-size: 3px; /* Alternate border size for smaller elements and inputs with border */
+    --project-image-aspect-ratio: 16 / 9;
+}
+
+@media screen and (min-width: 600px) { /* If the screen is bigger than mobile, use the larger desktop sizes for borders and paddings */
+    :root{
+        --page-padding: var(--desktop-page-padding);
+        --border-size: 20px;
+        --medium-border-size: 10px;
+    }
+}
+
+/* Other initializations */
+*, *::after, *::before {
+    box-sizing: border-box;
+}
+html, body{
+    position: fixed;
+    overflow: hidden;
+}
+/**
+ * Reset some basic elements
+ */
+ body, h1, h2, h3, h4, h5, h6,
+ blockquote, pre, hr,
+ dl, dd, ol, ul, figure {
+   margin: 0;
+   padding: 0;
+}
+h6 {
+    margin-top: 2em;
+}
+dd {
+    display: list-item;
+    list-style-type: disclosure-closed;
+}
+ol, ul {
+    list-style-type: square;
+}
+p {
+    margin-block-end: .5em;
+}
+a {
+    text-decoration: none;
+}
+body {
+    height: 100%;
+    width: 100%;
+    -webkit-touch-callout: none; /* iOS Safari */
+    -webkit-user-select: none; /* Safari */
+    -khtml-user-select: none; /* Konqueror HTML */
+    -moz-user-select: none; /* Old versions of Firefox */
+    -ms-user-select: none; /* Internet Explorer/Edge */
+    user-select: none;
+    font-size: 18px;
+}
+.no-transition, .no-transition * { /* This class overrides animations to prevent them */
+    -webkit-transition: none !important;
+    -moz-transition: none !important;
+    -o-transition: none !important;
+    transition: none !important;
+    transition-duration: 0ms !important;
+}
+
+/* Page Content */
+#page-container > div:not(.inactive) { /* The page with the inactive class has a z-index of 0, while the other has 100. This allows for the game page swapping. */
+    z-index: 100;
+}
+#page-container > .inactive {
+    opacity: var(--game-transparency);
+    z-index: 0;
+}
+#page-container, #page-container > div{
+    height: 100%;
+    width: 100%;
+    position: fixed;
+}
+
+#page-content{
+    overflow: scroll;
+    height: 85% !important;
+    width: calc( 100% - calc( var(--page-padding) * 2 ) ) !important;
+    margin: 0 var(--page-padding);
+    padding-bottom: 10vh;
+}
+
+/* Single line classes */
+.va-m {
+    vertical-align: middle;
+}
+.p-0 {
+    padding: 0 !important;
+}
+.mt-5 {
+    margin-top: 5px !important;
+}
+.hidden {
+    display: none;
+}
+@media screen and (max-width: 599px) {
+    .hide-on-mobile{
+        display: none;
+    }
+}
+
+/* Input */
+input[type=text] {
+    border-width: var(--small-border-size);
+    border-style: solid;
+    border-color: var(--disabled-color);
+    background-color: var(--background-color);
+    color: var(--foreground-color);
+    font-size: 2rem;
+}
+input[type=text]:focus {
+    outline: none;
+    border-color: var(--foreground-color);
+}
+
+
+/* Project Images */
+.project-image-container {
+    aspect-ratio: var(--project-image-aspect-ratio);
+    background-color: var(--background-color);
+    position: relative; /* The images are absolute, this makes sure everything stays in place */
+    /* Animation */
+    transition-property: background-color;
+    will-change: background-color;
+    transition-duration: var(--theme-transition-duration);
+    transition-timing-function: var(--theme-transition-function);
+    transition-delay: 0ms;
+}
+.project-image-container > img {
+    /* Both images are positioned exactly in the same place */
+    height: 100%;
+    width: 100%;
+    object-fit: contain;
+    position: absolute;
+}
+.project-image-container > #pixel {
+    /* the pixelated image is disabled by default, (and has the pixelated image rendering) */
+    display: none;
+    image-rendering: pixelated;
+}
+.project-image-container:hover > #cover {
+    /* When hovering, the cover image get's hidden (and the pixelated image is displayed) */
+    display: none;
+}
+.project-image-container:hover > #pixel,
+.project-image-container:hover > #overlay {
+    /* Display the pixelated image and the overlay on hover */
+    display: flex;
+}
+.project-image-overlay {
+    position: absolute;
+    height: 100%;
+    width: 100%;
+    background-color: var(--overlay-color);
+    display: none;
+    align-items: center;
+    justify-content: center;
+    font-size: 2em;
+}
+/* canvas used in games */
+canvas {
+    image-rendering: optimizeSpeed;
+    image-rendering: -moz-crisp-edges;
+    image-rendering: -webkit-optimize-contrast;
+    image-rendering: -o-crisp-edges;
+    image-rendering: optimize-contrast;
+    -ms-interpolation-mode: nearest-neighbor;
+}

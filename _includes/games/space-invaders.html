@@ -1,0 +1,410 @@
+<canvas id="game-canvas"></canvas> <!-- Add the game canvas -->
+<script src="/js/games/game.js"></script> <!-- Import the base game class -->
+<!-- Import extra game assets and classes -->
+<script src="/js/games/space-invaders/entity.js"></script>
+<script src="/js/games/space-invaders/player.js"></script>
+<script src="/js/games/space-invaders/invader.js"></script>
+<script src="/js/games/space-invaders/battalion.js"></script>
+<script src="/js/games/space-invaders/projectile.js"></script>
+
+<!-- Game logic -->
+<script>
+    class SpaceInvaders extends Game {
+        constructor() {
+            /**
+             *  Setup Space Invaders
+             */
+            
+            // Run the base Game constructor before using custom logic
+            super();
+
+            // Setup Images
+            this.setupPlayerImage();
+            this.setupInvaderImages();
+
+            // Make sure the colors are properly set
+            this.updateColors();
+
+            // Draw the initial frame
+            this.drawFrame();
+        }
+        _reset() {
+            /**
+             * Override -> Setup everything related to the game
+             */
+
+            // Run the main reset funcion
+            super._reset();
+
+            // Set frames to 0. This is used for shooting
+            this._frames = 0;
+
+            // Create the player
+            this.player = new Player( this, this.playerImageCanvas );
+            
+            // Setup Projectiles
+            this.lastShotTime = null;
+            this.projectiles = [];
+            this.enemyProjectiles = [];
+
+            // Setup Invaders
+            this.invaders = [];
+            this.trySpawnWave( 0, true );
+        }
+        updateColors() {
+            /**
+             * Override: Update the player and invader canvases.
+             */
+
+            // Run the main updateColors function.
+            super.updateColors();
+            // Update te player canvas
+            if ( this.playerImageCanvas ) {
+                this.playerImageCanvas.getContext('2d', { alpha: false }).fillStyle = getComputedStyle( document.body ).getPropertyValue( '--accent-color' );
+            }
+            // Update the invader canvases
+            if ( this.invaderImageCanvases ) {
+                this.invaderImageCanvases.forEach(invaderImageCanvas => {
+                    invaderImageCanvas.getContext('2d', { alpha: false }).fillStyle = getComputedStyle( document.body ).getPropertyValue( '--accent-color' );
+                });
+            }
+        }
+        setupPlayerImage() {
+            /**
+             * Create or Update the Player Image. The Player is drawn in an offscreen canvas, then that canvas is drawn on the game.
+             */
+
+            // If this is a first run, create the canvas
+            if ( typeof this.playerImageCanvas === "undefined" ) {
+                this.playerImageCanvas = document.createElement('canvas');
+            }
+            // Setup context
+            let ctx = this.playerImageCanvas.getContext('2d', { alpha: false });
+            
+            // Get the player's size and setup the canvas to have the same size
+            let playerSize = this.getPlayerSize();
+            this.playerImageCanvas.width = playerSize.x;
+            this.playerImageCanvas.height =  playerSize.y;
+
+            // Create an Image Object and have it load the player image.
+            const IMG = new Image();
+            IMG.src = "/assets/game-assets/space-invaders/player.png";
+
+            IMG.addEventListener('load', function() {
+                /**
+                 * When the image is loaded, set the color of the canvas and draw the image on it
+                 */
+
+                ctx.fillStyle = getComputedStyle( document.body ).getPropertyValue( '--accent-color' );
+                this.drawImage({ ctx, img: IMG, position: {x: 0, y:0}, size: playerSize });
+            }.bind(this), false);
+        }
+        getPlayerSize() {
+            /**
+             * Using the canvas's size, setup the player's size
+             * 
+             * @return {Object} {x,y} The size of the player
+             */
+
+            let width = Math.min( this._canvas.width / 9, 65);
+            return {
+                x: width,
+                y: width
+            }
+        }
+        setupInvaderImages() {
+            /**
+             * Create or Update the Invader Images. The Invader are drawn in offscreen canvases, then those canvases are drawn on the game.
+             */
+
+            // If this is a first run, create an empty array
+            if ( typeof this.invaderImageCanvases === "undefined" ) {
+                this.invaderImageCanvases = [];
+            }
+            
+            // Get the invader's size and setup the canvases to have the same size
+            let invaderSize = this.getInvaderSize();
+            //  This is the size of the invader in the .png file. Used for cutting the image.
+            let imgSize = { x: 19, y: 16 };
+            //  Loop 3 times, one per invader image
+            for (let i = 0; i < 3; i++) {
+                // Setup the invader canvas
+                let invaderImageCanvas;
+                // If the canvas hasn't been created, create it
+                if ( this.invaderImageCanvases.length <= i ) {
+                    invaderImageCanvas = document.createElement('canvas');
+                    this.invaderImageCanvases[i] = invaderImageCanvas;
+                } else {
+                    // Otherwise, get it
+                    invaderImageCanvas = this.invaderImageCanvases[i];
+                }
+                // Set the canvas size to the invader size
+                invaderImageCanvas.width = invaderSize.x;
+                invaderImageCanvas.height =  invaderSize.y;
+            }
+
+            // Create an Image Object and have it load the invaders image.
+            const IMG = new Image();
+            IMG.src = "/assets/game-assets/space-invaders/invaders.png";
+
+            IMG.addEventListener('load', function() {
+                /**
+                 * When the image is loaded, set the color of each invader canvas and draw part of the image on it
+                 */
+
+                for (let i = 0; i < 3; i++) {
+                    // Get the context for this canvas and set it's color
+                    let ctx = this.invaderImageCanvases[i].getContext('2d', { alpha: false });
+                    ctx.fillStyle = getComputedStyle( document.body ).getPropertyValue( '--accent-color' );
+                    // Draw the invader on this canvas
+                    this.drawImage({
+                        ctx,img: IMG,
+                        position: { x: 0, y: 0 },
+                        size: invaderSize,
+                        imageSection: { x: 0, y: i * imgSize.y, width: imgSize.x, height: imgSize.y } 
+                    } );
+                }
+            }.bind(this), false);
+        }
+        getInvaderSize() {
+            /**
+             * Using the canvas's size, setup the invader's size
+             * 
+             * @return {Object} {x,y} The size of the invader
+             */
+            return {
+                x: Math.min( this._canvas.width / 11, 57 ),
+                y: Math.min( this._canvas.width / 11 * 16 / 19, 48 )
+            };
+        }
+        bindControls() {
+            /**
+             * Setup the controls for the game:
+             * - For Desktop, the paddle follows the mouse movement;
+             * - For Mobile, the paddle uses both touchstart and touchmove. It follows the player if he drags, but will also teleport on touch.
+             */
+
+            // Mobile
+            this._canvas.addEventListener('touchmove', this.getXPositionMobile.bind(this), false);
+            
+            this._canvas.addEventListener('touchmove', this.preventDefault, {passive: false});
+            this._canvas.addEventListener('touchforcechange', this.preventDefault, {passive: false});
+            
+            // Desktop
+            this._canvas.addEventListener('mousemove', this.getXPosition.bind(this), false);
+
+            // Common
+            this._canvas.addEventListener('click', this.click.bind(this), false);
+        }
+        drawFrame(){
+            /**
+             * Draw the player, enemies and projectiles each frame.
+             */
+
+            this.player.draw();
+            this.projectiles.forEach(projectile => {
+                projectile.draw();
+            });
+            this.enemyProjectiles.forEach(projectile => {
+                projectile.draw();
+            });
+            this.invaders.forEach(battalion => {
+                battalion.invaders.forEach(invader => {
+                    invader.draw();
+                });
+            });
+        }
+        getXPositionMobile( event ) {
+            /**
+             * Get the mouse position and update the player.
+             * 
+             * @param {Object} event The Move Event
+             */
+            
+            // Get the canvas rect
+            var rect = this._canvas.getBoundingClientRect();
+
+            // Calculate and set the position
+            this.player.updateXPosition( (event.touches[0].clientX + rect.left) / (rect.right - rect.left) * this._canvas.width );
+        }
+        getXPosition( event ) {
+            /**
+             * Get the mouse position and update the player.
+             * 
+             * @param {Object} event The Mouse Event
+             */
+
+            // If there was no movement (aka if there was a click), don't do anything
+            if ((event.movementX == 0) && (event.movementY == 0)) return;
+             
+            // Get the canvas rect
+            var rect = this._canvas.getBoundingClientRect();
+
+            // Calculate and set the position
+            this.player.updateXPosition( (event.clientX + rect.left) / (rect.right - rect.left) * this._canvas.width );
+        }
+        click(event) {
+            /**
+             * Try to shoot
+             * 
+             * @param {Object} event The Click or Tap Event
+             */
+
+            event.preventDefault();
+            event.stopPropagation();
+
+            // Compare the last shot time with the fire rate to see if the player can shoot now
+            if ( this.lastShotTime === null || (( new Date()).valueOf() - this.lastShotTime) > ( 1000 / this.player.fireRate )) {
+                this.shoot();
+                this.lastShotTime = ( new Date() ).valueOf();
+            }
+        }
+        shoot() {
+            /**
+             * Creates a new player projectile
+             */
+
+            this.projectiles.push(
+                new Projectile( this, {
+                    position: this.player.getProjectileSpawnPos(),
+                    velocity: {x: 0, y: -this.player.PROJECTILE_SPEED},
+                    isPlayers: true
+                } )
+            );
+        }
+        setSpawnInterval() {
+            /**
+             * The spawn interval is the random value that dictates how many times the invaders need to collide with walls before a new wave can be spawned
+             */
+
+            this.spawnInterval = Math.floor( Math.random() * 2 ) + 6;
+        }
+        trySpawnWave( count, force = false ) {
+            /**
+             * Attempt to spawn a new Battalion by comparing the count with the spawn interval. Can be forced.
+             * 
+             * @param {int} count Compare this with the spawn interval to see if a new battalion should be spawned
+             * @param {Boolean} [force = false] Whether or not to force a spawn. Used when no grids currently exist
+             */
+
+            if ( force || ( ( count + 1 ) % this.spawnInterval === 0 ) ) {
+                // Reset all counts to prevent chain spawning
+                this.invaders.forEach( battalion => {
+                    battalion.collidedWithWallCount = 0;
+                });
+                // Set a new random interval
+                this.setSpawnInterval();
+                // Spawn
+                this.invaders.push( new Battalion( this, this.invaderImageCanvases ) );
+            }
+        }
+        deleteBattalion() {
+            /**
+             * Delete a battalion. If no more exist, spawn a new one.
+             */
+
+            for (let i = 0; i < this.invaders.length; i++) {
+                const BATTALION = this.invaders[i];
+                if ( BATTALION.invaders.length == 0 ) {
+                    this.invaders.splice( i, 1 );
+                    // Check if there are no battalions left, and if that's the case, spawn a new one.
+                    if ( this.invaders.length == 0 ) {
+                        this.trySpawnWave( 0, true );
+                    }
+                }
+            }
+        }
+        _resizeCanvas(){
+            /**
+             * Override -> Fix player and the invaders's positions and sizes.
+             */
+
+            // Run the normal resize code.
+            super._resizeCanvas();
+
+            // If the player has already been defined, update his position.
+            if ( typeof this.player !== "undefined") {
+                this.player.resizedScreen();
+            }
+            if ( typeof this.invaders !== "undefined" ) {
+                this.invaders.forEach(battalion => {
+                    battalion.resizedScreen();
+                });
+            }
+            this.setupInvaderImages();
+            this.setupPlayerImage();
+        }
+        update() {
+            /**
+             * Clear the screen, update the Player, Invaders and Projectiles, check for collisions and run the common Update Code.
+             */
+
+            // Clear the screen.
+            super.clear()
+
+            // Increment frames
+            this._frames++;
+            
+            // Update the player, projectiles and enemies
+            this.player.update();
+            this.projectiles.forEach( ( projectile, i )=> {
+                // When updating the projectile, it returns a bool of whether or not the projectile should be deleted.
+                let toDel = projectile.update();
+                // If it's time to delete it, remove it from the projectiles array.
+                if ( toDel ) {
+                    this.projectiles.splice(i, 1);
+                }
+            });
+            this.enemyProjectiles.forEach( ( projectile, i )=> {
+                // When updating the projectile, it returns a bool of whether or not the projectile should be deleted.
+                let toDel = projectile.update();
+                // If it's time to delete it, remove it from the projectiles array.
+                if ( toDel ) {
+                    this.enemyProjectiles.splice(i, 1);
+                }
+                // Check if the projectile collided with the player, and if so, end the game.
+                if ( projectile.position.y + projectile.size.y >= this.player.position.y 
+                    && projectile.position.y <= this.player.position.y + this.player.size.y
+                    && projectile.position.x + projectile.size.x >= this.player.position.x
+                    && projectile.position.x <= this.player.position.x + this.player.size.x ) {
+                    this.endGame();
+                    return;
+                }
+            });
+            // Update the invaders and maybe shoot.
+            this.invaders.forEach( ( battalion, i )=> {
+                battalion.update();
+                // If any invader reached the bottom of the screen, end the game
+                if ( battalion.position.y + battalion.size.y >= this._canvas.height ) {
+                    this.endGame();
+                    return;
+                }
+                // If any invader collided with the player, end the game
+                if ( battalion.position.y + battalion.size.y >= this.player.position.y 
+                && battalion.position.x <= this.player.position.x + this.player.size.x
+                && battalion.position.x + battalion.size.x >= this.player.position.x ) {
+                    // Colliding with the battalion, check if any invader is colliding
+                    battalion.invaders.forEach( invader => {
+                        if ( invader.position.y + invader.size.y >= this.player.position.y 
+                        && invader.position.y <= this.player.position.y + this.player.size.y
+                        && invader.position.x <= this.player.position.x + this.player.size.x
+                        && invader.position.x + invader.size.x >= this.player.position.x ) {
+                            this.endGame();
+                            return;
+                        }
+                    });
+                }
+                // Maybe shoot
+                if ( this._frames % 100 === 0 && battalion.invaders.length > 0 ) {
+                    battalion.invaders[ Math.floor( Math.random() * battalion.invaders.length ) ].shoot(this.enemyProjectiles);
+                }
+            });
+
+            // Common update code.
+            super.update();
+        }
+    }
+    
+    // Instanciate the Game.
+    const GAME = new SpaceInvaders();
+</script>

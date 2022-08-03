@@ -1,0 +1,114 @@
+#search {
+    margin-top: 10px;
+    position: relative;
+    margin-bottom: 10px;
+}
+#search > i {
+    position: absolute;
+    color: var(--disabled-color);
+    font-size: 1rem;
+    top: 50%;
+    transform: translateY(-50%);
+    left: 10px;
+}
+#search > input {
+    padding-left: 40px;
+    width: 100%;
+    height: 2rem;
+    font-size: 1rem;
+}
+
+#portfolio-content {
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: row;
+    gap: 5vw;
+    justify-content: center;
+}
+
+.portfolio-project,
+.flex-fixer {
+    flex-grow: 1;
+    flex-shrink: 1;
+    width: 500px;
+}
+.flex-fixer {
+    /* Ignore this, thanks */
+    font-size: 1vh;
+    color: var(--background-color);
+    cursor: default;
+    -moz-user-select: text;
+    -webkit-user-select: text;
+    -ms-user-select: text;
+    user-select: text;
+}
+.flex-fixer > span {
+    /* Ignore this, thanks */
+    -moz-user-select: all;
+    -webkit-user-select: all;
+    -ms-user-select: all;
+    user-select: all;
+}
+.flex-fixer > span:hover {
+    /* Ignore this, thanks */
+    color: #88888811;
+    -moz-user-select: all;
+    -webkit-user-select: all;
+    -ms-user-select: all;
+    user-select: all;
+}
+
+.portfolio-project > strong {
+    font-size: 5vw;
+}
+
+.project-image-container {
+    margin-top: 5px;
+    margin-bottom: 5px;
+    border-width: var(--border-size);
+    border-style: solid;
+    border-color: var(--accent-color);
+}
+.tags-and-icon {
+    display: flex;
+    justify-content: space-between;
+    vertical-align: middle;
+}
+
+.tags-and-icon > i {
+    color: var(--accent-color);
+    font-size: 5vw;
+}
+
+
+
+@media screen and (min-width: 600px) {
+    .portfolio-project, .flex-fixer {
+        flex-grow: 1;
+        flex-shrink: 1;
+        
+        min-width: 550px;
+        max-width: 800px;
+    }
+    .portfolio-project > strong {
+        font-size: calc(1vw + 1em);
+    }
+    .tags {
+        font-size: 1.3rem;
+    }
+    .tags-and-icon > i {
+        font-size: calc(1vw + 1.5rem);
+    }
+    #search {
+        margin-bottom: 0;
+    }
+    #search > i {
+        font-size: 1.5rem;
+    }
+    #search > input {
+        padding-left: 40px;
+        width: 100%;
+        height: 3rem;
+        font-size: 2rem;
+    }
+}

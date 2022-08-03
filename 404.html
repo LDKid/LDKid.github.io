@@ -1,0 +1,50 @@
+---
+layout: page
+title: 404 Error
+permalink: /404.html
+---
+<link rel="stylesheet" href="/css/pages/404.css">
+
+<div id="container-404">
+    <h1 id="title-404">404</h1>
+    <h2 id="subtitle-404">Page not found</h2>
+    <h3>Este site ainda está em desenvolvimento.</h3>
+</div>
+
+<script>
+    function setup404Page() {
+        /**
+         * Handle translation and urls for the 404 page.
+         */
+        
+        // The following is NOT an error, it gets the translations from _data/translations.yml.
+        // If you see it as an error, make sure your IDE sees this file as a Jekyll file.
+        var translations = {{ site.data.translations | jsonify }};
+
+        // Get the current lang via url
+        let lang = window.location.pathname.substring(1,3);
+        // Get all the links and translate them
+        let links = document.querySelectorAll('[data-class="header-link"]');
+        links.forEach(el => {
+            // For each element, check it's data-linkto tag, if it's Home just set the url to / + language, otherwise replace default language (en) with the correct one
+            if ( el.dataset.linkto == 'Home') {
+                el.setAttribute('href', `/${lang}`);
+            } else {
+                el.setAttribute('href', el.getAttribute('href').replace('en', lang));
+            }
+            // Translate the text the element shows
+            el.textContent = translations[el.dataset.linkto.toLowerCase()][lang];
+        });
+
+        // Translate 404
+        document.getElementById('subtitle-404').textContent = translations.pagenotfound[lang];
+        // Translate "Designed by" "Programmed by"
+        document.getElementById('programmedby').textContent = translations.programmedby[lang];
+        document.getElementById('designedby').textContent = translations.designedby[lang];
+        // Setup toggle
+        document.getElementById('lang-switcher').textContent = lang.toUpperCase();
+    }
+    
+    // Run the 404 page setup function.
+    setup404Page();
+</script>

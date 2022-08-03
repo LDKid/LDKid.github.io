@@ -1,0 +1,71 @@
+---
+layout: page
+headingDiv: |
+    <div id="search">
+        <i class="ldkicon-search"></i>
+        <input type="text" class="searchbar" id="search-input" />
+    </div>
+---
+<link rel="stylesheet" href="/css/pages/portfolio.css">
+
+<!-- Because the search is being written in the front matter, the placeholder is being setup here. Using JS, find this element and set the search's placeholder to this element's text -->
+<span id="search-placeholder-text" class="hidden">{{ site.data.translations.searchplaceholder[page.lang] }}</span>
+
+<div id="portfolio-content">
+    <!-- The Grid of Projects -->
+    
+    {% for project in site.projects reversed %}
+        <!-- Loop through them in reverse so the most recent is on top  -->
+        
+        {%- if project.lang == page.lang -%}
+            <!-- Because of the way I setup the project, each project is defined once per language. This IF ensures we are only grabbing the ones for the current lang  -->
+            
+            {%- case project.type -%}
+                <!-- This is for the search feature, so you can search for game or jogo and all games show up regardless of language -->
+
+                {%- when 'game' -%}
+                    {%- assign projectType = 'game, jogo' -%}
+                {%- when 'app' -%}
+                    {%- assign projectType = 'app, aplicação' -%}
+                {%- else -%}
+                    <!-- Website -->
+                    {%- assign projectType = project.type -%}
+            {%- endcase -%}
+            
+            <div class="portfolio-project" data-name="{{ project.name }}" data-tags="{{ project.tags }}" data-type="{{ projectType }}">
+                <!-- The actual Project. The data attributes are for search -->
+                
+                <strong>{{ project.name }}</strong>
+
+                <a href="{{ project.path | split:'/' | last | split: '.' | first }}">
+                    <!-- This is the link, it's the image container -->
+                    
+                    <div class="project-image-container">
+                        <img src="{{ project.image_path }}{{ project.cover }}" id="cover"> <!-- Cover picture -->
+                        <img src="{{ project.image_path }}{{ project.cover-pixel }}" alt="" id="pixel"> <!-- On hover, this replaces the cover picture -->
+                        <div id="overlay" class="project-image-overlay">
+                            <!-- This is the gray overlay with the button -->
+                            <div class="accent-button">{{ site.data.translations.view[page.lang] }}</div>
+                        </div>
+                    </div>
+                </a>
+                <div class="tags-and-icon">
+                    <!-- Below the images, the tags and the project type icon are shown -->
+                    <div class="tags">
+                        <strong>Tags:</strong>
+                        <span>{{ project.tags | join: ', ' }}</span> <!-- List all tags seperated by a comma and a space -->
+                    </div>
+                    <i class="ldkicon-{{ project.type }}"></i>
+                </div>
+            </div>
+        {%- endif -%}
+    {% endfor %}
+    
+    <div class="flex-fixer">
+        <!-- This ensures alignment -->
+        <span>{{ page.flextape }}</span>
+    </div>
+
+</div>
+
+<script src="/js/pages/portfolio.js"></script> <!-- The script handles setting the search placeholder and the search functionality  -->

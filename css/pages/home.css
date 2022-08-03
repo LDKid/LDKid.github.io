@@ -1,0 +1,95 @@
+.home-bottom {
+    display: none;
+    position: fixed;
+    bottom: 0;
+    width: calc(100% - 75px);
+    align-items: end;
+    justify-content: space-between;
+}
+.home-bottom > .tos-container {
+    display: inline-block;
+    position: relative;
+    padding-bottom: 22px;
+    width: -webkit-fill-available;
+    background-color: var(--background-color);
+    transition-property: background-color;
+    will-change: background-color;
+}
+
+.home-intro {
+    font-size: 6vw;
+    width: 100%;
+    margin-top: 40px;
+    margin-bottom: 20px;
+}
+.home-intro, #latest-project {
+    user-select: auto;
+    -webkit-user-select: auto;
+}
+#latest-project-content {
+    display:flex;
+    flex-wrap:wrap;
+    align-items:center;
+    position: relative;
+}
+.project-image-container {
+    /* Although this class is defined in main.css because it's used in multiple pages, the width is only used here */
+    width: 45%;
+}
+
+#project-info-container {
+    display: inline-block;
+    width: 50%;
+    margin-left: 10px;
+}
+#project-info-container > i {
+    font-size: 20px;
+}
+
+@media screen and (min-width: 600px) {
+    .home-bottom {
+        display: flex;
+    }
+    .home-intro {
+        font-size: 3vw;
+        font-size: (3vw, 30px);
+        width: 80%;
+        margin-bottom: 50px;
+        margin-top: 0;
+    }
+    .home-intro > p:first-child {
+        margin-top: 0;
+    }
+    #latest-project {
+        margin-bottom: 125px;
+    }
+    .project-image-container {
+        margin-top: 5px;
+        width: 55%;
+    }
+    #project-info-container {
+        font-size: 2vw;
+        width: 40%;
+        margin-left: 25px;
+    }
+    #project-info-container > i {
+        font-size: 3vw;
+    }
+}
+@media screen and (max-width: 599px) {
+    #project-info-container > i {
+        /* The icon that shows what kind of project it is in in the bottom right corner on mobile */
+        position: absolute;
+        bottom: 5px;
+        right: -5px;
+    }
+    #project-info-container > p {
+        margin: 10px 0;
+    }
+}
+
+.home-intro a:not(.footnote) {
+    font-family: var(--text-family);
+    color: var(--accent-color);
+    /* text-decoration: underline; */
+}

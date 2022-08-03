@@ -1,0 +1,160 @@
+<link rel="stylesheet" href="/css/header.css"> <!-- Import the header's CSS -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.2/font/bootstrap-icons.css"> <!-- This is temporary, it's for 1 icon while I don't add the correct one -->
+
+
+<header>
+    <!-- The header element -->
+    <!-- NOTE: The header may one day be redone to use Flex instead of all the overrides and floats, but I do like the way I did it, as it shows I can find solutions without relying on just 1 thing -->
+    <nav class="site-header" id="siteHeader">
+        <!-- The nav element, this has the CSS -->
+        <a href="javascript:void(0);" class="icon" onclick="toggleNavbarSidebar()">
+            <!-- This button toggles the "Sidebar" on mobile. -->
+            <i class="bi bi-list"></i> <!-- This is the Icon I need to replace -->
+        </a>
+
+        <div id="navbar-block">
+            <!-- Loop through all pages -->
+            {%- for item in site.data.header.pages -%}
+
+                <!-- Get the url, and change it if it's home -->
+                {%- assign link = "/" | append: page.lang | append: "/" -%}
+                {%- if item.url != '/' -%}
+                    {%- assign link = link | append: item.url -%}
+                {%- endif -%}
+                
+                <!-- Find the active class -->
+                {%- assign key = item.title | downcase -%}
+                {%- assign active-class = '' -%}
+                {%- if key == page.layout -%}
+                    {%- assign active-class = 'active' -%}
+                {%- endif -%}
+
+                <!-- Now create the a -->
+                <a data-class="header-link" class="{{active-class}}" data-linkto="{{item.title}}" href="{{ link }}">{{ site.data.translations[key][page.lang] }}</a>
+
+            {%- endfor -%}
+        </div>
+
+        
+
+        <a class="always-visible accent-button" data-class="header-link" data-linkto="Contact" id="contact-link" href="contact">
+            <!-- This button is a floater, it's the Say Hi button on the right. -->
+            {{ site.data.translations['contact'][page.lang]}}
+        </a>
+
+        <div class="hidden-until-responsive">
+            <!-- Language and Theme switchers go here -->
+            <div class="switchers-container">
+                <div>
+                    <!-- First the Theme, it's a D followed by the icon, followed by an L -->
+                    <strong data-class="dark">D</strong><!--
+                    --><a href="#" id="theme-toggle" class="always-visible">
+                        {%- include svgs/toggle.svg -%}
+                    </a><!--
+                    --><strong data-class="light">L</strong>
+                </div>
+                <div>
+                    <!-- Now the languages, loop through all available languages and create a button for them -->
+                    {%- for lang in site.languages -%}
+                        <a href="#" onclick="changeLang()" {%- if (lang == page.lang) -%}
+                            class="disabled always-visible"
+                        {%- else -%}
+                            class="always-visible"
+                        {%- endif -%} id="lang-switcher">{{ lang | uppercase }}</a>
+                    {%- endfor -%}
+                </div>
+            </div>
+        </div>
+
+        <div class="hidden-until-responsive tos-container">
+            <!-- At the bottom, the credits for creating the website. It's called "tos-container" because originally there was going to be a Terms of Service page, but it would be useless for this website. -->
+            <a href="#">
+                <span id="programmedby">{{ site.data.translations['programmedby'][page.lang] }}</span><!--
+                --><span>:&nbsp;</span><!--
+                --><span>{{ site.programmer }}</span>
+            </a>
+            <a href="#" id="designedbycontainer" onmouseover="prepareDesignerLink(this)">
+                <span id="designedby">{{ site.data.translations['programmedby'][page.lang] }}</span><!--
+                --><span>:&nbsp;</span><!--
+                --><span id="designer">{{ site.designer }}</span>
+            </a>
+        </div>
+
+        <div class="sub-header-container">
+            <!-- The second header line, has the sub-header content defined in other pages and has the game icon on desktop -->
+            {%- if layout.headingDiv -%}
+                <!-- If there's content to put in the sub-header, add spacers to center it with flex and add the content -->
+                <div id="spacer"></div>
+                <div id="sub-header">{{ layout.headingDiv }}</div>
+                <div id="spacer2"></div>
+            {%- endif -%}
+            {%- if page.game or layout.game -%}
+                <!-- If there is a game for this page add the game controller -->
+                <div id="game-controller-container">
+                    <!-- The Game Controller has 2 elements: the Score and the IconButton -->
+                    <h1 id="game-score" class="inactive">0</h1>
+                    <a href="#" class="always-visible" id="game-toggle" onclick="toggleGame(this)">
+                        <i class="ldkicon-controller"></i>
+                    </a>
+                </div>
+            {%- endif -%}
+        </div>
+    </nav>
+</header>
+<script>
+    function toggleNavbarSidebar( forceClose = false ) {
+        /**
+         * Open and Close the "Sidebar" on mobile.
+         * 
+         * @param {bool} [forceClose = false] If this is set to true, it'll close the navbar
+         */
+
+        // Get the header
+        var header = document.getElementById("siteHeader");
+
+        // If Forcing to close, or if it's open, close it.
+        if ( forceClose || header.classList.contains('responsive') ) {
+            header.className = "site-header";
+        } else {
+
+            // Otherwise open it.
+            header.className += " responsive";
+
+            // Since we're opening the navbar, pause the game
+            let gameToggle = document.getElementById('game-toggle');
+            if ( gameToggle && gameToggle.firstElementChild.classList.contains('active') ) {
+                gameToggle.click();
+            }
+        }
+    }
+    function changeLang() {
+        /**
+         * Change the website's language
+         * TODO: Support multiple languages
+         */
+
+        // Get the current path
+        let path = window.location.pathname;
+
+        // Swap from en to pt, and vice-versa
+        let newPath;
+        if ( path.includes('/en/')) {
+            newPath = path.replace('/en/', '/pt/');
+        } else {
+            newPath = path.replace('/pt/', '/en/');
+        }
+
+        // Open the page.
+        window.open(newPath, "_self");
+    }
+    function prepareDesignerLink(el) {
+        /**
+         * Sshhh... You're not meant to see this.
+         */
+        var timer = setTimeout(() => {
+            el.classList.toggle('ee');
+        }, 2000);
+        // Remove timer.
+	    el.onmouseout = function() {  clearTimeout(timer); }
+    }
+</script>

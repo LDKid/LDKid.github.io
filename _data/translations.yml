@@ -1,0 +1,42 @@
+home:
+  en: "Home"
+  pt: "Home"
+name:
+  en: "Name"
+  pt: "Nome"
+projecttype:
+  en: "Project Type"
+  pt: "Tipo de Projecto"
+about:
+  en: "About"
+  pt: "Sobre"
+portfolio:
+  en: "Portfolio"
+  pt: "Portfólio"
+contact:
+  en: "Say hi"
+  pt: "Diga olá"
+programmedby:
+  en: "Programmed by"
+  pt: "Programado por"
+designedby:
+  en: "Designed by"
+  pt: "Desenhado por"
+pagenotfound:
+  en: "Page not found"
+  pt: "Página não encontrada"
+latestproject:
+  en: "Latest Project"
+  pt: "Projeto Recente"
+view:
+  en: "View"
+  pt: "Ver"
+searchplaceholder:
+  en: "Search by name, tag or type"
+  pt: "Procurar por nome, tag ou tipo"
+type:
+  en: "Type"
+  pt: "Tipo"
+visit:
+  en: "Visit"
+  pt: "Visitar"

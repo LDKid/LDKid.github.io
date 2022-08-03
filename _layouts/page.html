@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <!-- Normal initialization -->
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Title -->
+    <title>{{ page.title }}</title>
+    <!-- Import CSS -->
+    <link rel="stylesheet" href="/css/theme.css">
+    <link rel="stylesheet" href="/css/main.css">
+    <link rel="stylesheet" href="/assets/fonts/ldkicons.css">
+    <!-- FAVICON -->
+    <link rel="apple-touch-icon" sizes="180x180" href="/assets/favicon/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/assets/favicon/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/assets/favicon/favicon-16x16.png">
+    <link rel="manifest" href="/assets/favicon/site.webmanifest">
+    <link rel="mask-icon" href="/assets/favicon/safari-pinned-tab.svg" color="#d49d08">
+    <link rel="shortcut icon" href="/assets/favicon/favicon.ico">
+    <meta name="msapplication-TileColor" content="#d49d08">
+    <meta name="msapplication-config" content="/assets/favicon/browserconfig.xml">
+    <meta name="theme-color" content="#1e1e1e">
+</head>
+<body>
+    <!-- Add the header -->
+    {%- include header.html -%}
+
+    <!-- Now for the page content -->
+    <div id="page-container">
+        <!-- This container has both the page-content and the game-container -->
+        <div id="page-content">
+            <!-- The content comes from the layouts/pages that inherit from here -->
+            {{ content }}
+        </div>
+
+        <!-- Add the game if it's defined, whether it's defined on the page or the layout -->
+        {%- if page.game -%}
+            <div id="game-container" class="inactive">
+                {%- include games/{{ page.game }}.html -%}
+            </div>
+        {%- elsif layout.game -%}
+            <div id="game-container" class="inactive">
+                {%- include games/{{ layout.game }}.html -%}
+            </div>
+        {%- endif -%}
+
+    </div>
+    <!-- Import the Theme Switcher Code -->
+    <script src="/js/lightdark.js"></script>
+
+    <script>
+        function toggleGame(el){
+            /**
+             * Toggles the game and the icon.
+             * 
+             * @param {Object} el The HTML element of the button
+             */
+
+            // Get the page content, the game container and the score elements.
+            let page = document.getElementById('page-content');
+            let game = document.getElementById('game-container');
+            let score = document.getElementById('game-score');
+
+            // Toggle the classes for all 3
+            page.classList.toggle('inactive');
+            game.classList.toggle('inactive');
+            score.classList.toggle('inactive');
+
+            // Toggle the active class for the controller button.
+            el.firstElementChild.classList.toggle('active');
+
+            // Check whether or not to activate the game.
+            let activateGame = el.firstElementChild.classList.contains('active');
+
+            // Run the Play function of the game.
+            GAME.play( activateGame );
+
+            // If activating the game, close the sidebar.
+            if ( activateGame ) {
+                toggleNavbarSidebar( true );   
+            }
+        }
+    </script>
+</body>
+</html>
