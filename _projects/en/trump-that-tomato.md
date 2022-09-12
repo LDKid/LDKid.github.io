@@ -7,7 +7,7 @@ image_path: /assets/projects/ttt/
 slideshow: [ cover.png, gameplay.mp4, menu.png, hit.png, medal.png, time.png, end.png, leaderboards.png, assets.png ]
 links: [{name: "Newgrounds", icon: "newgrounds.png", url: "https://www.newgrounds.com/portal/view/674659"}]
 tags: [ ActionScript3, Flixel, Flash, Newgrounds ]
-framework: {name: Flixel, url: "https://github.com/AdamAtomic/flixel"}
+framework: {name: Flixel, url: "https://flixel.org"}
 slogan: Pick up your tomatoes and go have a chat with Trump!
 ---
 {%- include projects/trump-that-tomato.html -%}
