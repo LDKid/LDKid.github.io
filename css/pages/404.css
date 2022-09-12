@@ -4,7 +4,7 @@
     top: 50%;
     transform: translateY(-50%);
     text-align: center;
-    width: 100%;
+    width: calc( 100% - calc( var(--page-padding) * 2 ) );
 }
 #title-404 {
     /* The 404 text */

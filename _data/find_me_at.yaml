@@ -1,0 +1,10 @@
+- 
+  name: Github
+  link: https://github.com/LDKid
+  icon_darkmode: github-light.png
+  icon_lightmode: github.png
+- 
+  name: LinkedIn
+  link: https://www.linkedin.com/in/flávio-ferreira-882626142/
+  icon_darkmode: linkedin.png
+  icon_lightmode: linkedin.png

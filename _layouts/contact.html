@@ -1,0 +1,42 @@
+---
+layout: page
+game: dino-runner
+---
+<link rel="stylesheet" href="/css/pages/contact.css">
+
+<div id="contact-left-side">
+    <div id="contact-text">
+        {{ content }}
+    </div>
+    <div id="find-me-at">
+        <h3>{{ page.find_me_text}}</h3>
+        <div id="contact-links">
+            {%- for link in site.data.find_me_at -%}
+                <a href="{{ link.url }}">
+                    <img src="/assets/imgs/other-icons/{{ link.icon_darkmode }}" alt="{{ link.name }}" data-themeonly="dark">
+                    <img src="/assets/imgs/other-icons/{{ link.icon_lightmode }}" alt="{{ link.name }}" data-themeonly="light">
+                </a>
+            {%- endfor -%}
+        </div>
+    </div>
+</div>
+
+<div id="contact-right-side">
+    <script type="text/javascript">var submitted=false;</script>
+    <iframe name="hidden_iframe" id="hidden_iframe" style="display:none;" onload="if(submitted)  {window.location='thank-you';}"></iframe>
+
+    <form action="https://docs.google.com/forms/u/0/d/e/1FAIpQLScEWjiGDX8SNlUbNYm6OUrxwbWGTLhfJ2mHb19pDhHEw686Kw/formResponse" method="post" target="hidden_iframe" onsubmit="submitted=true;">
+        
+        <input id="contact-name" name="entry.2009623092" type="text" placeholder="{{page.hint_name}}" required />
+
+        <input id="contact-email" name="entry.1803835991" type="email" placeholder="{{page.hint_email}}" required />
+
+        <input id="contact-subject" name="entry.1922120285" type="text" placeholder="{{page.hint_subject}}" required />
+
+        <textarea id="contact-textarea" name="entry.530683614" rows="5" placeholder="{{page.hint_text}}" required></textarea>
+
+        <input id="contact-submit" type="submit" value="Send" disabled />
+    </form>
+</div>
+
+<script src="/js/pages/contact.js"></script> <!-- The script handles activating and deactivating the submit button  -->

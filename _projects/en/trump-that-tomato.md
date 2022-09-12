@@ -4,12 +4,14 @@ date: 2016-05-13
 name: Trump That Tomato
 type: game
 image_path: /assets/projects/ttt/
-slideshow: [ gameplay.mp4, menu.png, hit.png, medal.png, time.png, end.png, leaderboards.png, assets.png ]
+slideshow: [ cover.png, gameplay.mp4, menu.png, hit.png, medal.png, time.png, end.png, leaderboards.png, assets.png ]
 links: [{name: "Newgrounds", icon: "newgrounds.png", url: "https://www.newgrounds.com/portal/view/674659"}]
 tags: [ ActionScript3, Flixel, Flash, Newgrounds ]
-framework: Flixel
+framework: {name: Flixel, url: "https://github.com/AdamAtomic/flixel"}
 slogan: Pick up your tomatoes and go have a chat with Trump!
 ---
+{%- include projects/trump-that-tomato.html -%}
+
 This was my first ever game, published back in 2016 on [Newgrounds](https://www.newgrounds.com/portal/view/674659).   
 It was made in a day using ActionScript3, the Flixel framework and Newgrounds API for the medals and leaderboards.
 

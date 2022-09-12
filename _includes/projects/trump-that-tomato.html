@@ -1,0 +1,30 @@
+<script>
+    /* Ssshhh */
+    const ICON_EL = document.getElementById('project-icon');
+    const ICON_LIST = ["icon.png", "icon-splat.png"];
+    var currentIcon = ICON_LIST[0];
+    var hasTriggered = false;
+    var sfx = new Audio(`{{ page.image_path }}splat.mp3`);
+    sfx.volume = 0.2;
+    
+    ICON_EL.addEventListener('click', () => {
+        if ( currentIcon == ICON_LIST[1]) return;
+        
+        setIcon(ICON_LIST[1]);
+        sfx.play();
+
+        setTimeout(() => {
+            setIcon(ICON_LIST[0]);
+        }, 2000);
+        
+        if ( hasTriggered ) return;
+
+        hasTriggered = true;
+        document.getElementById('slideshow-0').getElementsByClassName('slide')[0].getElementsByTagName('img')[0].src = `{{ page.image_path }}cover-splat.png`;
+    });
+
+    function setIcon( icon ) {
+        currentIcon = icon;
+        ICON_EL.src = `{{ page.image_path }}${icon}`;
+    }
+</script>

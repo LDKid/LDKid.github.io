@@ -7,7 +7,7 @@ image_path: /assets/projects/jota/
 slideshow: [ cover.png ]
 links: []
 tags: [ Jekyll, Web Development ]
-framework: Jekyll
+framework: {name: Jekyll, url: "https://jekyllrb.com"}
 slogan: Site bosta
 ---
 descrição

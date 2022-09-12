@@ -1,5 +1,15 @@
 <script>
+    /* Ssshhh */
+    const ICON_EL = document.getElementById('project-icon');
+    const ICON_LIST = ["icon.png", "icon2.png", "icon3.png", "icon4.png", "icon5.png"];
+    var currentIcon = ICON_LIST[0];
+    
     document.getElementById('project-icon').addEventListener('click', () => {
-        console.log('ee')
+        var chosenIcon = currentIcon;
+        while (chosenIcon == currentIcon) {
+            chosenIcon = ICON_LIST[Math.floor(Math.random() * ICON_LIST.length)];
+        }
+        ICON_EL.src = `{{ page.image_path }}${chosenIcon}`;
+        currentIcon = chosenIcon;
     });
 </script>

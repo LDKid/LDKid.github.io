@@ -28,13 +28,13 @@ layout: page
     {% if page.framework %}
         <div>
             <h2>Framework:</h2>
-            <span>{{ page.framework }}</span>
+            <a href="{{ page.framework.url }}">{{ page.framework.name }}</a>
         </div>
     {% endif %}
     {% if page.engine %}
         <div>
             <h2>Engine:</h2>
-            <span>{{ page.engine }}</span>
+            <a href="{{ page.engine.url }}">{{ page.engine.name }}</a>
         </div>
     {% endif %}
 </div>

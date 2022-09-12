@@ -16,6 +16,12 @@ portfolio:
 contact:
   en: "Say hi"
   pt: "Diga olá"
+contact-hi:
+  en: "Hello!"
+  pt: "Olá!"
+contact-thanks:
+  en: "Thanks"
+  pt: "Obrigado"
 programmedby:
   en: "Programmed by"
   pt: "Programado por"

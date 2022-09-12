@@ -60,12 +60,12 @@
             super.updateColors();
             // Update te player canvas
             if ( this.playerImageCanvas ) {
-                this.playerImageCanvas.getContext('2d', { alpha: false }).fillStyle = getComputedStyle( document.body ).getPropertyValue( '--accent-color' );
+                this.playerImageCanvas.getContext('2d').fillStyle = getComputedStyle( document.body ).getPropertyValue( '--accent-color' );
             }
             // Update the invader canvases
             if ( this.invaderImageCanvases ) {
                 this.invaderImageCanvases.forEach(invaderImageCanvas => {
-                    invaderImageCanvas.getContext('2d', { alpha: false }).fillStyle = getComputedStyle( document.body ).getPropertyValue( '--accent-color' );
+                    invaderImageCanvas.getContext('2d').fillStyle = getComputedStyle( document.body ).getPropertyValue( '--accent-color' );
                 });
             }
         }
@@ -79,7 +79,7 @@
                 this.playerImageCanvas = document.createElement('canvas');
             }
             // Setup context
-            let ctx = this.playerImageCanvas.getContext('2d', { alpha: false });
+            let ctx = this.playerImageCanvas.getContext('2d');
             
             // Get the player's size and setup the canvas to have the same size
             let playerSize = this.getPlayerSize();
@@ -154,7 +154,7 @@
 
                 for (let i = 0; i < 3; i++) {
                     // Get the context for this canvas and set it's color
-                    let ctx = this.invaderImageCanvases[i].getContext('2d', { alpha: false });
+                    let ctx = this.invaderImageCanvases[i].getContext('2d');
                     ctx.fillStyle = getComputedStyle( document.body ).getPropertyValue( '--accent-color' );
                     // Draw the invader on this canvas
                     this.drawImage({

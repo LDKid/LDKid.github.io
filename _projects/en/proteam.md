@@ -4,14 +4,14 @@ date: 2021-05-06
 name: ProTeam
 type: app
 image_path: /assets/projects/proteam/
-slideshow: [ cover.png ]
+slideshow: [ cover.png, welcome.jpg, login.jpg, home.jpg, myteams.jpg, join.jpg, teamsettings.jpg, member.jpg, standings.jpg, event.jpg, match.jpg, chat.jpg, lang.jpg, logout.jpg ]
 links: [
     {name: "iOS App Store", icon: "iOS.svg", url: "https://apps.apple.com/ae/app/proteam/id1561848868"},
     {name: "Google Play Store", icon: "google.png", url: "https://play.google.com/store/apps/details?id=com.recklesscompany.proteamapp"},
     {name: "ProTeamApp.com", icon: "proteam.png", url: "https://recklesscomp.wixsite.com/proteam"},
 ]
 tags: [ Reckless Company, Cordova, Android, iOS, Node.js, PostgreSQL ]
-framework: Cordova
+framework: {name: Cordova, url: "https://cordova.apache.org"}
 slogan: Your team in the palm of your hand.
 ---
 {%- include projects/proteam.html -%}

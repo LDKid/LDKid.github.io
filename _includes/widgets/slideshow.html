@@ -44,7 +44,7 @@
         {%- for media in include.mediaList -%}
             <div class="slide" data-component="slide">
                 {%- assign splitName = media | split: '.' -%}
-                {%- if splitName.last == 'png' -%}
+                {%- if splitName.last == 'png' or splitName.last == 'jpg' -%}
                     <img src="{{ include.folder }}{{ media }}" alt="{{ media }}">
                 {%- else -%}
                     <video src="{{ include.folder }}{{ media }}" controls></video>
@@ -54,8 +54,10 @@
         {%- endfor -%}
     </div>
     <div class="dot-container">
+        {%- assign media_counter = 0 -%}
         {%- for media in include.mediaList -%}
-            <div class="dot" onclick="showSlide( {{ include.id }}, {%- increment media_counter -%} );"></div>
+            <div class="dot" onclick="showSlide( {{ include.id }}, {{ media_counter }} );"></div>
+            {%- assign media_counter = media_counter | plus: 1 -%}
         {%- endfor -%}
     </div>
 </div>
@@ -68,12 +70,6 @@
         let slideContainer = document.getElementById(`slideshow-${ID}`);
         let slides = slideContainer.querySelectorAll('[data-component="slide"]');
         let dots = slideContainer.getElementsByClassName("dot");
-
-        // There's a bug in portuguese where for some reason it seems the counter runs twice, and it uses the second run of values, this is a duct tape fix that should work even if adding another language.
-        if ( index >= slides.length ) {
-            // parseInt of index / slide.length should give how many times the index is bigger than the length of slides.
-            index -= slides.length * parseInt( index / slides.length );
-        }
 
         // Loop through all slides and deactivate them, and their dots.
         for (let i = 0; i < slides.length; i++) {

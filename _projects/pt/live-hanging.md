@@ -7,7 +7,7 @@ image_path: /assets/projects/live-hanging/
 slideshow: [ cover.png ]
 links: []
 tags: [ Godot, Twitch, Customization ]
-engine: Godot
+engine: {name: Godot, url: "https://godotengine.org"}
 slogan: Jogue ou deixe o seu chat jogar o jogo da forca personalizado!
 ---
 Live Hanging é um jogo completamente costumizavel da forca, que dá para jogar sózinho ou fazer live stream no Twitch e deixar o chat jogar.

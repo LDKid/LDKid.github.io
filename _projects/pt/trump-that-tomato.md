@@ -4,12 +4,14 @@ date: 2016-05-13
 name: Trump That Tomato
 type: game
 image_path: /assets/projects/ttt/
-slideshow: [ gameplay.mp4, menu.png, hit.png, medal.png, time.png, end.png, leaderboards.png, assets.png ]
+slideshow: [ cover.png, gameplay.mp4, menu.png, hit.png, medal.png, time.png, end.png, leaderboards.png, assets.png ]
 links: [{name: "Newgrounds", icon: "newgrounds.png", url: "https://www.newgrounds.com/portal/view/674659"}]
 tags: [ ActionScript3, Flixel, Flash, Newgrounds ]
-framework: Flixel
+framework: {name: Flixel, url: "https://github.com/AdamAtomic/flixel"}
 slogan: Pegue em tomates e vá ter uma conversa com o Trump!
 ---
+{%- include projects/trump-that-tomato.html -%}
+
 Este foi o meu primeiro jogo, publicado em 2016 no [Newgrounds](https://www.newgrounds.com/portal/view/674659).   
 Foi feito em apenas um dia usando ActionScript3, a framework Flixel e o API do Newgrounds para ter medalhas e leaderboatds.
 

@@ -13,13 +13,17 @@
         </a>
 
         <div id="navbar-block">
+
+            
+            {%- assign link = "/" | append: page.lang | append: "/" -%}
+
             <!-- Loop through all pages -->
             {%- for item in site.data.header.pages -%}
 
                 <!-- Get the url, and change it if it's home -->
-                {%- assign link = "/" | append: page.lang | append: "/" -%}
+                {%- assign item_link = link -%}
                 {%- if item.url != '/' -%}
-                    {%- assign link = link | append: item.url -%}
+                    {%- assign item_link = link | append: item.url -%}
                 {%- endif -%}
                 
                 <!-- Find the active class -->
@@ -30,16 +34,22 @@
                 {%- endif -%}
 
                 <!-- Now create the a -->
-                <a data-class="header-link" class="{{active-class}}" data-linkto="{{item.title}}" href="{{ link }}">{{ site.data.translations[key][page.lang] }}</a>
+                <a data-class="header-link" class="{{active-class}}" data-linkto="{{item.title}}" href="{{ item_link }}">{{ site.data.translations[key][page.lang] }}</a>
 
             {%- endfor -%}
         </div>
 
         
 
-        <a class="always-visible accent-button" data-class="header-link" data-linkto="Contact" id="contact-link" href="contact">
+        <a class="always-visible accent-button" data-class="header-link" data-linkto="Contact" id="contact-link" href="{{link}}contact">
             <!-- This button is a floater, it's the Say Hi button on the right. -->
-            {{ site.data.translations['contact'][page.lang]}}
+            {% if page.name == "thank-you.md" %}
+                {{ site.data.translations['contact-thanks'][page.lang]}}
+            {% elsif page.name == "contact.md" %}
+                {{ site.data.translations['contact-hi'][page.lang]}}
+            {% else %}
+                {{ site.data.translations['contact'][page.lang]}}
+            {% endif %}
         </a>
 
         <div class="hidden-until-responsive">

@@ -7,7 +7,7 @@ image_path: /assets/projects/live-hanging/
 slideshow: [ cover.png ]
 links: []
 tags: [ Godot, Twitch, Customization, Newgrounds, Itch.io, Gamejolt ]
-engine: Godot
+engine: {name: Godot, url: "https://godotengine.org"}
 slogan: Play or let your chat play a fully customisable hangman!
 ---
 Live Hanging is a fully customisable hangman game, that can be played solo, or streamed on Twitch and played by the chat.

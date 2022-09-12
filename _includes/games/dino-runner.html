@@ -1,0 +1,410 @@
+<!-- Note to self: Clean the code related to this game ya mook. -->
+
+
+<canvas id="game-canvas"></canvas> <!-- Add the game canvas -->
+<script src="/js/games/game.js"></script> <!-- Import the base game class -->
+<!-- Import extra game assets and classes -->
+<script src="/js/games/dino-runner/sprite.js"></script>
+<script src="/js/games/dino-runner/player.js"></script>
+<script src="/js/games/dino-runner/obstacle.js"></script>
+
+<!-- Game logic -->
+<script>
+    class DinoRunner extends Game {
+        constructor() {
+            /**
+             *  Setup Dino Runner
+             */
+            
+            // Run the base Game constructor before using custom logic
+            super();
+
+            // Consts
+            this.OBSTACLE_TYPE = Object.freeze({
+                Small: Symbol("phone"),
+                Medium: Symbol("controller"),
+                Large: Symbol("tv"),
+                Flyer: Symbol("music"),
+            });
+            this.BOTTOM_OFFSET = 15;
+
+            this.initialSpawnTimer = 200;
+            this.spawnTimer = this.initialSpawnTimer;
+            this.gameSpeed = ( this._canvas.width < 450 ) ? 5 : 10;
+
+            // Make sure the colors are properly set
+            this.updateColors();
+
+            // Setup obstacles
+            this.setupObstacleImages();
+
+            // Draw the initial frame
+            this.drawFrame();
+        }
+        _resizeCanvas(){
+            /**
+             * Override -> Fix player and the invaders's positions and sizes.
+             */
+
+            // Run the normal resize code.
+            super._resizeCanvas();
+
+            this.setupPlayerImage();
+
+            this._reset()
+        }
+        _reset() {
+            /**
+             * Override -> Setup everything related to the game
+             */
+
+            // Run the main reset funcion
+            super._reset();
+
+            // Create the coffee pedastal
+            //this.coffeePedastal = 
+
+            // Create the player
+            this.player = new Player( this, this.getPlayerSize(), this.playerImageCanvas, this.BOTTOM_OFFSET );
+
+            // Setup Obstacles
+            this.obstacles = [];
+
+            this.spawnTimer = this.initialSpawnTimer;
+            this.gameSpeed = ( this._canvas.width < 450 ) ? 5 : 10;
+        }
+        bindControls() {
+            /**
+             * Setup the controls for the game:
+             * - For Desktop, to jump you can use MouseClick, UpArrow, W or Space;
+             *   And to duck you can use DownArrow, S or Control
+             * - For Mobile, to jump you tap;
+             *   And to duck you tap with 2 fingers
+             */
+
+            // NOTE: Originally, I had all the event listeners on the canvas, and had the canvas focusable, however, that made it lag. The solution was to use the key events on the document, and the mouse/touch on the canvas.
+
+            // Setup Jump
+            this.jumpKeys = {};
+            [ "click", "tap", "KeyW", "ArrowUp", "Space" ].forEach( key => {
+                this.jumpKeys[key] = false;
+            });
+            // Setup Duck
+            this.duckKeys = {};
+            [ "double", "KeyS", "ArrowDown", "ControlLeft", "ControlRight" ].forEach( key => {
+                this.duckKeys[key] = false;
+            });
+            // Note: I used the forEach instead of defining the objects right away for readability and ease of change.
+
+            // Mobile
+            this._canvas.addEventListener('touchstart', function (event) {
+                if ( event.touches.length === 1 ) { // If touching with only 1 finger, jump, otherwise duck.
+                    this.jumpKeys["tap"] = true;
+                } else {
+                    this.jumpKeys["tap"] = false;
+                    this.duckKeys["double"] = true;
+                }
+            }.bind(this));
+            this._canvas.addEventListener('touchend', function (event) {
+                this.jumpKeys["tap"] = false;
+                this.duckKeys["double"] = false;
+            }.bind(this));
+            
+            // Desktop
+            // Keyboard
+            document.addEventListener('keydown', function (event) {
+                this.handleKey(event.code, true);
+            }.bind(this));
+            document.addEventListener('keyup', function (event) {
+                this.handleKey(event.code, false);
+            }.bind(this));
+            // Mouse
+            this._canvas.addEventListener('mousedown', function (event) {
+                this.jumpKeys["click"] = true;
+            }.bind(this));
+            this._canvas.addEventListener('mouseup', function (event) {
+                this.jumpKeys["click"] = false;
+            }.bind(this));
+            
+        }
+        handleKey( keyCode, activate ) {
+            /**
+             * Compare the key pressed or released to the list of jump keys and duck keys, and activate/deactivate.
+             * 
+             * @param {String} keyCode The key that was pressed.
+             * @param {Boolean} activate Whether to activate or deactivate the action.
+             */
+            if ( keyCode in this.jumpKeys ) {
+                this.jumpKeys[keyCode] = activate;
+            } else if ( keyCode in this.duckKeys ) {
+                this.duckKeys[keyCode] = activate;
+            }
+        }
+        updateColors() {
+            /**
+             * Override: Update the player and obstacle canvases.
+             */
+
+            // Run the main updateColors function.
+            super.updateColors();
+
+            // Update te player canvas
+            if ( this.playerImageCanvas ) {
+                this.playerImageCanvas.getContext('2d').fillStyle = getComputedStyle( document.body ).getPropertyValue( '--accent-color' );
+            }
+            /* // Update the invader canvases
+            if ( this.obstacleImageCanvases ) {
+                this.obstacleImageCanvases.forEach(obstacleImageCanvas => {
+                    invaderImageCanvas.getContext('2d').fillStyle = getComputedStyle( document.body ).getPropertyValue( '--accent-color' );
+                });
+            } */
+        }
+
+
+
+
+
+
+
+        setupCoffeeImage() {
+            if ( typeof this.coffeeImageCanvas === "undefined" ) {
+                this.coffeeImageCanvas = document.createElement('canvas');
+            }
+            // Setup context
+            let ctx = this.coffeeImageCanvas.getContext('2d');
+            
+            // Get the player's size and setup the canvas to have the same size
+            let coffeeSize = this.getCoffeeSize();
+            this.coffeeImageCanvas.width = coffeeSize.x * 2;
+            this.coffeeImageCanvas.height =  coffeeSize.y;
+
+            // Create an Image Object and have it load the player image.
+            const IMG = new Image();
+            IMG.src = "/assets/game-assets/dino-runner/coffee-pedestal.png";
+
+            IMG.addEventListener('load', function() {
+                /**
+                 * When the image is loaded, set the color of the canvas and draw the image on it
+                 */
+
+                // Set the color
+                ctx.fillStyle = getComputedStyle( document.body ).getPropertyValue( '--accent-color' );
+
+                // The full size is the player size with the width mulitplied by 4 (because there are 4 sprites)
+                let fullSize = { x: coffeeSize.x * 2, y: coffeeSize.y };
+
+                // Draw
+                this.drawImage({ ctx, img: IMG, position: {x: 0, y:0}, size: fullSize });
+            }.bind(this), false);
+        }
+        setupObstacleImages() {
+            /**
+             * Create or Update the Obstacle Images. The Obstacle are drawn in offscreen canvases, then those canvases are drawn on the game.
+             */
+
+            // If this is a first run, create an empty array
+            if ( typeof this.obstacleImageCanvases === "undefined" ) {
+                this.obstacleImageCanvases = {};
+            }
+            Object.values(this.OBSTACLE_TYPE).forEach( type => {
+                let obstacleSize = this.getObstacleSize(type);
+                let obstacleCanvas;
+                if ( !this.obstacleImageCanvases[type] ) {
+                    this.obstacleImageCanvases[type] = document.createElement('canvas');
+                }
+                obstacleCanvas = this.obstacleImageCanvases[type];
+
+                // Set the canvas size to the obstacle size
+                obstacleCanvas.width = obstacleSize.x;
+                obstacleCanvas.height =  obstacleSize.y;
+
+                let img = new Image();
+                let imgSize;
+                switch (type) {
+                    case this.OBSTACLE_TYPE.Small:
+                        img.src = "/assets/game-assets/dino-runner/phone.png";
+                        imgSize = { x: 5, y: 8 };
+                    break;
+                    case this.OBSTACLE_TYPE.Medium:
+                        img.src = "/assets/game-assets/dino-runner/controller.png";
+                        imgSize = { x: 11, y: 6 };
+                    break;
+                    case this.OBSTACLE_TYPE.Large:
+                        img.src = "/assets/game-assets/dino-runner/tv.png";
+                        imgSize = { x: 17, y: 14 };
+                    break;
+                    case this.OBSTACLE_TYPE.Flyer:
+                        img.src = "/assets/game-assets/dino-runner/music.png";
+                        imgSize = { x: 10, y: 9 };
+                    break;
+                }
+                img.addEventListener('load', function() {
+                    let ctx = obstacleCanvas.getContext('2d');
+                    ctx.fillStyle = getComputedStyle( document.body ).getPropertyValue( '--accent-color' );
+                    this.drawImage({
+                        ctx, img: img,
+                        position: { x: 0, y: 0 },
+                        size: obstacleSize,
+                        imageSection: { x: 0, y: 0, width: imgSize.x, height: imgSize.y } 
+                    } );
+                }.bind(this), false);
+            });
+        }
+
+
+
+
+
+
+
+        setupPlayerImage() {
+            /**
+             * Create or Update the Player Image. The Player is drawn in an offscreen canvas, then that canvas is drawn on the game.
+             */
+
+            // If this is a first run, create the canvas
+            if ( typeof this.playerImageCanvas === "undefined" ) {
+                this.playerImageCanvas = document.createElement('canvas');
+            }
+            // Setup context
+            let ctx = this.playerImageCanvas.getContext('2d');
+            
+            // Get the player's size and setup the canvas to have the same size
+            let playerSize = this.getPlayerSize();
+            this.playerImageCanvas.width = playerSize.x * 4 + 1; // The plus 1 fixes an issues where rounding makes the last sprite not appear on some screen sizes.
+            this.playerImageCanvas.height =  playerSize.y;
+
+            // Create an Image Object and have it load the player image.
+            const IMG = new Image();
+            IMG.src = "/assets/game-assets/dino-runner/player.png";
+
+            IMG.addEventListener('load', function() {
+                /**
+                 * When the image is loaded, set the color of the canvas and draw the image on it
+                 */
+
+                // Set the color
+                ctx.fillStyle = getComputedStyle( document.body ).getPropertyValue( '--accent-color' );
+
+                // The full size is the player size with the width mulitplied by 4 (because there are 4 sprites)
+                let fullSize = { x: playerSize.x * 4, y: playerSize.y };
+
+                // Draw
+                this.drawImage({ ctx, img: IMG, position: {x: 0, y:0}, size: fullSize });
+            }.bind(this), false);
+        }
+        getObstacleSize( type ) {
+            switch (type) {
+                case this.OBSTACLE_TYPE.Small:
+                return {
+                        x: Math.min( this._canvas.width / 12 * 5 / 8, 40 ) * 1.2,
+                        y: Math.min( this._canvas.width / 12, 64 ) * 1.2,
+                    };
+                case this.OBSTACLE_TYPE.Medium:
+                return {
+                        x: Math.min( this._canvas.width / 16 * 11 / 6, 86 ) * 1.5,
+                        y: Math.min( this._canvas.width / 16, 48 ) * 1.5,
+                    };
+                case this.OBSTACLE_TYPE.Large:
+                return {
+                        x: Math.min( this._canvas.width / 6.9 * 17 / 14, 136 ) * 1.7,
+                        y: Math.min( this._canvas.width / 6.9, 112 ) * 1.7,
+                    };
+                case this.OBSTACLE_TYPE.Flyer:
+                    return {
+                        x: Math.min( this._canvas.width / 10.7 * 10 / 9, 80 ) * 1.4,
+                        y: Math.min( this._canvas.width / 10.7, 72 ) * 1.4,
+                    };
+            }
+        }
+        getCoffeeSize() { 
+            return {
+                x: Math.min( this._canvas.width / 4 * 10 / 23, 80 ),
+                y: Math.min( this._canvas.width / 4, 184 ),
+            }
+        }
+        getPlayerSize() {
+            /**
+             * Using the canvas's size, setup the player's size
+             * 
+             * @return {Object} {x,y} The size of the player
+             */
+            return {
+                x: Math.min( this._canvas.width / 6 * 10 / 16, 120 ),
+                y: Math.min( this._canvas.width / 6, 192 ),
+                duck: Math.min( this._canvas.width / 6 / 16 * 12, 144 )
+            };
+        }
+        
+        spawnObstacle() {
+            /**
+             * 
+             */
+
+            let typeInt = Math.floor( Math.random() * 4 );
+            let type = Object.values( this.OBSTACLE_TYPE )[typeInt];
+            let image = this.obstacleImageCanvases[type];
+            let size = this.getObstacleSize( type );
+            let yPosition = this._canvas.height - size.y - this.BOTTOM_OFFSET;
+            yPosition = ( type === this.OBSTACLE_TYPE.Flyer ) ? yPosition - this.player.originalHeight + (Math.floor(Math.random() * 20 ) + 5) : yPosition;
+            let position = {
+                x: this._canvas.width + size.x,
+                y: yPosition
+            };
+            let obstacle = new Obstacle( this, { position, size, type, image });
+            this.obstacles.push(obstacle);
+        }
+        drawFrame(){
+            /**
+             * Draw the each frame.
+             */
+
+            this.player.draw();
+            this.obstacles.forEach( obstacle => {
+                obstacle.draw();
+            });
+            
+        }
+        update() {
+            // Clear the screen.
+            super.clear()
+
+            // Update the player
+            let jumping = Object.values(this.jumpKeys).some( key => key == true );
+            let crouching = Object.values(this.duckKeys).some( key => key == true );
+            this.player.update( jumping, crouching );
+
+            // Update obstacles
+            this.obstacles.forEach( ( obstacle, i ) => {
+                let toDel = obstacle.update();
+                if ( toDel ) {
+                    this.obstacles.splice(i, 1);
+                    this.incrementScore();
+                } else {
+                    if ( obstacle.position.y + obstacle.size.y >= this.player.position.y 
+                        && obstacle.position.y <= this.player.position.y + this.player.size.y
+                        && obstacle.position.x + obstacle.size.x >= this.player.position.x
+                        && obstacle.position.x <= this.player.position.x + this.player.size.x / 1.5 ) {
+                    this.endGame();
+                    return;
+                }
+                }
+            });
+
+            this.spawnTimer--;
+            if ( this.spawnTimer <= 0 ) {
+                this.spawnObstacle();
+                this.spawnTimer = Math.max( this.initialSpawnTimer - this.gameSpeed * 8, 50 );
+            }
+
+            this.gameSpeed += 0.003;
+
+            // Common update code.
+            super.update();
+        }
+    }
+
+    // Instanciate the Game.
+    const GAME = new DinoRunner();
+
+</script>

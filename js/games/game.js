@@ -26,7 +26,7 @@ class Game {
         this._scoreEl = document.getElementById('game-score');
         
         // Define Context and it's settings
-        this._ctx = this._canvas.getContext('2d', { alpha: false });
+        this._ctx = this._canvas.getContext('2d');
         // This ensure images aren't smoothed/blurred, instead staying pixelated
         this._ctx.webkitImageSmoothingEnabled = false;
         this._ctx.mozImageSmoothingEnabled = false;
@@ -131,6 +131,9 @@ class Game {
 
         // Update the colors, because when resizing the colors may break.
         this.updateColors();
+
+        this.height = this._canvas.height;
+        this.width = this._canvas.width;
     }
     updateColors() {
         /**
@@ -290,7 +293,7 @@ class Game {
          */
 
         // Just clear the whole game area
-        this._ctx.clearRect(0, 0, this._canvas.width, this._canvas.height);
+        this._ctx.clearRect(0, 0, this.width, this.height);
     }
     update() {
         /**
