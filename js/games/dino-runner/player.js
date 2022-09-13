@@ -55,7 +55,7 @@ class Player {
         // Temporarily draw a rectangle, swap this for the sprite later
         //this._game.drawRect({ position: this.position, size: this.size });
         let sprite = ( this.isDucking ) ? 3 : ( !this.isGrounded ) ? 2 : ( this.animationFrame < this.ANIMATION_SPEED / 2 ) ? 1 : 0;
-        this._game.drawImage({ img: this.image, position: this.position, size: this.size, imageSection: { x: sprite * this.size.x, y: 0, width: this.size.x, height: this.size.y } });
+        this._game.drawImage({ img: this.image, position: this.position, size: this.size, imageSection: { x: sprite * this.size.x, y: 0, width: this.size.x, height: Math.floor(this.size.y) } });
     }
     update( tryingToJump, tryingToDuck ) {
         /**
