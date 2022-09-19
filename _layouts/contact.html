@@ -12,7 +12,7 @@ game: dino-runner
         <h3>{{ page.find_me_text}}</h3>
         <div id="contact-links">
             {%- for link in site.data.find_me_at -%}
-                <a href="{{ link.url }}">
+                <a href="{{ link.url }}" target="_blank" rel="noopener noreferrer">
                     <img src="/assets/imgs/other-icons/{{ link.icon_darkmode }}" alt="{{ link.name }}" data-themeonly="dark">
                     <img src="/assets/imgs/other-icons/{{ link.icon_lightmode }}" alt="{{ link.name }}" data-themeonly="light">
                 </a>

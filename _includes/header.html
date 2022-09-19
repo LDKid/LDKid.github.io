@@ -83,7 +83,7 @@
                 --><span>:&nbsp;</span><!--
                 --><span>{{ site.programmer }}</span>
             </a>
-            <a href="#" id="designedbycontainer" onmouseover="prepareDesignerLink(this)">
+            <a href="https://joaorodrigocarvalho.github.io" id="designedbycontainer" onmouseover="prepareDesignerLink(this)" target="_blank" rel="noopener noreferrer">
                 <span id="designedby">{{ site.data.translations['designedby'][page.lang] }}</span><!--
                 --><span>:&nbsp;</span><!--
                 --><span id="designer">{{ site.designer }}</span>
@@ -163,7 +163,7 @@
          */
         var timer = setTimeout(() => {
             el.classList.toggle('ee');
-        }, 2000);
+        }, 5000);
         // Remove timer.
 	    el.onmouseout = function() {  clearTimeout(timer); }
     }
