@@ -31,7 +31,7 @@ input[type=submit] {
     height: 1.5em;
 }
 
-@media screen and (min-width: 600px) { /* On Desktop/Tablets */
+@media screen and (min-width: 800px) { /* On Desktop/Tablets */
     #page-content {
         gap: 100px;
     }

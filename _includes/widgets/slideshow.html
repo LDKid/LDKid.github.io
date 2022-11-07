@@ -7,7 +7,6 @@
     .slide {
         display: none;
         width: 100%;
-        aspect-ratio: var(--project-image-aspect-ratio);
         border: var(--border-size) solid var(--accent-color);
         background-color: var(--background-color);
     }
@@ -15,6 +14,9 @@
         object-fit: contain;
         height: 100%;
         width: 100%;
+        box-sizing: content-box;
+        aspect-ratio: var(--project-image-aspect-ratio);
+        margin-bottom: -3px;
     }
     .dot-container {
         text-align: center;
@@ -32,7 +34,7 @@
         background-color: var(--accent-color);
     }
 
-    @media screen and (min-width: 600px) {
+    @media screen and (min-width: 800px) {
         .dot {
             height: var(--border-size);
         }

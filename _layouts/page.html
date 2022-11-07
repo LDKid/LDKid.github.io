@@ -50,6 +50,8 @@
     <script src="/js/lightdark.js"></script>
 
     <script>
+        // Get the page content
+        const PAGE = document.getElementById('page-content');
         function toggleGame(el){
             /**
              * Toggles the game and the icon.
@@ -57,13 +59,12 @@
              * @param {Object} el The HTML element of the button
              */
 
-            // Get the page content, the game container and the score elements.
-            let page = document.getElementById('page-content');
+            // Get the game container and the score elements.
             let game = document.getElementById('game-container');
             let score = document.getElementById('game-score');
 
             // Toggle the classes for all 3
-            page.classList.toggle('inactive');
+            PAGE.classList.toggle('inactive');
             game.classList.toggle('inactive');
             score.classList.toggle('inactive');
 
@@ -82,6 +83,14 @@
                 /* document.getElementById('game-canvas').focus(); */
             }
         }
+        var isScrolling;
+        PAGE.addEventListener('scroll', function (e) {
+            PAGE.classList.add('scrolling')
+            window.clearTimeout( isScrolling );
+            isScrolling = setTimeout(function() {
+                PAGE.classList.remove('scrolling')
+            }, 500);
+        }, false);
     </script>
 </body>
 </html>

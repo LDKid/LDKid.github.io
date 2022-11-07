@@ -273,11 +273,11 @@ GEM
 
 PLATFORMS
   universal-darwin-21
+  universal-darwin-22
 
 DEPENDENCIES
   github-pages (~> 221)
   jekyll-feed (~> 0.12)
-  minima (~> 2.5)
   tzinfo (~> 1.2)
   tzinfo-data
   wdm (~> 0.1.1)

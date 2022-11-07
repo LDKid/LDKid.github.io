@@ -4,7 +4,7 @@
     --game-transparency: 3%;
     --game-transition-duration: 200ms;
     /* MEDIA QUERY */
-    --breakpoint: 600px;
+    --breakpoint: 800px;
     --page-padding: 20px;
     --desktop-page-padding: 40px;
     /* OTHER CONSTS */
@@ -12,13 +12,15 @@
     --medium-border-size: 5px; /* Use this for icons with border */
     --small-border-size: 3px; /* Alternate border size for smaller elements and inputs with border */
     --project-image-aspect-ratio: 16 / 9;
+    --scrollbar-width: 10px;
 }
 
-@media screen and (min-width: 600px) { /* If the screen is bigger than mobile, use the larger desktop sizes for borders and paddings */
+@media screen and (min-width: 800px) { /* If the screen is bigger than mobile, use the larger desktop sizes for borders and paddings */
     :root{
         --page-padding: var(--desktop-page-padding);
         --border-size: 20px;
         --medium-border-size: 10px;
+        --scrollbar-width: 15px;
     }
 }
 
@@ -38,9 +40,12 @@ html, body{
  dl, dd, ol, ul, figure {
    margin: 0;
    padding: 0;
+   font-weight: normal;
 }
 h6 {
     margin-top: 2em;
+    font-size: 14px;
+    font-weight: bold;
 }
 dd {
     display: list-item;
@@ -82,17 +87,16 @@ body {
     opacity: var(--game-transparency);
     z-index: 0;
 }
-#page-container, #page-container > div{
+#page-container, #page-container > div {
     height: 100%;
     width: 100%;
     position: fixed;
 }
 
-#page-content{
-    overflow: scroll;
+#page-content {
+    overflow: auto;
     height: 85% !important;
-    width: calc( 100% - calc( var(--page-padding) * 2 ) ) !important;
-    margin: 0 var(--page-padding);
+    padding: 0 var(--page-padding);
     padding-bottom: 10vh;
 }
 
@@ -109,7 +113,7 @@ body {
 .hidden {
     display: none;
 }
-@media screen and (max-width: 599px) {
+@media screen and (max-width: 799px) {
     .hide-on-mobile{
         display: none;
     }
@@ -137,6 +141,7 @@ textarea {
     aspect-ratio: var(--project-image-aspect-ratio);
     background-color: var(--background-color);
     position: relative; /* The images are absolute, this makes sure everything stays in place */
+    box-sizing: content-box;
     /* Animation */
     transition-property: background-color;
     will-change: background-color;

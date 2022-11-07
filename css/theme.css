@@ -164,7 +164,7 @@ input[type=button]:disabled, input[type=submit]:disabled, input[type=reset]:disa
     border-color: var(--foreground-color);
     cursor: not-allowed;
 }
-@media screen and (max-width: 599px) {
+@media screen and (max-width: 799px) {
     strong {
         letter-spacing: 0.5px;
     }
@@ -178,4 +178,28 @@ input[type=button]:disabled, input[type=submit]:disabled, input[type=reset]:disa
 #theme-toggle > #toggle-icon {
     height: 1.5em;
     vertical-align: middle;
+}
+
+
+
+::-webkit-scrollbar {
+    width: var(--scrollbar-width);
+    transition: opacity 200ms ease-out;
+    will-change: opacity;
+    opacity: 1;
+}
+:not(.scrolling)::-webkit-scrollbar {
+    opacity: 0;
+}
+::-webkit-scrollbar:hover {
+    opacity: 1 !important;
+}
+::-webkit-scrollbar-track {
+    background: var(--disabled-color); 
+}
+::-webkit-scrollbar-thumb {
+    background: var(--faded-accent-color); 
+}
+::-webkit-scrollbar-thumb:hover {
+    background: var(--accent-color); 
 }

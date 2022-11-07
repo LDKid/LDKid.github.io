@@ -46,7 +46,7 @@
     font-size: 20px;
 }
 
-@media screen and (min-width: 600px) {
+@media screen and (min-width: 800px) {
     .home-bottom {
         display: flex;
     }
@@ -76,7 +76,7 @@
         font-size: 3vw;
     }
 }
-@media screen and (max-width: 599px) {
+@media screen and (max-width: 799px) {
     #project-info-container > i {
         /* The icon that shows what kind of project it is in in the bottom right corner on mobile */
         position: absolute;

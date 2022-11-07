@@ -90,7 +90,7 @@ h4 {
     flex-grow: 1;
 }
 
-@media screen and (min-width: 600px) { /* On Desktop/Tablets */
+@media screen and (min-width: 800px) { /* On Desktop/Tablets */
     #page-content {
         gap: 20px;
         overflow: hidden;
@@ -103,7 +103,7 @@ h4 {
         order: 2;
         flex-basis: 1px; /* This aligns the slideshow and the content */
         max-height: 80%;
-        overflow: scroll;
+        overflow: auto;
     }
     #project-slideshow {
         order: 3;

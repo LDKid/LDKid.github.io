@@ -73,16 +73,17 @@
     display: flex;
     justify-content: space-between;
     vertical-align: middle;
+    align-items: center;
 }
 
 .tags-and-icon > i {
     color: var(--accent-color);
-    font-size: 5vw;
+    font-size: 2em;
 }
 
 
 
-@media screen and (min-width: 600px) {
+@media screen and (min-width: 800px) {
     .portfolio-project, .flex-fixer {
         flex-grow: 1;
         flex-shrink: 1;
@@ -97,7 +98,7 @@
         font-size: 1.3rem;
     }
     .tags-and-icon > i {
-        font-size: calc(1vw + 1.5rem);
+        font-size: calc(0.5vw + 2rem);
     }
     #search {
         margin-bottom: 0;

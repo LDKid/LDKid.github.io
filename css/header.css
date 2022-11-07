@@ -117,7 +117,10 @@
 }
 
 
-@media screen and (min-width: 600px) {
+@media screen and (min-width: 800px) {
+    .hidden-until-responsive {
+        display: none !important;
+    }
     .site-header #navbar-block a {
         display: block;
         float: left;
@@ -159,7 +162,7 @@
     }
 }
 
-@media screen and (max-width: 599px) {
+@media screen and (max-width: 799px) {
     .site-header.responsive {
         position: fixed;
         height: 100%;
@@ -218,6 +221,8 @@
     will-change: color;
     transition-duration: var(--theme-transition-duration);
     transition-timing-function: var(--theme-transition-function);
+    justify-content: center;
+    width: 100%;
 }
 
 .tos-container > a:hover {

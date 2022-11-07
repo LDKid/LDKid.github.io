@@ -4,7 +4,7 @@ layout: page
 <link rel="stylesheet" href="/css/pages/project.css">
 
 <div id="project-title">
-    <img id="project-icon" src="{{ page.image_path }}{{ page.icon }}" alt="Icon">
+    <img id="project-icon" src="{{ page.image_path }}{{ page.icon }}" alt="Icon" style="background-color: {{ page.icon_background }};">
     <h1>{{ page.name }}</h1>
 </div>
 <div id="project-slideshow">
@@ -42,3 +42,15 @@ layout: page
     <h3>{{ page.slogan }}</h3>
     {{ content }}
 </div>
+
+<script>
+    var projectIsScrolling;
+    const PROJECT_CONTENT = document.getElementById("project-content");
+    PROJECT_CONTENT.addEventListener('scroll', function (e) {
+        PROJECT_CONTENT.classList.add('scrolling')
+        window.clearTimeout( isScrolling );
+        projectIsScrolling = setTimeout(function() {
+            PROJECT_CONTENT.classList.remove('scrolling')
+        }, 500);
+    }, false);
+</script>
