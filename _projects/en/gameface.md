@@ -11,6 +11,7 @@ links: [
     {name: "Gameface.cards", icon: "gameface.png", url: "https://recklesscomp.wixsite.com/gameface"},
 ]
 tags: [ Reckless Company, Flutter, Android, iOS, Node.js, EJS, PostgreSQL ]
+hidden_tags: [ HTML, CSS, JS, Javascript, Hybrid, mobile, dashboard, wix ]
 framework: {name: Flutter, url: "https://flutter.dev/?gclid=CjwKCAjw6raYBhB7EiwABge5KietLLFWMugvgofOzRY-bv9b8iDsxH_DFjkTwh5Y9eiz74WNavqrWBoCDV4QAvD_BwE&gclsrc=aw.ds"}
 slogan: Custom physical and <span id="gameface-ee-t">digital cards</span> available for athletes worldwide!
 ---
@@ -28,6 +29,7 @@ slogan: Custom physical and <span id="gameface-ee-t">digital cards</span> availa
 
 #### Dashboard Features
 
+- Automatic card generation.
 - Create, Edit or Delete Clubs, Seasons, Teams, Athletes, Cards and Contacts.
 - Create a new Athlete, or import an existing one to a Team.
 - Search Athletes or Clubs.

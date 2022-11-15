@@ -33,7 +33,7 @@ headingDiv: |
                     {%- assign projectType = project.type -%}
             {%- endcase -%}
             
-            <div class="portfolio-project" data-name="{{ project.name }}" data-tags="{{ project.tags }}" data-type="{{ projectType }}">
+            <div class="portfolio-project" data-name="{{ project.name }}" data-tags="{{ project.tags }}" data-hiddentags="{{ project.hidden_tags }}" data-type="{{ projectType }}">
                 <!-- The actual Project. The data attributes are for search -->
                 
                 <strong>{{ project.name }}</strong>
@@ -62,10 +62,10 @@ headingDiv: |
         {%- endif -%}
     {% endfor %}
     
-    <div class="flex-fixer">
-        <!-- This ensures alignment -->
+    <!-- This ensures alignment -->
+    <!-- <div class="flex-fixer">
         <span>{{ page.flextape }}</span>
-    </div>
+    </div> -->
 
 </div>
 

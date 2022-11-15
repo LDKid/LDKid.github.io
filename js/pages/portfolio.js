@@ -57,6 +57,7 @@ function portfolioSearch( forceQuery = '' ) {
         let name = project.dataset.name.toLowerCase();
         let type = project.dataset.type.toLowerCase();
         let tags = project.dataset.tags.toLowerCase();
+        let hiddenTags = project.dataset.hiddentags.toLowerCase();
         
         if ( query.startsWith('type=') || query.startsWith('tipo=') ) {
             if ( type.includes( cutQuery ) ) {
@@ -72,7 +73,7 @@ function portfolioSearch( forceQuery = '' ) {
             }
         } else {
             // If any of the 3 variables contains whatever was written, then show it. Otherwise, hide it. Hiding is handling with the class "hidden".
-            if ( name.includes( query ) || type.includes( query ) || tags.includes( query ) ) {
+            if ( name.includes( query ) || type.includes( query ) || tags.includes( query ) || hiddenTags.includes(query) ) {
                 project.classList.remove('hidden');
             } else {
                 project.classList.add('hidden');

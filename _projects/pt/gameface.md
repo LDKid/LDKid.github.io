@@ -11,6 +11,7 @@ links: [
     {name: "Gameface.cards", icon: "gameface.png", url: "https://recklesscomp.wixsite.com/gameface"},
 ]
 tags: [ Flutter, Android, iOS, Node.js, EJS, PostgreSQL ]
+hidden_tags: [ HTML, CSS, JS, Javascript, Hybrid, mobile, dashboard, wix ]
 framework: {name: Flutter, url: "https://flutter.dev/?gclid=CjwKCAjw6raYBhB7EiwABge5KietLLFWMugvgofOzRY-bv9b8iDsxH_DFjkTwh5Y9eiz74WNavqrWBoCDV4QAvD_BwE&gclsrc=aw.ds"}
 slogan: Cartas físicas ou <span id="gameface-ee-t">digitais</span> personalizadas disponíveis para atletas por todo o mundo!
 ---
@@ -28,6 +29,7 @@ slogan: Cartas físicas ou <span id="gameface-ee-t">digitais</span> personalizad
 
 #### Características da Dashboard
 
+- Cartas geradas automaticamente.
 - Criar, Editar e Apagar Clubes, Temporadas, Equipas, Atletas, Cartas e Contactos.
 - Criar um novo Atleta, ou importar para uma Equipa um existente.
 - Procurar Atletas ou Clubes.

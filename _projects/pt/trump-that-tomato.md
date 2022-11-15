@@ -8,6 +8,7 @@ icon_background: "var(--background-color)"
 slideshow: [ cover.png, gameplay.mp4, menu.png, hit.png, medal.png, time.png, end.png, leaderboards.png, assets.png ]
 links: [{name: "Newgrounds", icon: "newgrounds.png", url: "https://www.newgrounds.com/portal/view/674659"}]
 tags: [ ActionScript3, Flixel, Flash, Newgrounds ]
+hidden_tags: [ AS3 ]
 framework: {name: Flixel, url: "https://flixel.org"}
 slogan: Pegue em tomates e vá ter uma conversa com o Trump!
 ---

@@ -7,6 +7,7 @@ image_path: /assets/projects/live-hanging/
 slideshow: [ cover.png ]
 links: []
 tags: [ Godot, Twitch, Customization ]
+hidden_tags: []
 engine: {name: Godot, url: "https://godotengine.org"}
 slogan: Jogue ou deixe o seu chat jogar o jogo da forca personalizado!
 ---

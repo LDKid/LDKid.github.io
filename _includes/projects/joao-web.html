@@ -1,0 +1,127 @@
+<style>
+    #jota-ee {
+        display: none;
+    }
+
+    #color-picker {
+        order: 0;
+        width: 100%;
+    }
+
+    #color-picker>* {
+        cursor: pointer;
+        user-select: none;
+        -webkit-user-select: none;
+        touch-action: none;
+    }
+
+    .tableslider {
+        width: 100%;
+        border-collapse: collapse;
+    }
+
+    .color-row>td {
+        height: 25px;
+        padding: 0;
+        position: relative;
+    }
+
+    .selector-row>td {
+        height: 15px;
+        padding: 0;
+    }
+
+    .picked-hue::after {
+        user-select: none;
+        -webkit-user-select: none;
+        text-align: center;
+        display: block;
+        position: absolute;
+        padding-top: 16px;
+        margin-left: -11px;
+        content: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='25.293' height='16.182' viewBox='0 0 25.293 16.182'%3E%3Cg id='Group_225' data-name='Group 225' transform='translate(1763.967 -1472.295) rotate(90)'%3E%3Cpath id='Path_680' data-name='Path 680' d='M1498.623,1767.5l-10.879-10.879,10.879-10.879' transform='translate(-11.914 -5.298)' fill='none' stroke='%23000' stroke-miterlimit='10' stroke-width='5'/%3E%3C/g%3E%3C/svg%3E%0A");
+    }
+</style>
+<div id="jota-ee">
+    <div id="color-picker">
+        <table class="tableslider">
+            <tbody>
+                <tr class="color-row">
+                    {% for c in (0..360) %}
+                    <td id="hue-{{ c }}" data-component="color-picker-hue" data-hue="{{ c }}"
+                        style="background-color:hsl( {{ c }} ,100%,50%);" onmouseenter="clickHue({{ c }})"></td>
+                    {% endfor %}
+                </tr>
+                <tr class="selector-row">
+                    {% for c in (0..360) %}
+                    <td id="hue-{{ c }}-selector" data-component="color-picker-hue" data-hue="{{ c }}"
+                        onmouseenter="clickHue({{ c }})"></td>
+                    {% endfor %}
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+<script defer>
+    /* Ssshh */
+    var jotaEE = false;
+    var holdingClick = false;
+    var jotaEE2 = false;
+    setTimeout(() => {
+        document.getElementById('jota-ee-t').addEventListener('click', () => {
+            document.getElementById("jota-ee").style.display = (jotaEE) ? "none" : "block";
+            jotaEE = !jotaEE;
+        });
+        document.addEventListener("mousedown", function (_event) { holdingClick = true; }, false);
+        document.addEventListener("mouseup", function (_event) { holdingClick = false; }, false);
+        for (let i = 0; i < 255; i++) {
+            let hueEl = document.getElementById(`hue-${i}`);
+            ["touchstart"].forEach(evt => {
+                hueEl.addEventListener(evt, function (_event) {
+                    clickHue(i, true)
+                }, false);
+            });
+        }
+        document.addEventListener("touchmove", (event) => {
+            var myLocation = event.touches[0];
+            var realTarget = document.elementFromPoint(myLocation.clientX, myLocation.clientY);
+            if (realTarget.dataset.component == 'color-picker-hue') {
+                clickHue(realTarget.dataset.hue, true)
+            }
+        });
+    }, 1000);
+
+
+    function clickHue(hue, force = false) {
+        if (!force && !holdingClick) return;
+
+        let pickedHue = document.querySelector('.picked-hue');
+        if (pickedHue) pickedHue.classList.remove('picked-hue');
+        document.body.style.setProperty('--accent-color', `hsl(${hue},97%,53%)`);
+        document.getElementById(`hue-${hue}`).classList.add('picked-hue');
+
+        if (hue > 27 && hue < 32) {
+            setTimeout(function () {
+                document.body.style.setProperty('--accent-color', `hsl(30,100%,28%)`);
+                jotaEE2 = true;
+                jotaEE2Fun({
+                    title: "João Rodrigo Amazing Site",
+                    slogan: "O João é falso.",
+                    icon: "{{ page.image_path }}iconee.png"
+                });
+            },2000);
+        } else if ( jotaEE2 ) {
+            jotaEE2 = false;
+            jotaEE2Fun({
+                title: "{{ page.name }}",
+                slogan: "{{ page.slogan }}",
+                icon: "{{ page.image_path }}{{ page.icon }}"
+            });
+        }
+    }
+    function jotaEE2Fun({ title, icon, slogan }) {
+        document.getElementById("project-title").querySelector("h1").textContent = title;
+        document.getElementById("project-content").querySelector("h3").textContent = slogan;
+        document.getElementById("project-icon").src = icon;
+    }
+</script>

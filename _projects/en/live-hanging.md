@@ -7,6 +7,7 @@ image_path: /assets/projects/live-hanging/
 slideshow: [ cover.png ]
 links: []
 tags: [ Godot, Twitch, Customization, Newgrounds, Itch.io, Gamejolt ]
+hidden_tags: []
 engine: {name: Godot, url: "https://godotengine.org"}
 slogan: Play or let your chat play a fully customisable hangman!
 ---

@@ -1,3 +1,11 @@
+:root {
+    --project-size-mobile: 500px;
+    --project-size-desktop: 550px;
+    --project-size-desktop-max: 800px;
+    --mini-project-size-mobile: calc(var(--project-size-mobile) / 2);
+    --mini-project-size-desktop: calc(var(--project-size-desktop) / 2);
+    --mini-project-size-desktop-max: calc(var(--project-size-desktop-max) / 2);
+}
 #search {
     margin-top: 10px;
     position: relative;
@@ -19,21 +27,24 @@
 }
 
 #portfolio-content {
-    display: flex;
-    flex-wrap: wrap;
-    flex-direction: row;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, var(--project-size-mobile)), 1fr));
     gap: 5vw;
-    justify-content: center;
+    justify-items: center;
+}
+#portfolio-content.small {
+    --project-size-mobile: var(--mini-project-size-mobile);
+    --project-size-desktop: var(--mini-project-size-desktop);
+    --project-size-desktop-max: var(--mini-project-size-desktop-max);
 }
 
 .portfolio-project,
 .flex-fixer {
-    flex-grow: 1;
-    flex-shrink: 1;
-    width: 500px;
+    width: 100%;
+    max-width: var(--project-size-mobile);
 }
-.flex-fixer {
-    /* Ignore this, thanks */
+/* Ignore this, thanks */
+/* .flex-fixer {
     font-size: 1vh;
     color: var(--background-color);
     cursor: default;
@@ -43,20 +54,18 @@
     user-select: text;
 }
 .flex-fixer > span {
-    /* Ignore this, thanks */
     -moz-user-select: all;
     -webkit-user-select: all;
     -ms-user-select: all;
     user-select: all;
 }
 .flex-fixer > span:hover {
-    /* Ignore this, thanks */
     color: #88888811;
     -moz-user-select: all;
     -webkit-user-select: all;
     -ms-user-select: all;
     user-select: all;
-}
+} */
 
 .portfolio-project > strong {
     font-size: 5vw;
@@ -84,12 +93,15 @@
 
 
 @media screen and (min-width: 800px) {
+    #portfolio-content {
+        grid-template-columns: repeat(auto-fit, minmax(min(100%, var(--project-size-desktop)), 1fr));
+    }
     .portfolio-project, .flex-fixer {
         flex-grow: 1;
         flex-shrink: 1;
         
-        min-width: 550px;
-        max-width: 800px;
+        min-width: var(--project-size-desktop);
+        max-width: var(--project-size-desktop-max);
     }
     .portfolio-project > strong {
         font-size: calc(1vw + 1em);

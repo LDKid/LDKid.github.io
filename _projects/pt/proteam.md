@@ -10,7 +10,8 @@ links: [
     {name: "Google Play Store", icon: "google.png", url: "https://play.google.com/store/apps/details?id=com.recklesscompany.proteamapp"},
     {name: "ProTeamApp.com", icon: "proteam.png", url: "https://recklesscomp.wixsite.com/proteam"},
 ]
-tags: [ Cordova, Android, iOS, Node.js, PostgreSQL ]
+tags: [ Reckless Company, Cordova, Android, iOS, Node.js, PostgreSQL ]
+hidden_tags: [ HTML, CSS, JS, Javascript, Hybrid, mobile, dashboard, wix ]
 framework: {name: Cordova, url: "https://cordova.apache.org"}
 slogan: A equipa na palma da mão.
 ---

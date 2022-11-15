@@ -11,6 +11,7 @@ links: [
     {name: "ProTeamApp.com", icon: "proteam.png", url: "https://recklesscomp.wixsite.com/proteam"},
 ]
 tags: [ Reckless Company, Cordova, Android, iOS, Node.js, PostgreSQL ]
+hidden_tags: [ HTML, CSS, JS, Javascript, Hybrid, mobile, dashboard, wix ]
 framework: {name: Cordova, url: "https://cordova.apache.org"}
 slogan: Your team in the palm of your hand.
 ---
