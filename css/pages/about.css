@@ -1,0 +1,41 @@
+#page-content {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+#category-container {
+    background-color: red;
+    order: 1;
+}
+#topic-container {
+    background-color: pink;
+    order: 3;
+}
+#social-container {
+    background-color: blue;
+    order: 2;
+}
+#info-container {
+    background-color: black;
+    order: 4;
+}
+.about-container {
+    width: 100%;
+    height: 200px;
+}
+@media screen and (min-width: 800px) { /* On Desktop/Tablets */
+    #page-content {
+        display: block;
+        --social-container-width: min(600px, 45%)
+    }
+    .about-container {
+        width: calc(100% - var(--social-container-width) - 25px);
+        margin-bottom: 25px;
+    }
+    #social-container {
+        width: var(--social-container-width);
+        background-color: blue;
+        float: right;
+        clear: right;
+    }
+}

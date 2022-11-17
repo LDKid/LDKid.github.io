@@ -95,6 +95,7 @@ body {
 
 #page-content {
     overflow: scroll;
+    overflow-x: hidden;
     height: 85% !important;
     padding: 0 var(--page-padding);
     padding-bottom: 10vh;

@@ -203,3 +203,5 @@ input[type=button]:disabled, input[type=submit]:disabled, input[type=reset]:disa
 ::-webkit-scrollbar-thumb:hover {
     background: var(--accent-color); 
 }
+::-webkit-scrollbar-corner,
+::-webkit-resizer { display: none; }
