@@ -50,12 +50,25 @@ defaults:
       cover: "cover.png"
       cover-pixel: "cover64.png"
       icon: "icon.png"
+  -
+    scope:
+      path: "_about/en"
+    values:
+      lang: "en"
+  -
+    scope:
+      path: "_about/pt"
+    values:
+      lang: "pt"
 
 # Setup collections
 collections:
   projects:
     sort_by: date
     output: true
+  about:
+    sort_by: date
+    output: false
 
 # Build settings
 plugins:

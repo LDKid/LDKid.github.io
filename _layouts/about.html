@@ -1,14 +1,40 @@
 ---
 layout: page
 ---
-<!-- <link rel="stylesheet" href="/css/pages/about.css"> -->
+<!-- <link rel="stylesheet" href="/css/pages/about.css">
+
+{% assign categoryList = '' | split: ',' %}
+{% assign topicList = '' | split: ',' %}
+{% for topic in site.about reversed %}
+    {%- if topic.lang == page.lang -%}
+        {% assign categoryList = categoryList | push: topic.category %}
+    {% endif %}
+{% endfor %}
+{% assign categoryList = categoryList | uniq %}
 
 <div id="social-container" class="about-container">
 </div>
 <div id="category-container" class="about-container">
+    EU
+    {% for category in categoryList %}
+        {{ category }}
+    {% endfor %}
 </div>
 <div id="topic-container" class="about-container">
+    {% for topic in site.about reversed %}
+        {%- if topic.lang == page.lang -%}
+            <div data-category="{{ topic.category }}">{{ topic.title }}</div>
+        {% endif %}
+    {% endfor %}
 </div>
 <div id="info-container" class="about-container">
     <div id="my-info">{{ content }}</div>
+    {% for topic in site.about reversed %}
+        {%- if topic.lang == page.lang -%}
+            <div data-category="{{ topic.category }}" data-topic="{{ topic.title }}">{{ topic.content }}</div>
+        {% endif %}
+    {% endfor %}
 </div>
+
+<script src="/js/pages/about.js"></script> -->
+{{ content }}

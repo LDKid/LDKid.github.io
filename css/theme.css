@@ -180,8 +180,6 @@ input[type=button]:disabled, input[type=submit]:disabled, input[type=reset]:disa
     vertical-align: middle;
 }
 
-
-
 ::-webkit-scrollbar {
     width: var(--scrollbar-width);
     transition: opacity 200ms ease-out;
