@@ -1,0 +1,208 @@
+<canvas id="game-canvas"></canvas> <!-- Add the game canvas -->
+<script src="/js/games/game.js"></script> <!-- Import the base game class -->
+<!-- Import extra game assets and classes -->
+<script src="/js/games/snake/snake.js"></script>
+<script src="/js/games/snake/pickup.js"></script>
+
+<!-- Game logic -->
+<script>
+  class SnakeGame extends Game {
+    constructor() {
+      /**
+       *  Setup Snake
+       */
+
+      // Run the base Game constructor before using custom logic
+      super();
+
+      // Constants
+      this.gridSize = 32;
+
+
+      this.frame = 0;
+      this.skipFrames = 6;
+
+      // Setup Images
+      this.setupPickupImages();
+
+      this._reset();
+
+      // Draw the initial frame
+      this.drawFrame();
+    }
+    bindControls() {
+      /**
+       * Setup the controls for the game:
+       * - For Desktop, 
+       * - For Mobile, 
+       */
+
+      // Setup Keys
+      const LEFT_KEYS = ["A", "ArrowLeft"];
+      const UP_KEYS = ["W", "ArrowUp"];
+      const RIGHT_KEYS = ["D", "ArrowRight"];
+      const DOWN_KEYS = ["S", "ArrowDown"];
+
+      // Mobile
+      this._canvas.addEventListener('touchstart', function (event) {
+        this.touchstartX = event.changedTouches[0].screenX;
+        this.touchstartY = event.changedTouches[0].screenY;
+      }.bind(this));
+
+      this._canvas.addEventListener('touchend', function (event) {
+        this.touchendX = event.changedTouches[0].screenX;
+        this.touchendY = event.changedTouches[0].screenY;
+        this.handleGesture();
+      }.bind(this));
+
+      // Desktop
+      document.addEventListener('keydown', function (e) {
+        if (LEFT_KEYS.includes(e.code)) {
+          this.player.tryMoveLeft();
+        } else if (UP_KEYS.includes(e.code)) {
+          this.player.tryMoveUp();
+        } else if (RIGHT_KEYS.includes(e.code)) {
+          this.player.tryMoveRight();
+        } else if (DOWN_KEYS.includes(e.code)) {
+          this.player.tryMoveDown();
+        }
+      }.bind(this));
+    }
+    handleGesture() {
+      const LIMIT = Math.tan(45 * 1.5 / 180 * Math.PI);
+      let pageWidth = window.innerWidth || document.body.clientWidth;
+      let threshold = Math.max(1,Math.floor(0.01 * (pageWidth)));
+
+      let x = this.touchendX - this.touchstartX;
+      let y = this.touchendY - this.touchstartY;
+      let xy = Math.abs(x / y);
+      let yx = Math.abs(y / x);
+      if (Math.abs(x) > threshold || Math.abs(y) > threshold) {
+        if (yx <= LIMIT) {
+          if (x < 0) {
+            this.player.tryMoveLeft();
+          } else {
+            this.player.tryMoveRight();
+          }
+        }
+        if (xy <= LIMIT) {
+          if (y < 0) {
+            this.player.tryMoveUp();
+          } else {
+            this.player.tryMoveDown();
+          }
+        }
+      }
+    }
+    setupPickupImages() {
+      /**
+       * Create or Update the Pickup Image. The Pickup is drawn in an offscreen canvas, then that canvas is drawn on the game.
+       */
+
+      // If this is a first run, create the canvas
+      if (typeof this.pickupImageCanvas === "undefined") {
+        this.pickupImageCanvas = document.createElement('canvas');
+      }
+      // Setup context
+      let ctx = this.pickupImageCanvas.getContext('2d');
+
+      // Get the grid's size and setup the canvas to have the same size
+      this.pickupImageCanvas.width = this.gridSize * 2 + 1; // The plus 1 fixes an issues where rounding makes the last sprite not appear on some screen sizes.
+      this.pickupImageCanvas.height = this.gridSize;
+
+      // Create an Image Object and have it load the player image.
+      const IMG = new Image();
+      IMG.src = "/assets/game-assets/snake/coffee.png";
+
+      IMG.addEventListener('load', function () {
+        /**
+         * When the image is loaded, set the color of the canvas and draw the image on it
+         */
+
+        // Set the color
+        ctx.fillStyle = getComputedStyle(document.body).getPropertyValue('--accent-color');
+
+        // The full size is the sprite size with the width mulitplied by 2 (because there are 2 sprites)
+        let fullSize = { x: 32, y: 16 };
+
+        // Draw
+        this.drawImage({ ctx, img: IMG, position: { x: 0, y: 0 }, size: fullSize });
+      }.bind(this), false);
+    }
+    _resizeCanvas() {
+      /**
+       * Override -> 
+       */
+
+      if (this.pickup && (this.pickup.position.x + this.pickup.size.x > this._canvas.width || this.pickup.position.y + this.pickup.size.y > this._canvas.height)) {
+        this.pickup.setRandomPosition(this.player.getAllSnakeCells());
+      }
+
+      // Run the normal resize code.
+      super._resizeCanvas();
+    }
+    _reset() {
+      /**
+       * Override -> 
+       */
+
+      this.player = new Snake({ game: this, gridSize: this.gridSize });
+      this.pickup = new Pickup({ game: this, gridSize: this.gridSize, imageCanvas: this.pickupImageCanvas, playerPos: this.player.getAllSnakeCells() });
+
+      // Run the normal reset
+      super._reset();
+    }
+    update() {
+      /**
+       * 
+       */
+      if (++this.frame < this.skipFrames) {
+        // Common update code.
+        super.update();
+        return;
+      }
+      this.frame = 0;
+
+      // Clear the screen.
+      super.clear()
+
+      this.frame = 0;
+      this.player.update()
+      this.pickup.update()
+      let head = this.player.getHead();
+      if (this.checkCollsion(head)) {
+        this.player.atePickup();
+        this.pickup.setRandomPosition(this.player.getAllSnakeCells());
+        this.incrementScore();
+      }
+      // Common update code.
+      super.update();
+    }
+    // This funciton will eventually be moved
+    checkCollsion(snakeCell) {
+      if (this.pickup.position.x + 1 + this.pickup.size.x - 1 >= snakeCell.x
+        && this.pickup.position.x + 1 <= snakeCell.x + snakeCell.width
+        && this.pickup.position.y + 1 + this.pickup.size.y - 4 >= snakeCell.y
+        && this.pickup.position.y + 1 <= snakeCell.y + snakeCell.height) {
+        return true;
+      }
+      return false;
+    }
+    drawFrame() {
+      /**
+       * Draw the player and the apple each frame.
+       */
+
+      this.player.draw();
+      this.pickup.draw();
+    }
+  }
+
+  // Instanciate the Game.
+  const GAME = new SnakeGame();
+
+</script>
+
+
+
+<!-- This code needs to be cleaned up -->

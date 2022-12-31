@@ -1,7 +1,9 @@
 ---
 layout: page
+game: snake
 ---
-<!-- <link rel="stylesheet" href="/css/pages/about.css">
+<link rel="stylesheet" href="/css/pages/about.css">
+<link rel="stylesheet" href="/css/textblock.css">
 
 {% assign categoryList = '' | split: ',' %}
 {% assign topicList = '' | split: ',' %}
@@ -12,29 +14,46 @@ layout: page
 {% endfor %}
 {% assign categoryList = categoryList | uniq %}
 
-<div id="social-container" class="about-container">
-</div>
-<div id="category-container" class="about-container">
-    EU
+<section id="social-container" class="about-container">
+    <div id="img-container">
+        <img src="/assets/about/ldkdark.jpg" alt="Flávio Photo" data-themeonly="dark">
+        <img src="/assets/about/ldklight.jpg" alt="Flávio Photo" data-themeonly="light">
+    </div>
+    <a href="/assets/about/CV_{{page.lang}}.pdf" download="Flávio CV"><button class="download-cv active">Download CV</button></a>
+    <div id="contact-links">
+        {%- for link in site.data.find_me_at -%}
+            <a href="{{ link.url }}" target="_blank" rel="noopener noreferrer">
+                <img src="/assets/imgs/other-icons/{{ link.icon_darkmode }}" alt="{{ link.name }}" data-themeonly="dark">
+                <img src="/assets/imgs/other-icons/{{ link.icon_lightmode }}" alt="{{ link.name }}" data-themeonly="light">
+            </a>
+        {%- endfor -%}
+    </div>
+</section>
+<section id="category-container" class="about-container">
+    <button class="arrow-button" onclick="prevCategory()"><i class="ldkicon-arrow_left"></i></button>
+    <button class="category active" data-category="aboutme">{{ site.data.translations.aboutcategory[page.lang] }}</button>
     {% for category in categoryList %}
-        {{ category }}
+        <button class="category" data-category="{{ category }}">{{ category }}</button>
     {% endfor %}
-</div>
-<div id="topic-container" class="about-container">
+    <button class="arrow-button" onclick="nextCategory()"><i class="ldkicon-arrow_right"></i></button>
+</section>
+<section id="topic-container" class="about-container hidden">
+    <div id="topic-list">
+        {% for topic in site.about reversed %}
+            {%- if topic.lang == page.lang -%}
+                <button class="topic" onclick="toggleTopics(this)" data-category="{{ topic.category }}" data-topic="{{ topic.title }}">{{ topic.title }}</button>
+            {% endif %}
+        {% endfor %}
+    </div>
+    <button class="arrow-button" onclick="toggleTopics()">{%- include svgs/arrow_up.svg -%}</button>
+</section>
+<section id="info-container" class="about-container text-block">
+    <div data-category="aboutme">{{ content }}</div>
     {% for topic in site.about reversed %}
         {%- if topic.lang == page.lang -%}
-            <div data-category="{{ topic.category }}">{{ topic.title }}</div>
+            <div class="hidden" data-category="{{ topic.category }}" data-topic="{{ topic.title }}">{{ topic.content }}</div>
         {% endif %}
     {% endfor %}
-</div>
-<div id="info-container" class="about-container">
-    <div id="my-info">{{ content }}</div>
-    {% for topic in site.about reversed %}
-        {%- if topic.lang == page.lang -%}
-            <div data-category="{{ topic.category }}" data-topic="{{ topic.title }}">{{ topic.content }}</div>
-        {% endif %}
-    {% endfor %}
-</div>
+</section>
 
-<script src="/js/pages/about.js"></script> -->
-{{ content }}
+<script src="/js/pages/about.js" defer></script>

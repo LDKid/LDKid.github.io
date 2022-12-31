@@ -1,0 +1,33 @@
+/* Content */
+.text-block strong {
+    font-family: var(--text-family);
+}
+.text-block h1 {
+    color: var(--accent-color);
+}
+.text-block h2 {
+    font-size: 1.3em;
+}
+.text-block  h3 {
+    text-align: center;
+}
+.text-block h4 {
+    color: var(--accent-color);
+    margin-block-start: 1.5em;
+    margin-block-end: 1em;
+}
+.text-block .footnote {
+    padding-left: 1px;
+    color: var(--accent-color);
+}
+.text-block .reversefootnote {
+    display: none;
+}
+.text-block a:not(.footnote) {
+    font-family: var(--text-family);
+    color: var(--accent-color);
+    /* text-decoration: underline; */
+}
+.text-block ul, .text-block dd {
+    list-style-position: inside;
+}

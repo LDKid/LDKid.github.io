@@ -16,7 +16,7 @@ slogan: João Rodrigo Carvalho, Designer Gráfico
 
 O João é um ilustrador e designer gráfico português, e é o criador do [Hallo](https://joaorodrigocarvalho.github.io/projetos/hallo).
 
-O seu site foi feito com o intuito de partilhar as suas obras, servindo sssim de portfólio. Para isto, foi feito de forma que o João possa gerir o conteúdo do seu site de forma autónoma.
+O seu site foi feito com o intuito de partilhar as suas obras, servindo assim de portfólio. Para isto, foi feito de forma que o João possa gerir o conteúdo do seu site de forma autónoma.
 
 A funcionalidade que mais salta à vista é a <span id="jota-ee-t">barra de cor</span> no home. Está predefinido com um amarelo, mas ao deslizar lá os fundos e icons que usavam essa cor alteram para a selecionada. Isto afeta todas as páginas do website.
 Foi feito de forma a ser responsivo, com elementos que mudam seus tamanhos, posição, cor e funcionalidade dependendo do tamanho do ecrã; e os icons adaptam-se para que sigam sempre um padrão.

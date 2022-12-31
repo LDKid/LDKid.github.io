@@ -1,31 +1,3 @@
-/* Content */
-strong {
-    font-family: var(--text-family);
-}
-h3 {
-    text-align: center;
-}
-h4 {
-    color: var(--accent-color);
-    margin-block-start: 1.5em;
-    margin-block-end: 1em;
-}
-.footnote {
-    padding-left: 1px;
-    color: var(--accent-color);
-}
-.reversefootnote {
-    display: none;
-}
-#project-content a:not(.footnote) {
-    font-family: var(--text-family);
-    color: var(--accent-color);
-    /* text-decoration: underline; */
-}
-#project-content ul, dd {
-    list-style-position: inside;
-}
-
 /* Page */
 #page-content {
     display: flex;

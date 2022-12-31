@@ -2,6 +2,7 @@
 layout: page
 ---
 <link rel="stylesheet" href="/css/pages/project.css">
+<link rel="stylesheet" href="/css/textblock.css">
 
 <div id="project-title">
     <img id="project-icon" src="{{ page.image_path }}{{ page.icon }}" alt="Icon" style="background-color: {{ page.icon_background }};">
@@ -38,7 +39,7 @@ layout: page
         </div>
     {% endif %}
 </div>
-<div id="project-content">
+<div id="project-content" class="text-block">
     <h3>{{ page.slogan }}</h3>
     {{ content }}
 </div>

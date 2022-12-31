@@ -276,7 +276,15 @@
 
             // Create an Image Object and have it load the player image.
             const IMG = new Image();
-            IMG.src = "/assets/game-assets/dino-runner/player.png";
+            let spritePath = "/assets/game-assets/dino-runner/player.png";
+            // Shhh
+            let today = new Date();
+            console.log(today.getDate());
+            console.log(today.getMonth());
+            if (today.getDate() == 16 && today.getMonth() == 3) spritePath = "/assets/game-assets/dino-runner/halo.png";
+            // Back to code
+            IMG.src = spritePath;
+
 
             IMG.addEventListener('load', function() {
                 /**

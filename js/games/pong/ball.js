@@ -78,14 +78,3 @@ class Ball {
         this.velocity += this.ACCELERATION;
     }
 }
-
-function rng( min, max ) {
-    /**
-     * Generate a random number between the two values
-     * 
-     * @param {Number} min The minimum value
-     * @param {Number} max The maximum value
-     * @returns {Number} The random number picked between the 2 values
-     */
-    return Math.random() * ( max - min ) + min;
-}

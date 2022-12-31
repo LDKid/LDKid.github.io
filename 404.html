@@ -23,6 +23,10 @@ permalink: /404.html
 
         // Get the current lang via url
         let lang = window.location.pathname.substring(1,3);
+        // If it's not a valid lang, use default
+        if (!{{site.languages}}.includes( lang )) {
+            lang = {{site.lang}};
+        }
         // Get all the links and translate them
         let links = document.querySelectorAll('[data-class="header-link"]');
         links.forEach(el => {

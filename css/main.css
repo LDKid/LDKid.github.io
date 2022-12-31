@@ -112,11 +112,11 @@ body {
     margin-top: 5px !important;
 }
 .hidden {
-    display: none;
+    display: none !important;
 }
 @media screen and (max-width: 799px) {
     .hide-on-mobile{
-        display: none;
+        display: none !important;
     }
 }
 
@@ -189,4 +189,15 @@ canvas {
     image-rendering: -o-crisp-edges;
     image-rendering: optimize-contrast;
     -ms-interpolation-mode: nearest-neighbor;
+}
+
+
+
+
+
+
+
+
+p {
+    text-align: justify;
 }
