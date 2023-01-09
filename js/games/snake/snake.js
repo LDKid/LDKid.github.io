@@ -1,4 +1,4 @@
-const DEFAULT_SNAKE_SIZE = 4;
+const DEFAULT_SNAKE_SIZE = 55;
 
 class Snake {
     constructor({ game, gridSize }) {
@@ -6,16 +6,16 @@ class Snake {
         this._game = game;
 
         this.GRID_SIZE = gridSize;
-        this.SNAKE_SPEED = gridSize + 1;
+        this.SNAKE_SPEED = gridSize;
 
-        this.size = { x: gridSize, y: gridSize };
+        this.size = { x: gridSize - 1, y: gridSize - 1 };
         this.cells = [];
         this.length = DEFAULT_SNAKE_SIZE;
         let x = game._canvas.width/2 - this.size.x/2;
         x -= x % gridSize;
         let y = game._canvas.height/2 - this.size.y/2
         y -= y % gridSize;
-        this.position = { x: x, y: y };
+        this.position = { x, y };
         this.velocity = { x: this.SNAKE_SPEED, y: 0 };
 
         this.canChangeDirection = true;
@@ -75,11 +75,13 @@ class Snake {
         // Wrap
         if (this.position.x < 0) {
             this.position.x = this._game._canvas.width - this.size.x;
+            this.position.x -= this.position.x % this.GRID_SIZE;
         } else if (this.position.x + this.size.x > this._game._canvas.width ) {
             this.position.x = 0;
         }
         if (this.position.y < 0) {
             this.position.y = this._game._canvas.height - this.size.y;
+            this.position.y -= this.position.y % this.GRID_SIZE;
         } else if (this.position.y + this.size.y > this._game._canvas.height ) {
             this.position.y = 0;
         }
