@@ -1,3 +1,8 @@
+const BATTALION_ROWS = 5;
+const BATTALION_ROWS_MOBILE = 3;
+const BATTALION_COLUMNS = 8;
+const BATTALION_COLUMNS_MOBILE = 5;
+
 class Battalion {
     constructor( game, imgs ) {
         /**
@@ -14,8 +19,8 @@ class Battalion {
         this.position = { x: 0, y: 0 };
         this.velocity = this.getDefaultVelocity();
         // How many rows and columns the grid of enemies has
-        this.rows = 5;
-        this.columns = 8;
+        this.rows = checkIsMobile() ? BATTALION_ROWS_MOBILE : BATTALION_ROWS;
+        this.columns = checkIsMobile() ? BATTALION_COLUMNS_MOBILE : BATTALION_COLUMNS;
         // How many pixels between each enemy
         this.border = 3;
         this.size = { 

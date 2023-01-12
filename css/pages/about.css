@@ -6,7 +6,7 @@
     padding-bottom: 0;
 }
 #category-container {
-    order: 1;
+    order: 2;
     display: flex;
     gap: 10px;
     justify-content: center;
@@ -23,7 +23,7 @@
     padding-inline: 10px;
 }
 #social-container {
-    order: 2;
+    order: 1;
     display: grid;
     justify-items: center;
     gap: 10px;

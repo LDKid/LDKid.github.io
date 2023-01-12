@@ -65,13 +65,22 @@
 </div>
 
 <script>
-    showSlide( {{ include.id }}, 0 );
+    var currentSlideIndex = 0;
+    showSlide( {{ include.id }}, currentSlideIndex );
 
     function showSlide( ID, index ) {
         // Get all the elements.
         let slideContainer = document.getElementById(`slideshow-${ID}`);
         let slides = slideContainer.querySelectorAll('[data-component="slide"]');
         let dots = slideContainer.getElementsByClassName("dot");
+
+        if ( index < 0 ) {
+            index = slides.length - 1;
+        } else if ( index >= slides.length ) {
+            index = 0;
+        }
+
+        currentSlideIndex = index;
 
         // Loop through all slides and deactivate them, and their dots.
         for (let i = 0; i < slides.length; i++) {
@@ -82,5 +91,43 @@
         // Activate the correct slide and dot.
         slides[index].style.display = "block";
         dots[index].classList.add("active");
+    }
+
+     setupSlideshowSlider( {{ include.id }} );
+
+    var touchstartX;
+    var touchstartY;
+    var touchendX;
+    var touchendY;
+
+    function setupSlideshowSlider( ID ) {
+        let slideshowContainer = document.getElementById(`slideshow-${ID}`);
+
+        slideshowContainer.addEventListener('touchstart', function (event) {
+            touchstartX = event.changedTouches[0].screenX;
+        });
+
+        slideshowContainer.addEventListener('touchend', function (event) {
+            touchendX = event.changedTouches[0].screenX;
+            handleGesture( ID );
+        });
+    }
+
+
+    function handleGesture( ID ) {
+        let slideshowContainer = document.getElementById(`slideshow-${ID}`);
+        let threshold = 100;
+
+        let x = this.touchendX - this.touchstartX;
+
+        if (Math.abs(x) > threshold ) {
+            if (x < 0) {
+                currentSlideIndex++;
+                showSlide( ID, currentSlideIndex );
+            } else {
+                currentSlideIndex--;
+                showSlide( ID, currentSlideIndex );
+            }
+        }
     }
 </script>

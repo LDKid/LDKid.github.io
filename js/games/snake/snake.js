@@ -1,4 +1,4 @@
-const DEFAULT_SNAKE_SIZE = 55;
+const DEFAULT_SNAKE_SIZE = 4;
 
 class Snake {
     constructor({ game, gridSize }) {
