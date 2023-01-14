@@ -9,7 +9,7 @@ date: 24/10/2022
 # Create an Android App with Kotlin
 ## Oct 2022
 
-In this 1.5 hours class I created my first Kotlin Android app, which was a guessing game. The app would select a random number between 1 and 25 and the user would write their guess in an input field and press the submit button. It would then display a hint (too high or too low) until the user wrote the correct number, at which point it will display the amount of guesses it took.
+In this 1.5 hours class, I created my first Kotlin Android app, which was a guessing game. The app would select a random number between 1 and 25 and the user would write their guess in an input field and press the submit button. It would then display a hint (too high or too low) until the user wrote the correct number, at which point it will display the number of guesses it took.
 
 Check out the guided project [here](https://www.coursera.org/projects/android-app-kotlin).
 
@@ -24,7 +24,7 @@ Check out the guided project [here](https://www.coursera.org/projects/android-ap
 # Android Programming for Beginners - A simple BMI calculator
 ## Sep 2022
 
-Using Java and Android Studio, I created a simple BMI calculator app. This project covered Text Views, Buttons, Toast Messages, EditText Views, Intents and Activities, ImageViews and Linear Layouts and also different types of listeners in Android.
+Using Java and Android Studio, I created a simple BMI calculator app. This project covered Text Views, Buttons, Toast Messages, EditText Views, Intents and Activities, ImageViews and Linear Layouts, and also different types of listeners in Android.
 
 Check out the guided project [here](https://www.coursera.org/projects/android-programming-for-beginners).
 

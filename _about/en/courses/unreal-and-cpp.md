@@ -8,8 +8,8 @@ date: 11/12/2022
 
 # C++ Programming for Unreal Game Development Specialization
 
-In this 4 course specialization I'm learning how to program in C++ and how to use that C++ knowledge to program Unreal Engine games.   
-These coursesa re intended for intermediate programmers who are new to C++.
+In this 4 course specialization, I'm learning how to program in C++ and how to use that C++ knowledge to program Unreal Engine games.      
+These courses are intended for intermediate programmers who are new to C++.
 
 Check out the specialization [here](https://www.coursera.org/specializations/cplusplusunrealgamedevelopment).
 
@@ -23,7 +23,7 @@ Check out the specialization [here](https://www.coursera.org/specializations/cpl
 ## Dec 2022
 
 This first course starts at the very beginning of C++, and the basics of Unreal.   
-In this course, I developed my first C++ console apps on both Windows and Mac, and my first C++ Unreal scripts.
+In this course, I developed my first C++ console apps on both Windows and Mac and my first C++ Unreal scripts.
 
 Check out the course [here](https://www.coursera.org/learn/introductionprogrammingunreal).
 
