@@ -39,14 +39,29 @@ Veja o curso [aqui](https://www.coursera.org/learn/introductionprogrammingunreal
 ---
 
 # More C++ Programming and Unreal
-## Em percurso
+## Jan 2023
 
-Estou no processo de completar o curso.
+The second course explains the selection control structure, iteration, arrays and containers in C++, TArrays in Unreal, and how to process user input in Unreal.
+O primeiro curso explica a estrutura de seleção, iteração, arrays e contentores em C++, TArrays em Unreal, e como processar inputs em Unreal.
+
+Veja o curso [aqui](https://www.coursera.org/learn/more-programming-unreal).
+
+#### Tarefas
+- Utilizar as declarações IF e SWITCH para controlar o código usando booleanos e comparações;
+- Implementar Temporizadores em Unreal;
+- Lidar com a localisação do rato, clique com botões do rato, teclado e gamepad em Unreal;
+- Usar os ciclos FOR, WHILE, e DO-WHILE para iterar pelo código;
+- Armazenar e manipular dados usando Arrays e Vectors em C++, e TArrays em Ureal.
+
+#### Certificado
+[![Certificado](/assets/about/courses/CppUnreal2.jpg)](https://coursera.org/share/59e66149cca5bb4b3ae53d3ed1b2886e)
 
 ---
 
 # C++ Class Development
-## Por concluir
+## Em percurso
+
+Estou no processo de completar o curso.
 
 ---
 
