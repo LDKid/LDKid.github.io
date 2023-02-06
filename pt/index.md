@@ -1,6 +1,5 @@
 ---
 layout: home
-redirect_from: ''
 title: Flávio Ferreira
 ---
 Olá! O meu nome é Flávio Ferreira,

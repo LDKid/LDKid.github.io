@@ -21,6 +21,11 @@
     <meta name="msapplication-TileColor" content="#d49d08">
     <meta name="msapplication-config" content="/assets/favicon/browserconfig.xml">
     <meta name="theme-color" content="#1e1e1e">
+    <script type="text/javascript">
+        if ("{{page.redirect}}") {
+            window.location.href = "{{ page.redirect }}"
+        }
+    </script>
 </head>
 <body>
     <!-- Add the header -->
