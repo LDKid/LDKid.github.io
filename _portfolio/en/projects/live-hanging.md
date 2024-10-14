@@ -1,5 +1,6 @@
 ---
-published: false
+published: true
+standout: true
 date: 2022-06-22
 name: Live Hanging
 type: game

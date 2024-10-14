@@ -39,7 +39,9 @@
 .about-container {
     width: 100%;
 }
-
+.category {
+    min-width: 60%;
+}
 .arrow-button, .category, .topic, .download-cv {
     display: inline-block;
     padding: 5px;
@@ -62,6 +64,11 @@
 .arrow-button, button.active, .topic.active {
     background-color: var(--accent-color);
     color: var(--accordion-text-color);
+}
+.arrow-button > i {
+    vertical-align: middle;
+    -webkit-font-smoothing: none;
+    font-weight: bold;
 }
 #topic-list {
     display: inline-flex;
@@ -113,7 +120,8 @@
     cursor: pointer;
 }
 #vertical-arrow {
-    height: 0.75em;
+    vertical-align: middle;
+    height: 1em;
     width: 0.75em;
 }
 

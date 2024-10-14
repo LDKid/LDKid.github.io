@@ -20,6 +20,8 @@
     <link rel="stylesheet" href="/css/theme.css">
     <link rel="stylesheet" href="/css/main.css">
     <link rel="stylesheet" href="/assets/fonts/ldkicons.css">
+    <link rel="stylesheet" href="/css/header.css"> <!-- Import the header's CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.2/font/bootstrap-icons.css"> <!-- This is temporary, it's for 1 icon while I don't add the correct one -->
     <!-- FAVICON -->
     <link rel="apple-touch-icon" sizes="180x180" href="/assets/favicon/apple-touch-icon.png">
     <link rel="icon" type="image/png" sizes="32x32" href="/assets/favicon/favicon-32x32.png">
@@ -65,6 +67,7 @@
 
     <script>
         // Get the page content
+        const HEADER = document.getElementById('site-header');
         const PAGE = document.getElementById('page-content');
         function toggleGame(el){
             /**
@@ -104,7 +107,69 @@
             isScrolling = setTimeout(function() {
                 PAGE.classList.remove('scrolling')
             }, 500);
+            if (PAGE.scrollTop > 0) {
+                HEADER.classList.add('scrolling-body')
+            } else {
+                HEADER.classList.remove('scrolling-body')
+            }
         }, false);
+    </script>
+    <script>
+        function toggleNavbarSidebar( forceClose = false ) {
+            /**
+             * Open and Close the "Sidebar" on mobile.
+             * 
+             * @param {bool} [forceClose = false] If this is set to true, it'll close the navbar
+             */
+    
+            // Get the header
+            var header = document.getElementById("site-header");
+    
+            // If Forcing to close, or if it's open, close it.
+            if ( forceClose || header.classList.contains('responsive') ) {
+                header.className = "site-header";
+            } else {
+    
+                // Otherwise open it.
+                header.className += " responsive";
+    
+                // Since we're opening the navbar, pause the game
+                let gameToggle = document.getElementById('game-toggle');
+                if ( gameToggle && gameToggle.firstElementChild.classList.contains('active') ) {
+                    gameToggle.click();
+                }
+            }
+        }
+        function changeLang() {
+            /**
+             * Change the website's language
+             * TODO: Support multiple languages
+             */
+    
+            // Get the current path
+            let path = window.location.pathname;
+    
+            // Swap from en to pt, and vice-versa
+            let newPath;
+            if ( path.includes('/en/')) {
+                newPath = path.replace('/en/', '/pt/');
+            } else {
+                newPath = path.replace('/pt/', '/en/');
+            }
+    
+            // Open the page.
+            window.open(newPath, "_self");
+        }
+        function prepareDesignerLink(el) {
+            /**
+             * Sshhh... You're not meant to see this.
+             */
+            var timer = setTimeout(() => {
+                el.classList.toggle('ee');
+            }, 5000);
+            // Remove timer.
+            el.onmouseout = function() {  clearTimeout(timer); }
+        }
     </script>
 </body>
 </html>

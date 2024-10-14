@@ -13,8 +13,5 @@ I found that whenever I used a new app, visited a new website, or played a new g
 My career goals are develop apps that are useful and games which are enjoyable, without useless filler, annoying ads, or abusive microtransactions.
 
 #### Recently Used Skills
-- PERN Stack (PostgreSQL, Express, React, NodeJS)
-- C++
-- Kotlin
-- Jekyll
-- HTML, CSS, JS
+{% for skill in site.data.skills limit: 5 %}
+- {{ skill.name }}{% endfor %}

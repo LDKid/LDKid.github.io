@@ -1,5 +1,5 @@
 ---
-category: Courses
+category: Training
 title: 9th > Operador de Informática
 date: 01/09/2013
 ---

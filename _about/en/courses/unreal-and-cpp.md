@@ -1,5 +1,5 @@
 ---
-category: Courses
+category: Training
 title: C++ for Unreal Game Development
 date: 11/12/2022
 ---
@@ -59,11 +59,28 @@ Check out the course [here](https://www.coursera.org/learn/more-programming-unre
 ---
 
 # C++ Class Development
-## Work in Progress
+## Feb 2023
 
-Currently doing this course.
+The third course goes into abstraction, exploring how functions work, designing and implementing Unreal classes, Unreal HUD, Unreal audio, and more about pointers.
+
+Check out the course here.
+
+#### Tasks
+- Tasks
+
+#### Certificate
+
 
 ---
 
 # Intermediate Object-Oriented Programming for Unreal Games
-## Not yet started
+## Apr 2023
+
+The fourth and final course is about using files in Unreal games, inheritance and polymorphism, event handling, menus, and developing a complete minigame.
+
+Check out the course here.
+
+#### Tasks
+- Tasks
+
+#### Certificate

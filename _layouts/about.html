@@ -5,19 +5,11 @@ game: snake
 <link rel="stylesheet" href="/css/pages/about.css">
 <link rel="stylesheet" href="/css/textblock.css">
 
-{% assign categoryList = '' | split: ',' %}
-{% assign topicList = '' | split: ',' %}
-{% for topic in site.about reversed %}
-    {%- if topic.lang == page.lang -%}
-        {% assign categoryList = categoryList | push: topic.category %}
-    {% endif %}
-{% endfor %}
-{% assign categoryList = categoryList | uniq %}
 
 <section id="social-container" class="about-container">
     <div id="img-container">
-        <img src="/assets/about/ldkdark.jpg" alt="Flávio Photo" data-themeonly="dark">
-        <img src="/assets/about/ldklight.jpg" alt="Flávio Photo" data-themeonly="light">
+        <img src="/assets/about/ldkdark.jpg" alt="Photo of Flávio Ferreira for dark mode" data-themeonly="dark">
+        <img src="/assets/about/ldklight.jpg" alt="Photo of Flávio Ferreira for light mode" data-themeonly="light">
     </div>
     <a href="/assets/about/CV_{{page.lang}}.pdf" download="Flávio CV"><button class="download-cv active">Download CV</button></a>
     <div id="contact-links">
@@ -29,6 +21,17 @@ game: snake
         {%- endfor -%}
     </div>
 </section>
+
+{% assign categoryList = '' | split: ',' %}
+{% assign topicList = '' | split: ',' %}
+{% for topic in site.about reversed %}
+    {%- if topic.lang == page.lang -%}
+        {% assign categoryList = categoryList | push: topic.category %}
+    {% endif %}
+{% endfor %}
+{% assign categoryList = categoryList | uniq %}
+
+
 <section id="category-container" class="about-container">
     <button class="arrow-button" onclick="prevCategory()"><i class="ldkicon-arrow_left"></i></button>
     <button class="category active" data-category="aboutme">{{ site.data.translations.aboutcategory[page.lang] }}</button>
@@ -37,6 +40,8 @@ game: snake
     {% endfor %}
     <button class="arrow-button" onclick="nextCategory()"><i class="ldkicon-arrow_right"></i></button>
 </section>
+
+
 <section id="topic-container" class="about-container hidden">
     <div id="topic-list">
         {% for topic in site.about reversed %}

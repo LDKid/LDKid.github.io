@@ -81,3 +81,23 @@ function portfolioSearch( forceQuery = '' ) {
         }
     });
 }
+
+
+
+
+
+
+
+
+
+
+
+document.getElementById('sub-header').append(document.getElementById('portfolio-tabbar'))
+
+
+function doAdditionalThing(e) {
+    console.log(e.detail)
+}
+
+// Listen for the custom event
+document.addEventListener('changingTab', doAdditionalThing);

@@ -25,52 +25,26 @@
     height: 2rem;
     font-size: 1rem;
 }
-
-#portfolio-content {
+.portfolio-content {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(min(100%, var(--project-size-mobile)), 1fr));
     gap: 5vw;
     justify-items: center;
+    margin-top: 3vw;
 }
-#portfolio-content.small {
+.portfolio-content:not(.standout) {
     --project-size-mobile: var(--mini-project-size-mobile);
     --project-size-desktop: var(--mini-project-size-desktop);
     --project-size-desktop-max: var(--mini-project-size-desktop-max);
+    justify-items: left;
 }
-
-.portfolio-project,
-.flex-fixer {
+.portfolio-project {
     width: 100%;
     max-width: var(--project-size-mobile);
 }
-/* Ignore this, thanks */
-/* .flex-fixer {
-    font-size: 1vh;
-    color: var(--background-color);
-    cursor: default;
-    -moz-user-select: text;
-    -webkit-user-select: text;
-    -ms-user-select: text;
-    user-select: text;
-}
-.flex-fixer > span {
-    -moz-user-select: all;
-    -webkit-user-select: all;
-    -ms-user-select: all;
-    user-select: all;
-}
-.flex-fixer > span:hover {
-    color: #88888811;
-    -moz-user-select: all;
-    -webkit-user-select: all;
-    -ms-user-select: all;
-    user-select: all;
-} */
-
 .portfolio-project > strong {
     font-size: 5vw;
 }
-
 .project-image-container {
     margin-top: 5px;
     margin-bottom: 5px;
@@ -90,13 +64,32 @@
     font-size: 2em;
 }
 
+h2.more-projects {
+    font-size: calc(15px + 2.5vw);
+    text-align: center;
+    margin-top: 5vw;
+    margin-bottom: 3vw;
+}
 
+#portfolio-tabbar {
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+#portfolio-tabbar > .tab {
+    width: 100%;
+}
+#portfolio-tabbar-content {
+    padding-bottom: 2em;
+}
 
 @media screen and (min-width: 800px) {
-    #portfolio-content {
+    h2.more-projects {
+        font-size: 40px;
+    }
+    .portfolio-content {
         grid-template-columns: repeat(auto-fit, minmax(min(100%, var(--project-size-desktop)), 1fr));
     }
-    .portfolio-project, .flex-fixer {
+    .portfolio-project {
         flex-grow: 1;
         flex-shrink: 1;
         

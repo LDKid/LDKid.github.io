@@ -1,5 +1,5 @@
 ---
-category: Courses
+category: Training
 title: Coursera Guided Projects
 date: 24/10/2022
 ---

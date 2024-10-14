@@ -1,7 +1,7 @@
-title: Flávio Website
+title: Flávio Ferreira
 email: 97ferreira.flavio@gmail.com
 description: >-
-  Portfolio website for Flávio Ferreira, a portuguese developer
+  Portfolio website for Flávio Alexandre Ferreira, a portuguese developer
   who grew up playing video games and now enjoys programming
   fun, interesting and useful projects.
 #url: "" # the base hostname & protocol for your site, e.g. http://example.com
@@ -32,26 +32,6 @@ defaults:
       lang: "pt"
   -
     scope:
-      path: "_projects/en"
-    values:
-      permalink: "/en/portfolio/:title"
-      lang: "en"
-      layout: "project"
-      cover: "cover.png"
-      cover-pixel: "cover64.png"
-      icon: "icon.png"
-  -
-    scope:
-      path: "_projects/pt"
-    values:
-      permalink: "/pt/portfolio/:title"
-      lang: "pt"
-      layout: "project"
-      cover: "cover.png"
-      cover-pixel: "cover64.png"
-      icon: "icon.png"
-  -
-    scope:
       path: "_about/en"
     values:
       lang: "en"
@@ -60,10 +40,54 @@ defaults:
       path: "_about/pt"
     values:
       lang: "pt"
+  -
+    scope:
+      path: "_portfolio/en/projects"
+    values:
+      permalink: "/en/portfolio/:title"
+      lang: "en"
+      portfolioentry: "projects"
+      layout: "project"
+      cover: "cover.png"
+      cover-pixel: "cover64.png"
+      icon: "icon.png"
+  -
+    scope:
+      path: "_portfolio/pt/projects"
+    values:
+      permalink: "/pt/portfolio/:title"
+      lang: "pt"
+      portfolioentry: "projects"
+      layout: "project"
+      cover: "cover.png"
+      cover-pixel: "cover64.png"
+      icon: "icon.png"
+  -
+    scope:
+      path: "_portfolio/en/mods"
+    values:
+      permalink: "/en/portfolio/mods/:title"
+      lang: "en"
+      portfolioentry: "mods"
+      layout: "project"
+      cover: "cover.png"
+      cover-pixel: "cover64.png"
+      icon: "icon.png"
+  -
+    scope:
+      path: "_portfolio/pt/mods"
+    values:
+      permalink: "/pt/portfolio/mods/:title"
+      lang: "pt"
+      portfolioentry: "mods"
+      layout: "project"
+      cover: "cover.png"
+      cover-pixel: "cover64.png"
+      icon: "icon.png"
 
 # Setup collections
 collections:
-  projects:
+  portfolio:
     sort_by: date
     output: true
   about:

@@ -10,8 +10,9 @@ game: pong
 </div>
 
 <!-- Get the latest Project -->
-{% assign project = site.projects
+{% assign project = site.portfolio
 | where_exp:"p", "p.lang == page.lang"
+| where_exp:"p", "p.portfolioentry == 'projects'"
 | last
 %}
 

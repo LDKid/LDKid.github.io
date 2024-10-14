@@ -1,0 +1,142 @@
+<style>
+    .tabbar {
+        display: flex;
+        gap: 10px;
+        justify-content: center;
+    }
+    .arrow-button {
+        font-weight: bolder;
+        cursor: pointer;
+    }
+    .arrow-button > i {
+        display: block;
+    }
+    .arrow-button > i.ldkicon-arrow_left:hover, .arrow-button > i.ldkicon-arrow_right:hover {
+        animation: iconBounce 250ms linear 0s infinite alternate;
+    }
+    .arrow-button > i.ldkicon-arrow_left:hover {
+        --translation: -.2em;
+    }
+    .arrow-button > i.ldkicon-arrow_right:hover {
+        --translation: .2em;
+    }
+
+    .arrow-button, .tab{
+        display: inline-block;
+        padding: 5px;
+        margin: 0;
+        border: none;
+        font-family: var(--title-family);
+        font-size: calc(15px + 3vw);
+        height: calc(25px + 3vw);
+        background-color: var(--accent-color);
+        color: var(--accordion-text-color);
+    }
+
+    .tab {
+        padding-inline: 10px;
+        width: 55%;
+    }
+    .tab:not(.active) {
+        display: none;
+    }
+
+    @media screen and (min-width: 800px) {
+        .tab, .arrow-button {
+            height: 60px;
+            font-size: 40px;
+        }
+    }
+
+    /* Animations */
+    @keyframes iconBounce {
+	0% {
+		transform: translateX(0);
+	}
+
+	100% {
+		transform: translateX(var(--translation));
+	}
+}
+</style>
+
+
+
+
+<section id="{{include.id}}" class="tabbar">
+    <button class="arrow-button" onclick="prevTab()"><i class="ldkicon-arrow_left"></i></button>
+    {%- for tab in include.tab_list -%}
+        {%- assign tabTranslated = include.tab_list_translated[forloop.index0] -%}
+        <button class="tab" data-tab="{{ tab }}">
+            {%- if tabTranslated -%}
+                {{tabTranslated}}
+            {%- else -%}
+                {{tab}}
+            {%- endif -%}
+        </button>
+    {% endfor %}
+    <button class="arrow-button" onclick="nextTab()"><i class="ldkicon-arrow_right"></i></button>
+</section>
+<section id="{{include.id}}-content" class="tabbar-content">
+    {{ include.content }}
+</section>
+
+
+
+
+
+<script>
+    const TAB_CONTAINER = document.getElementById('{{include.id}}');
+    const TAB_CONTENT_CONTAINER = document.getElementById('{{include.id}}-content');
+
+    let firstTab = TAB_CONTAINER.querySelector('.tab');
+    firstTab.classList.add('active');
+    changingTab(firstTab);
+
+
+    /**
+     * Changes to the previous tab by calling <changingTab()>
+    */
+    function prevTab() {
+        let active = TAB_CONTAINER.querySelector('.tab.active');
+        active.classList.remove('active');
+        
+        let nextEl = active.previousElementSibling;
+        if ( nextEl.classList.contains('arrow-button') ) {
+            nextEl = active.parentNode.lastElementChild.previousElementSibling;
+        }
+        changingTab(nextEl);
+
+    }
+    /**
+     * Changes to the next tab by calling <changingTab()>
+    */
+    function nextTab() {
+        let active = TAB_CONTAINER.querySelector('.tab.active');
+        active.classList.remove('active');
+        
+        let nextEl = active.nextElementSibling;
+        if ( nextEl.classList.contains('arrow-button') ) {
+            nextEl = active.parentNode.children[1];
+        }
+        changingTab(nextEl);
+    }
+    /**
+     * Changes to the given tab and dispatches the Event "changingTab"
+     * @param nextEl - The tab to activate
+    */
+    function changingTab(nextEl) {
+        nextEl.classList.add('active');
+        let newContent = nextEl.dataset.tab;
+        let sections = TAB_CONTENT_CONTAINER.querySelectorAll('[data-tab]')
+        sections.forEach(content => {
+            if (content.dataset.tab == newContent) {
+                content.classList.remove("hidden");
+            } else {
+                content.classList.add("hidden");
+            }
+        });
+        const EVENT = new CustomEvent('changingTab', {"detail": newContent});
+        document.dispatchEvent(EVENT);
+    }
+</script>

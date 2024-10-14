@@ -1,5 +1,6 @@
 ---
 published: true
+standout: true
 date: 2022-10-14
 name: João Rodrigo Web
 type: website

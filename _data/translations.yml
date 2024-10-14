@@ -49,3 +49,12 @@ visit:
 aboutcategory:
   en: "Who am I"
   pt: "Quem sou"
+projects:
+  en: "Projects"
+  pt: "Projetos"
+mods:
+  en: "Mods"
+  pt: "Mods"
+moreprojects:
+  en: "More Projects"
+  pt: "Mais Projectos"

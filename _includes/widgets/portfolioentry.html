@@ -1,0 +1,40 @@
+{%- case include.project.type -%}
+    {%- comment -%} This is for the search feature, so you can search type in any language {%- endcomment -%}
+    {%- when 'game' -%}
+        {%- assign thisProjectType = 'game, jogo' -%}
+    {%- when 'app' -%}
+        {%- assign thisProjectType = 'app, aplicação' -%}
+    {%- else -%}
+        <!-- Website -->
+        {%- assign thisProjectType = project.type -%}
+{%- endcase -%}
+
+{%- comment -%} The actual div for the project {%- endcomment -%}
+<div class="portfolio-project" data-name="{{ include.project.name }}" data-tags="{{ include.project.tags }}" data-hiddentags="{{ include.project.hidden_tags }}{{include.project.game_name}}" data-type="{{ thisProjectType }}">
+    <strong>{{ project.name }}</strong>
+    {%- comment -%} The URL link {%- endcomment -%}
+    <a href="{{include.project.url}}">
+        {%- comment -%} Image container {%- endcomment -%}
+        <div class="project-image-container">
+            <img src="{{ include.project.image_path }}{{ include.project.cover }}" id="cover">
+            <img src="{{ include.project.image_path }}{{ include.project.cover-pixel }}" alt="" id="pixel">{%- comment -%} On Hover gets pixelised {%- endcomment -%}
+            {%- comment -%} Overlay with button {%- endcomment -%}
+            <div id="overlay" class="project-image-overlay">
+                <div class="accent-button">{{ site.data.translations.view[page.lang] }}</div>
+            </div>
+        </div>
+    </a>
+    {%- comment -%} The Tags and Icons {%- endcomment -%}
+    <div class="tags-and-icon">
+        {%- case include.project.portfolioentry -%}
+            {%- when "projects" -%}
+                <div class="tags">
+                    <strong>Tags:</strong>
+                    <span>{{ include.project.tags | join: ', ' }}</span>
+                </div>
+                <i class="ldkicon-{{ include.project.type }}"></i>
+            {%- else -%}
+                <span>{{include.project.game_name}}</span>
+        {%- endcase -%}
+    </div>
+</div>

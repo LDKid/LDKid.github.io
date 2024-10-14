@@ -1,5 +1,5 @@
 ---
-category: Courses
+category: Training
 title: Problem Solving, Python and Games
 date: 01/12/2021
 ---

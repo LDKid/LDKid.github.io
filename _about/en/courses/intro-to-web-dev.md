@@ -1,5 +1,5 @@
 ---
-category: Courses
+category: Training
 title: Web Development
 date: 01/01/2022
 ---

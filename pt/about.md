@@ -13,8 +13,5 @@ Reparei que sempre que usei uma nova aplicação, visitei um novo website, ou jo
 Os meus objectivos são desenvolver aplicações que são úteis e jogos que são divertidos, sem conteúdo inútil, anúncios irritantes ou micro-transações abusivas.
 
 #### Competências Recentemente Utilizadas
-- PERN Stack (PostgreSQL, Express, React, NodeJS)
-- C++
-- Kotlin
-- Jekyll
-- HTML, CSS, JS
+{% for skill in site.data.skills limit: 5 %}
+- {{ skill.name }}{% endfor %}

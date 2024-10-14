@@ -1,5 +1,5 @@
 ---
-category: Courses
+category: Training
 title: 12th > PrSI, EFA
 date: 01/09/2014
 ---

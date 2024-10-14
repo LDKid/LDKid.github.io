@@ -18,7 +18,9 @@ input, textarea {
 }
 input[type=submit] {
     width: auto;
-    float: right;
+    padding-inline: 10%;
+    display: block;
+    margin: auto;
 }
 #find-me-at > h3 {
     margin-bottom: 10px;
@@ -48,6 +50,10 @@ input[type=submit] {
         width: 100%;
         margin-left: 0%;
         margin-right: 0%;
+    }
+    input[type=submit] {
+        width: auto;
+        float: right;
     }
 
 }

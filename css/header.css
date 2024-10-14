@@ -11,20 +11,25 @@
 }
 
 .site-header a {
-    color: var(--foreground-color);
+    --svg-color: var(--faded-accent-color);
+    color: var(--faded-accent-color);
     text-align: center;
     padding: 10px 20px; /* VH */
     font-size: 6vw;
     /* Animation */
-    transition-property: color;
-    will-change: color;
+    transition-property: color, stroke, fill;
     transition-duration: var(--theme-transition-duration), var(--theme-transition-duration);
     transition-timing-function: var(--theme-transition-function), var(--theme-transition-function);
     transition-delay: 0ms;
 }
-.site-header a.active {
+.site-header a.active, .site-header a:hover {
     color: var(--accent-color);
+    --svg-color: var(--accent-color);
 }
+.site-header a:hover {
+    transition-property: none;
+}
+
 .site-header #contact-link {
     position: fixed;
     top: 20px;
@@ -71,6 +76,14 @@
     width: 100%;
     justify-content: space-between;
     align-items: center;
+    border-bottom: 3px solid transparent;
+    transition-property: border-bottom-color;
+    transition-duration: var(--theme-transition-duration), var(--theme-transition-duration);
+    transition-timing-function: var(--theme-transition-function), var(--theme-transition-function);
+    transition-delay: 0ms;
+}
+.scrolling-body .sub-header-container {
+    border-bottom-color: var(--accent-color);
 }
 .sub-header-container > div {
     flex-grow: 1;
@@ -289,4 +302,88 @@
     bottom: -15px;
     font-size: xx-large;
     right: 45px;
+}
+
+.home-link {
+    margin: 0 !important;
+    padding-block: 0 !important;
+
+}
+.home-link > svg {
+    height: calc(max(3vw, 30px) * 1.5);
+    aspect-ratio: 1;
+}
+
+.cta-button {
+    /* The Say Hi button, this is reused as the overlay buttons */
+    font-family: var(--title-family);
+    color: var(--background-color);
+    padding: 10px 20px;
+    text-align: center;
+    --bg-color-1: var(--tv-color-1);
+    --bg-color-2: var(--tv-color-2);
+    --bg-color-3: var(--tv-color-3);
+    --bg-color-4: var(--tv-color-4);
+    --bg-color-5: var(--tv-color-5);
+    --bg-color-6: var(--tv-color-6);
+    background: linear-gradient(to right,
+        var(--bg-color-1) calc(1 / 6 * 100%),
+        var(--bg-color-2) calc(1 / 6 * 100%), var(--bg-color-2) calc(1 / 3 * 100%),
+        var(--bg-color-3) calc(1 / 3 * 100%), var(--bg-color-3) 50%,
+        var(--bg-color-4) 50%, var(--bg-color-4) calc(2 / 3 * 100%),
+        var(--bg-color-5) calc(2 / 3 * 100%), var(--bg-color-5) calc(5 / 6 * 100%),
+        var(--bg-color-6) calc(5 / 6 * 100%)
+    );
+    animation: shiftColors 3s infinite steps(5);
+}
+    
+@keyframes shiftColors {
+    0% {
+        --bg-color-1: var(--tv-color-1);
+        --bg-color-2: var(--tv-color-2);
+        --bg-color-3: var(--tv-color-3);
+        --bg-color-4: var(--tv-color-4);
+        --bg-color-5: var(--tv-color-5);
+        --bg-color-6: var(--tv-color-6);
+    }
+    16% {
+        --bg-color-1: var(--tv-color-6);
+        --bg-color-2: var(--tv-color-1);
+        --bg-color-3: var(--tv-color-2);
+        --bg-color-4: var(--tv-color-3);
+        --bg-color-5: var(--tv-color-4);
+        --bg-color-6: var(--tv-color-5);
+    }
+    33% {
+        --bg-color-1: var(--tv-color-5);
+        --bg-color-2: var(--tv-color-6);
+        --bg-color-3: var(--tv-color-1);
+        --bg-color-4: var(--tv-color-2);
+        --bg-color-5: var(--tv-color-3);
+        --bg-color-6: var(--tv-color-4);
+    }
+    50% {
+        --bg-color-1: var(--tv-color-4);
+        --bg-color-2: var(--tv-color-5);
+        --bg-color-3: var(--tv-color-6);
+        --bg-color-4: var(--tv-color-1);
+        --bg-color-5: var(--tv-color-2);
+        --bg-color-6: var(--tv-color-3);
+    }
+    66% {
+        --bg-color-1: var(--tv-color-3);
+        --bg-color-2: var(--tv-color-4);
+        --bg-color-3: var(--tv-color-5);
+        --bg-color-4: var(--tv-color-6);
+        --bg-color-5: var(--tv-color-1);
+        --bg-color-6: var(--tv-color-2);
+    }
+    83% {
+        --bg-color-1: var(--tv-color-2);
+        --bg-color-2: var(--tv-color-3);
+        --bg-color-3: var(--tv-color-4);
+        --bg-color-4: var(--tv-color-5);
+        --bg-color-5: var(--tv-color-6);
+        --bg-color-6: var(--tv-color-1);
+    }
 }
